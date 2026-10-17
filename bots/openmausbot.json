@@ -1,0 +1,27 @@
+{
+  "id": "openmausbot",
+  "product": "OpenMausBot",
+  "adapter": "openmausbot",
+  "homepage": "https://github.com/milind-soni/OpenMausBot",
+  "version_pin": "0.1.115",
+  "model": "claude/claude-sonnet-5-5",
+  "env": {
+    "url": "BENCH_OPENMAUSBOT_URL",
+    "token": "BENCH_OPENMAUSBOT_TOKEN",
+    "bot": "BENCH_OPENMAUSBOT_BOT"
+  },
+  "settings": {
+    "commit": "351c04d9",
+    "install": "documented docker compose (deploy/local) at v0.1.115",
+    "engine": "claude (Claude Code 2.1.302), base URL set to <proxy>/b/openmausbot",
+    "bot": "a new bot named Bench with the documented defaults, model claude-sonnet-5-5",
+    "approval": "full (the documented default for a new bot)",
+    "computer": "auto (default)",
+    "browser": "agent-browser engine as installed by the image",
+    "connections": "none"
+  },
+  "notes": [
+    "The bot keeps one memory across its conversations; deleting a conversation does not clear it.",
+    "Messages carry no time zone: run the server in the bench's time zone (BENCH_TIME_ZONE)."
+  ]
+}
