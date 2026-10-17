@@ -93,6 +93,7 @@ export class FakeAdapter implements Adapter {
   async newConversation(chat: string, title: string): Promise<Conversation> {
     const conv: Conv = { id: id('conv'), title, queue: [], turns: [], files: [], scheduled: [], timers: new Set() };
     this.convs.set(conv.id, conv);
+    this.maxOpen = Math.max(this.maxOpen, this.convs.size);
     return { id: conv.id, chat, title, opened_at: Date.now() };
   }
 
@@ -306,6 +307,9 @@ export class FakeAdapter implements Adapter {
   async memoryHolds(): Promise<boolean | null> {
     return true;
   }
+
+  /** The most conversations open at once (the self-test checks one attempt's clean-up ends before the next starts). */
+  maxOpen = 0;
 
   /** Conversations still open (the self-test checks clean-up). */
   get open(): number {

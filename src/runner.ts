@@ -90,10 +90,12 @@ export async function runAll(opts: RunOptions): Promise<{ records: JobRecord[]; 
         const run = (async () => {
           const usesComputer = Boolean(item.task.computer);
           if (usesComputer) await computer.acquire();
-          // A task that waits for something it set up (a reminder firing, a watch noticing) keeps the bot's
-          // slot through that wait unless overlapWaits is set: slower, but no other job of the bot runs while
-          // the fire's spend comes in, so every cost stays exact.
-          const holdSlot = Boolean(item.task.after) && !opts.overlapWaits;
+          // A job keeps the bot's slot until its clean-up is done (chats deleted, memory put back), so the next
+          // job of the bot starts from the same state and nothing one attempt taught the bot is there for the
+          // next. A task that waits for something it set up (a reminder firing, a watch noticing) also keeps
+          // it through that wait, so no other job's spend comes in meanwhile and every cost stays exact; only
+          // overlapWaits lets such a task give the slot up early (faster; costs shared, state may overlap).
+          const holdSlot = !(item.task.after && opts.overlapWaits);
           let slotHeld = true;
           let state;
           try {

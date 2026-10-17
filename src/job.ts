@@ -4,8 +4,8 @@
  * time budget, cards answered by the uniform policy, then the evidence read
  * back, checked, graded blind and cleaned up.
  *
- * A job runs in two halves: `runSteps` inside the bot's concurrency slot, then
- * `finishJob` outside it (a reminder's wait, grading, clean-up).
+ * A job runs in two halves, both inside the bot's concurrency slot: `runSteps`, then
+ * `finishJob` (a reminder's wait, grading, clean-up), so the next job starts from a clean state.
  */
 import type { Adapter, Conversation } from './adapter.ts';
 import { fixture } from './fixtures.ts';

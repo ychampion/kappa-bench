@@ -217,8 +217,9 @@ for (const config of CONFIGS) {
 
 /* cleanup and cost attribution */
 {
-  const { adapter, records, proxy } = await run([task('write-post'), task('mem-locker'), task('lookup-fx')], 1);
+  const { adapter, records, proxy } = await run([task('mem-locker'), task('write-post'), task('mem-locker'), task('lookup-fx')], 1, { grader: fakeGrader([]) });
   expect('every conversation the bench opened is deleted afterwards', adapter.open === 0, `${adapter.open} left open`);
+  expect("an attempt's clean-up ends before the bot's next attempt opens a chat", adapter.maxOpen <= 2, `at most ${adapter.maxOpen} open at once; the largest task uses 2`);
   const costed = records.reduce((sum, r) => sum + (r.usd ?? 0), 0);
   const tag = (await proxy.usage()).tags[CONFIGS[0]?.id ?? '']?.usd ?? 0;
   expect(
