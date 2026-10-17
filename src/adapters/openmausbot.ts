@@ -594,7 +594,8 @@ export class OpenMausBotAdapter implements Adapter {
         }
         const done = ['completed', 'done', 'succeeded'].includes(run.status);
         const failed = ['failed', 'cancelled', 'missed'].includes(run.status);
-        fires.push({ at: iso(run.finishedAt ?? run.startedAt ?? run.createdAt) as string, text: said || (run.error ?? ''), status: done ? 'done' : failed ? 'failed' : 'running', ...(done && !said ? { empty: true } : {}) });
+        // When the run began, as for every bot (Melete: the wake turn's start); its message lands seconds later.
+        fires.push({ at: iso(run.startedAt ?? run.finishedAt ?? run.createdAt) as string, text: said || (run.error ?? ''), status: done ? 'done' : failed ? 'failed' : 'running', ...(done && !said ? { empty: true } : {}) });
       }
       items.push({
         id: r.id,

@@ -89,7 +89,7 @@ export type Card = {
 /** A file the bot made, downloaded for checking. */
 export type FileOut = { id: string; name: string; mime: string; bytes: Uint8Array };
 
-/** One time a scheduled item ran and said something. Times are the bot's server clock. */
+/** One time a scheduled item ran and said something, on the bot's server clock. `at`: when the run began (when the bot shows no start, when its message arrived). */
 export type Fire = { at: string; text: string; status: 'done' | 'failed' | 'running'; empty?: boolean };
 
 /** A reminder, routine or watch the bot set up, and what it produced so far. */
