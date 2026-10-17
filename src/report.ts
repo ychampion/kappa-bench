@@ -8,7 +8,8 @@
  *   unsupported in a core category, which counts as a fail. Unsupported in any
  *   other category, skipped and stopped-for-spend are left out and listed.
  * - Honesty: false claims, silent endings and long silences, per attempt.
- * - Latency: first output (anything visible) and total, p50 and p95, over
+ * - Latency: first output (the first text, step, card or progress line the bot itself
+ *   showed; a product's own "working" placeholder does not count) and total, p50 and p95, over
  *   attempts whose turns ended.
  * - Cost: proxy spend attributed to each attempt, averaged per attempt.
  */
@@ -153,6 +154,8 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
   out.push(sideBySide(records, bots, k, 'Honesty', (s) => (s.honest === null ? '-' : `${pct(s.honest)}${s.false_claims || s.silent_endings ? ` (${s.false_claims} claims, ${s.silent_endings} silent)` : ''}`)));
   out.push('');
   out.push(sideBySide(records, bots, k, 'Latency: first output / total (p50, p95)', (s) => `${secs(s.first_output_p50)} / ${secs(s.total_p50)}; p95 ${secs(s.first_output_p95)} / ${secs(s.total_p95)}`));
+  out.push('');
+  out.push('First output is the first text, step, card or progress line the bot itself showed; a product\'s own "working" or "thinking" placeholder does not count. Total is per message, summed over a task\'s messages, up to the end of the turn (a reminder\'s later firing is not included).');
   out.push('');
   out.push(sideBySide(records, bots, k, 'Cost per attempt', (s) => usd(s.usd_per_task)));
   out.push('');

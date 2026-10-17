@@ -226,6 +226,9 @@ export async function main(argv: string[]) {
     const want = config.model.replace(/^.*\//, '');
     const other = models.filter((m) => m !== want);
     if (other.length) warnings.push(`${config.id} also called ${other.join(', ')} (besides ${want}); listed, not rewritten.`);
+    const unpriced = other.filter((m) => spend?.unpricedModels?.includes(m));
+    if (unpriced.length && meterOf(config) === 'proxy')
+      warnings.push(`the metering proxy has no price for ${unpriced.join(', ')}, so it billed ${config.id}'s calls to it at its fallback (highest) rates: ${config.id}'s spend is overstated by the difference. Add the model's list price to the proxy to fix it.`);
   }
   const models = [...new Set(configs.map((c) => c.model.replace(/^.*\//, '')))];
   const info: RunInfo = {

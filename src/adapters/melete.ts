@@ -388,7 +388,12 @@ export class MeleteAdapter implements Adapter {
           }
           const item = event.item;
           if (item.type === 'text_delta') out.push({ type: 'text', text: String(item.text ?? '') });
-          else if (item.type === 'say' || item.type === 'note') out.push({ type: 'progress', text: String(item.text ?? '') });
+          // `say` is the agent's own progress line; `note` is the product's (a reconnect, a queue wait).
+          else if (item.type === 'say') out.push({ type: 'progress', text: String(item.text ?? ''), fromBot: true });
+          else if (item.type === 'note') out.push({ type: 'progress', text: String(item.text ?? '') });
+          // A model-call row ("Thinking", "Thought it through") is the product's working indicator, not a step.
+          else if ((item.type === 'tool' || item.type === 'action') && item.tool && String((item.tool as ToolCall).id).startsWith('model:'))
+            out.push({ type: 'progress', text: (item.tool as ToolCall).title });
           else if ((item.type === 'tool' || item.type === 'action') && item.tool) {
             const action = toAction(item.tool as ToolCall);
             state.actions.set(action.id, action);
@@ -397,7 +402,7 @@ export class MeleteAdapter implements Adapter {
             const action = receiptAction(item.receipt as Receipt);
             state.actions.set(action.id, action);
             out.push({ type: 'action', action });
-          } else if (item.type === 'card') out.push({ type: 'progress', text: `card: ${(item.card as ResultCard).title}` });
+          } else if (item.type === 'card') out.push({ type: 'progress', text: `card: ${(item.card as ResultCard).title}`, fromBot: true });
           else if (item.type === 'permission' || item.type === 'question') void pollCards().catch(() => 0);
           else if (item.type === 'status') {
             const status = String(item.status);
@@ -406,6 +411,9 @@ export class MeleteAdapter implements Adapter {
               break;
             }
             needsYouSince = status === 'needs_you' ? Date.now() : null;
+            // Waiting on its own timer with nothing for the person to answer is a finished turn (the same rule
+            // finishTurn applies): end it now rather than after the grace period for cards to appear.
+            if (status === 'needs_you') void this.waitsOnOwnTimer(conv).then((own) => own && finish('done'), () => undefined);
           }
         }
       } catch (error) {
@@ -413,6 +421,15 @@ export class MeleteAdapter implements Adapter {
       }
     })();
     return { events: out, server_sent_at: null, native: turnId };
+  }
+
+  /** The chat waits on a timer it set itself, and nothing is open for the person to answer. */
+  private async waitsOnOwnTimer(conv: Conversation): Promise<boolean> {
+    const detail = (await this.client.request<{ conversation: { status: string; waiting_until?: string } }>('GET', `/conversations/${enc(conv.id)}`)).conversation;
+    if (!detail.waiting_until || detail.status !== 'needs_you') return false;
+    const permissions = (await this.client.request<{ permissions: Permission[] }>('GET', '/permissions')).permissions.filter((p) => p.conversation_id === conv.id).length;
+    const questions = (await this.client.request<{ questions: Question[] }>('GET', '/quick-answers')).questions.filter((q) => q.conversation_id === conv.id).length;
+    return permissions + questions === 0;
   }
 
   async answerApproval(_conv: Conversation, card: Card, decision: 'allow' | 'deny') {

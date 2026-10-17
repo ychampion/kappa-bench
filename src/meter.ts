@@ -36,7 +36,8 @@ export type TagUsage = {
   cacheWrite: number;
   models: Record<string, number>;
 };
-export type UsageSnapshot = { capUsd: number; totalUsd: number; tripped: boolean; tags: Record<string, TagUsage> };
+/** `unpricedModels`: models the proxy had no price for and billed at its fallback (highest) rates. */
+export type UsageSnapshot = { capUsd: number; totalUsd: number; tripped: boolean; tags: Record<string, TagUsage>; unpricedModels?: string[] };
 
 export interface UsageSource {
   usage(): Promise<UsageSnapshot | null>;
@@ -104,7 +105,7 @@ export class CombinedSource implements UsageSource {
       tags[meter.tag] = reading;
       totalUsd += reading.usd;
     }
-    return { capUsd: base.capUsd, totalUsd, tripped: base.tripped, tags };
+    return { capUsd: base.capUsd, totalUsd, tripped: base.tripped, tags, ...(base.unpricedModels ? { unpricedModels: base.unpricedModels } : {}) };
   }
   mark(label: string) {
     return this.proxy.mark(label);

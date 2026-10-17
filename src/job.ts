@@ -227,7 +227,9 @@ async function runMessage(job: JobEnv, task: Task, conv: Conversation, text: str
         if (!before) seen(now, `step:${event.action.kind}`, event.action.title);
         else if (before.ok !== event.action.ok) seen(now, `step:${event.action.kind}`, `${event.action.title} [${event.action.ok === false ? 'failed' : 'done'}]`);
       } else if (event.type === 'progress') {
-        seen(now, 'progress', event.text ?? 'working');
+        // A product's own placeholder ("working", "thinking") is logged but is not output the bot showed.
+        if (event.fromBot) seen(now, 'progress', event.text ?? 'working');
+        else timeline.push({ t: real(now - sentAt), type: 'status', text: (event.text ?? 'working').slice(0, 400) });
       } else if (event.type === 'card') {
         cards.push(event.card);
         seen(now, `card:${event.card.type}`, event.card.text);

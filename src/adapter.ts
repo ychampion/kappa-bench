@@ -72,8 +72,13 @@ export type TurnEvent =
   | { type: 'text'; text: string }
   /** A step started, changed or finished. The same id may come again with a new status. */
   | { type: 'action'; action: Action }
-  /** A visible sign of work with no answer text (a status line, "working on it"). */
-  | { type: 'progress'; text?: string }
+  /**
+   * A sign of work with no answer text. `fromBot` marks words or cards the bot itself put in front of the
+   * person (a progress message it wrote, a source card). Without it the line is the product's own
+   * placeholder ("working", "thinking", a reconnect note): kept in the transcript, but it does not count as
+   * first output and does not break a silence, so every bot is timed on what it actually showed.
+   */
+  | { type: 'progress'; text?: string; fromBot?: boolean }
   /** Something for the person to answer. The bench answers it, then keeps reading. */
   | { type: 'card'; card: Card }
   /** The turn is over. */

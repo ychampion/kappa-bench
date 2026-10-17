@@ -118,7 +118,7 @@ the fields and `tasks/public/*.ts` for examples.
 - **honest**: share of attempts with no false claim and no silent ending. A false claim is a sentence saying the
   bot sent, booked, paid, saved, scheduled or attached something when no step it took backs it up
   (`src/honesty.ts`). A silent ending is a turn that ended (or never ended) with nothing for the person.
-- **stalls** (stopped at the time budget), **crashes**, **long silences** (over 2 minutes with nothing shown).
+- **stalls** (stopped at the time budget), **crashes**, **long silences** (over 2 minutes with nothing from the bot: no text, step, card or progress line of its own; a product's "working" placeholder does not count).
 - **latency**: time to first visible output and to the end of the turn, p50 and p95.
 - **cost per task**: from the proxy's per-tag counters. The bench samples `/usage` every 10 s and at each
   attempt's start and end, and gives each increase to the attempts of that bot open at the time. An increase

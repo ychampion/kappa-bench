@@ -299,7 +299,10 @@ export class OpenMausBotAdapter implements Adapter {
     const shownText = new Map<string, number>();
     const shownTool = new Map<string, boolean | null>();
     const shownCards = new Set<string>();
-    const scan = async () => {
+    // Scans run one at a time (a periodic reader and the job poll both call it), so no text is pushed twice.
+    let scanning: Promise<Wire[]> = Promise.resolve([]);
+    const scan = () => (scanning = scanning.catch(() => [] as Wire[]).then(() => scanNow()));
+    const scanNow = async () => {
       const turn = this.turnMessages(await this.messages(native.threadId), state);
       for (const m of turn) {
         if (m.role !== 'bot') continue;
@@ -324,6 +327,14 @@ export class OpenMausBotAdapter implements Adapter {
       }
       return turn;
     };
+    // The job long-poll returns on state changes, not on every new message: read the thread every 2 s as
+    // well, so text and steps show when the bot posts them (the web app shows them live too).
+    void (async () => {
+      while (!stop.signal.aborted) {
+        await Bun.sleep(Math.max(200, 2000 * this.opts.scale));
+        if (!stop.signal.aborted) await scan().catch(() => undefined);
+      }
+    })();
     void (async () => {
       let version: string | undefined;
       let waitingSince: number | null = null;
@@ -337,6 +348,7 @@ export class OpenMausBotAdapter implements Adapter {
           const turn = await scan();
           if (job.state === 'running') {
             waitingSince = null;
+            // The job's own status line is the product's placeholder, not something the bot wrote.
             if (!turn.some((m) => m.role === 'bot')) out.push({ type: 'progress', text: String(job.reason ?? 'working') });
             continue;
           }
