@@ -186,8 +186,13 @@ export class OpenMausBotAdapter implements Adapter {
     }
     const health = await this.call('GET', '/api/health').catch(() => null);
     if (health?.app !== 'openmausbot') throw new Error(`the server at ${this.base} does not say it is OpenMausBot (/api/health app = ${String(health?.app)}).`);
-    const version = String(env.version ?? 'unknown').replace(/^v/, '');
-    if (version !== this.config.version_pin.replace(/^v/, '') && this.opts.env.BENCH_ALLOW_VERSION_MISMATCH !== '1')
+    let version = String(env.version ?? 'unknown').replace(/^v/, '');
+    // The Docker image ships no package.json, so a container install reports "unknown" (server/environment.ts
+    // reads the version from it). Nothing contradicts the pin then: record it as unverified rather than refuse.
+    if (version === 'unknown' || version === '0.0.0') {
+      notes.push(`the server does not report its version (it says "${version}"); the pin ${this.config.version_pin} and commit come from the deployment, unverified through the API`);
+      version = `${this.config.version_pin.replace(/^v/, '')} (unverified)`;
+    } else if (version !== this.config.version_pin.replace(/^v/, '') && this.opts.env.BENCH_ALLOW_VERSION_MISMATCH !== '1')
       throw new Error(
         `OpenMausBot reports version ${version}, but bots/${this.config.id}.json pins ${this.config.version_pin}. The adapter was written against that version's API. Deploy ${this.config.version_pin}, or update the adapter and the pin, or set BENCH_ALLOW_VERSION_MISMATCH=1 to run anyway (the report records it).`,
       );
