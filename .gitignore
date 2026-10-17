@@ -1,0 +1,9 @@
+node_modules/
+bun.lockb
+fixtures/
+results/*
+!results/README.md
+!results/leaderboard.json
+.env
+.env.*
+*.log

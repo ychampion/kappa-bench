@@ -1,0 +1,25 @@
+{
+  "name": "agent-bench",
+  "version": "0.1.0",
+  "description": "A neutral benchmark for personal AI agents: real tasks, the same rules for every bot, blind grading, spend metered and capped.",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "bun run src/cli.ts bench",
+    "dry-run": "bun run src/cli.ts dry-run",
+    "selftest": "bun run src/selftest.ts",
+    "typecheck": "tsc -p .",
+    "validate": "bun run src/validate.ts",
+    "estimate": "bun run src/estimate.ts",
+    "fixtures": "bun run src/cli.ts fixtures",
+    "list": "bun run src/cli.ts list"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.1",
+    "typescript": "5.9.3"
+  }
+}
