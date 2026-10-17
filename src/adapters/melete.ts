@@ -22,6 +22,7 @@
  *   GET  /runs                                 background runs; those with standing.kind "schedule" are routines too
  *   POST /runs/:id/stop
  *   GET  /memory/items                         pacing only (memoryHolds), never scored
+ *   GET  /usage                                the install's own meter (usage), for "meter": "self"
  *   DELETE /conversations/:id?forget_memory=true
  *
  * Mapping to the bench's neutral shapes:
@@ -34,6 +35,7 @@
 import { randomUUID } from 'node:crypto';
 import type { Adapter, Attachment, BotConfig, Conversation, Preflight, Turn, TurnEvent, TurnResult } from '../adapter.ts';
 import { EventQueue } from '../adapter.ts';
+import type { TagUsage } from '../meter.ts';
 import { readSse } from '../sse.ts';
 import type { Action, Capability, Card, FileOut, Scheduled, TurnStatus } from '../types.ts';
 import { TIME_ZONE } from '../util.ts';
@@ -547,6 +549,28 @@ export class MeleteAdapter implements Adapter {
       (error) => lines.push(`chat not deleted (${(error as Error).message})`),
     );
     return lines;
+  }
+
+  /**
+   * The install's own meter (GET /usage), this calendar month, priced from the install's price table
+   * (MELETE_MODEL_PRICES must hold true list prices). The whole installation's spend is used when the
+   * account may see it (it covers background and service calls), else the account's. The meter reports
+   * total tokens only, so they are all shown as input.
+   */
+  async usage(): Promise<TagUsage | null> {
+    try {
+      await this.signIn();
+      type Bucket = { month?: { usd: number; tokens: number } } | null;
+      const u = await this.client.request<{ installation?: Bucket; person?: Bucket; models?: { model: string; calls: number }[] }>('GET', '/usage');
+      const month = u.installation?.month ?? u.person?.month;
+      if (!month) return null;
+      const models: Record<string, number> = {};
+      for (const m of u.models ?? []) models[m.model] = (models[m.model] ?? 0) + m.calls;
+      const requests = Object.values(models).reduce((n, c) => n + c, 0);
+      return { usd: month.usd, requests, input: month.tokens, output: 0, cacheRead: 0, cacheWrite: 0, models };
+    } catch {
+      return null;
+    }
   }
 
   async memoryHolds(value: string): Promise<boolean | null> {

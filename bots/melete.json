@@ -5,6 +5,7 @@
   "homepage": "https://github.com/ychampion/melete",
   "version_pin": "0.2.1",
   "model": "anthropic/claude-sonnet-5-5",
+  "meter": "self",
   "env": {
     "url": "BENCH_MELETE_URL",
     "email": "BENCH_MELETE_EMAIL",
@@ -14,7 +15,7 @@
     "commit": "4be3950",
     "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
     "browser": true,
-    "model_calls": "must go through the metering proxy at <proxy>/b/melete; 0.2.1 has no setting for the Anthropic base URL, so a published run needs a build that has one (the report warns when no call of this bot reached the proxy)",
+    "model_calls": "straight to the Anthropic API: 0.2.1 has no setting for the Anthropic base URL, so spend is read from the install's own usage meter (meter: self) with true list prices set in MELETE_MODEL_PRICES; on a build with that setting, point it at <proxy>/b/melete and set meter to proxy",
     "approvals": "product defaults; the bench answers every card with the uniform policy",
     "connections": "none (no mail, calendar or messaging accounts)"
   },

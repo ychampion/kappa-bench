@@ -32,7 +32,7 @@ import { fakeAdapter, liveAdapter } from './adapters/index.ts';
 import { writeFixtures } from './fixtures.ts';
 import { fakeGitHub, liveGitHub } from './github.ts';
 import { anthropicGrader, fakeGrader, type Grader } from './grader.ts';
-import { FakeProxy, Meter, ProxySource } from './meter.ts';
+import { CombinedSource, FakeProxy, Meter, ProxySource } from './meter.ts';
 import { resultsDir, type RunInfo, writeResults } from './report.ts';
 import { runAll } from './runner.ts';
 import { FAKE_SOURCES, LIVE_SOURCES } from './sources.ts';
@@ -133,20 +133,37 @@ export async function main(argv: string[]) {
   let grader: Grader | null = null;
   let proxy: FakeProxy | null = null;
   const adapters: Adapter[] = [];
+  const meterOf = (config: BotConfig) => config.meter ?? 'proxy';
+  for (const config of configs)
+    if (!['proxy', 'self'].includes(meterOf(config))) throw new Error(`bots/${config.id}.json: "meter" must be "proxy" or "self", not ${JSON.stringify(config.meter)}`);
+  /** The bots that read spend from their own meter, joined to the proxy's reading. */
+  const selfMetered = (source: ConstructorParameters<typeof CombinedSource>[0]) => {
+    const own = adapters.filter((a, i) => meterOf(configs[i] as BotConfig) === 'self');
+    for (const a of own) if (!a.usage) throw new Error(`bots/${a.id}.json says "meter": "self", but its adapter has no usage() to read the bot's own meter.`);
+    return own.length ? new CombinedSource(source, own.map((a) => ({ tag: a.id, read: () => (a.usage as NonNullable<Adapter['usage']>).call(a) }))) : source;
+  };
   if (dryRun) {
     proxy = new FakeProxy(capUsd);
-    meter = new Meter(proxy, capUsd, Math.max(50, 10_000 * scale));
     for (const [i, config] of configs.entries())
-      adapters.push(fakeAdapter(config, { scale, proxy, flakiness: Number(process.env.BENCH_DRY_FLAKINESS ?? 0.06), seed: 1000 + i * 7919, baseTokens: config.adapter === 'openmausbot' ? 30_000 : 25_000 }));
+      adapters.push(
+        fakeAdapter(config, {
+          scale,
+          proxy,
+          flakiness: Number(process.env.BENCH_DRY_FLAKINESS ?? 0.06),
+          seed: 1000 + i * 7919,
+          baseTokens: config.adapter === 'openmausbot' ? 30_000 : 25_000,
+          ...(meterOf(config) === 'self' ? { selfMeter: new FakeProxy(Number.POSITIVE_INFINITY) } : {}),
+        }),
+      );
+    meter = new Meter(selfMetered(proxy), capUsd, Math.max(50, 10_000 * scale));
     const fake = proxy;
     const names = adapters.flatMap((a) => a.productNames).concat(configs.map((c) => c.id));
     if (!args.flags.has('no-grader')) grader = fakeGrader(names, () => fake.charge('grader', graderModel, 4000, 500));
   } else {
     const proxyUrl = process.env.BENCH_PROXY_URL;
-    if (!proxyUrl) throw new Error('set BENCH_PROXY_URL to the metering proxy: every bot and the grader must call the model through it, so spend is metered and capped.');
-    const source = new ProxySource(proxyUrl);
-    meter = new Meter(source, capUsd);
+    if (!proxyUrl) throw new Error('set BENCH_PROXY_URL to the metering proxy: the grader and every bot without "meter": "self" call the model through it, so spend is metered and capped.');
     for (const config of configs) adapters.push(liveAdapter(config, { scale, env: process.env }));
+    meter = new Meter(selfMetered(new ProxySource(proxyUrl)), capUsd);
     const names = adapters.flatMap((a) => a.productNames).concat(configs.map((c) => c.id));
     if (!args.flags.has('no-grader')) grader = anthropicGrader(proxyUrl, graderModel, names);
   }
@@ -166,7 +183,7 @@ export async function main(argv: string[]) {
   }
   if (meter && !(await meter.begin())) {
     if (!dryRun) {
-      log('the metering proxy did not answer GET /usage; refusing to run without a spend meter.');
+      log(`the metering proxy did not answer GET /usage${meter.source instanceof CombinedSource ? ', or a self-metered bot\'s own meter could not be read' : ''}; refusing to run without a spend meter.`);
       return 2;
     }
   }
@@ -195,11 +212,16 @@ export async function main(argv: string[]) {
 
   const spend = await (meter ? meter.source.usage() : Promise.resolve(null));
   const tags: RunInfo['spend']['tags'] = {};
-  if (meter) for (const tag of [...configs.map((c) => c.id), 'grader']) tags[tag] = meter.tagSpend(tag);
+  if (meter) for (const tag of [...configs.flatMap((c) => (meterOf(c) === 'self' ? [c.id, `${c.id}.proxy`] : [c.id])), 'grader']) tags[tag] = meter.tagSpend(tag);
   for (const config of configs) {
+    if (tags[`${config.id}.proxy`] && (tags[`${config.id}.proxy`]?.requests ?? 0) === 0) delete tags[`${config.id}.proxy`];
     const ran = result.records.some((r) => r.bot === config.id && r.steps.length > 0);
     if (ran && meter?.available() && (tags[config.id]?.requests ?? 0) === 0)
-      warnings.push(`no model call of ${config.id} reached the metering proxy under the tag "${config.id}": its spend is not counted or capped, and its model was not verified. Point its model base URL at <proxy>/b/${config.id}.`);
+      warnings.push(
+        meterOf(config) === 'self'
+          ? `${config.id}'s own meter recorded no model call during the run: its spend and model are unverified.`
+          : `no model call of ${config.id} reached the metering proxy under the tag "${config.id}": its spend is not counted or capped, and its model was not verified. Point its model base URL at <proxy>/b/${config.id}, or declare "meter": "self" if its adapter can read the bot's own meter.`,
+      );
     const models = Object.keys(tags[config.id]?.models ?? {}).filter((m) => m !== '(none)' && (tags[config.id]?.models[m] ?? 0) > 0);
     const want = config.model.replace(/^.*\//, '');
     const other = models.filter((m) => m !== want);
@@ -221,6 +243,7 @@ export async function main(argv: string[]) {
     spend: {
       totalUsd: meter?.total() ?? 0,
       tags,
+      meters: Object.fromEntries(configs.map((c) => [c.id, meterOf(c)])),
       background: Object.fromEntries(meter?.background ?? []),
       available: Boolean(meter?.available()),
     },

@@ -40,6 +40,8 @@ export type FakeOptions = {
   seed?: number;
   /** Prompt tokens per model call: the product's fixed context. */
   baseTokens?: number;
+  /** For a bot with "meter": "self": its own meter, charged instead of the proxy and read by usage(). */
+  selfMeter?: FakeProxy;
 };
 
 type Conv = {
@@ -231,7 +233,14 @@ export class FakeAdapter implements Adapter {
   private charge(input: number, output: number) {
     // A cached prefix like a real agent loop: most of the context is a cache read.
     const cached = Math.round(input * 0.8);
-    this.opts.proxy.charge(this.id, this.opts.config.model.replace(/^.*\//, ''), input - cached, output, cached, 0);
+    // A self-metered bot spends past the proxy, on its own meter (which keeps no cap).
+    if (this.opts.selfMeter) this.opts.selfMeter.charge(this.id, this.opts.config.model.replace(/^.*\//, ''), input - cached, output, cached, 0);
+    else this.opts.proxy.charge(this.id, this.opts.config.model.replace(/^.*\//, ''), input - cached, output, cached, 0);
+  }
+
+  async usage() {
+    if (!this.opts.selfMeter) return null;
+    return (await this.opts.selfMeter.usage()).tags[this.id] ?? { usd: 0, requests: 0, input: 0, output: 0, cacheRead: 0, cacheWrite: 0, models: {} };
   }
 
   async answerApproval(conv: Conversation, card: Card, decision: 'allow' | 'deny') {

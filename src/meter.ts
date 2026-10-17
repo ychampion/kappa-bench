@@ -1,7 +1,11 @@
 /**
  * Spend, read from the metering proxy every bot and the grader call the model
  * through. The proxy counts tokens per tag (one tag per bot, plus `grader`),
- * prices them, and refuses calls once the run's cap is reached.
+ * prices them, and refuses calls once the run's cap is reached. A bot that
+ * cannot call its model through the proxy may declare `"meter": "self"`: its
+ * tag then comes from its own usage meter (CombinedSource), and the cap is
+ * checked against the proxy total plus that meter. The bench, not the proxy,
+ * enforces the cap for such a bot (it stops starting jobs and stops turns).
  *
  * Cost per job: the bench samples `GET /usage` every 10 s and when a job
  * starts or ends. A tag's increase between two samples belongs to the jobs of
@@ -61,6 +65,49 @@ export class ProxySource implements UsageSource {
       body: JSON.stringify({ label }),
       signal: AbortSignal.timeout(10_000),
     }).catch(() => undefined);
+  }
+}
+
+/** A bot's own usage meter, read through its adapter: cumulative spend of the bot's install or account. */
+export type SelfMeter = { tag: string; read: () => Promise<TagUsage | null> };
+
+/**
+ * The proxy's usage plus the bots that meter themselves (`"meter": "self"` in
+ * bots/<id>.json, for a bot whose model calls cannot go through the proxy).
+ * Each such bot's tag is its own meter's reading; the total, which the cap is
+ * checked against, is the proxy total plus every self-metered bot's total. A
+ * reading is all or nothing: when the proxy or any bot meter does not answer,
+ * there is no reading, so no increase is ever given to the wrong place.
+ * Spend the proxy shows under a self-metered bot's tag (there should be none)
+ * is kept under `<tag>.proxy`, so it is neither lost nor counted twice.
+ */
+export class CombinedSource implements UsageSource {
+  constructor(
+    readonly proxy: UsageSource,
+    readonly selfMeters: SelfMeter[],
+  ) {}
+  get url() {
+    return this.proxy.url;
+  }
+  async usage(): Promise<UsageSnapshot | null> {
+    const [base, ...own] = await Promise.all([this.proxy.usage(), ...this.selfMeters.map((m) => m.read().catch(() => null))]);
+    if (!base || own.some((u) => !u)) return null;
+    const tags: Record<string, TagUsage> = { ...base.tags };
+    let totalUsd = base.totalUsd;
+    for (const [i, meter] of this.selfMeters.entries()) {
+      const reading = own[i] as TagUsage;
+      const viaProxy = tags[meter.tag];
+      if (viaProxy) {
+        delete tags[meter.tag];
+        tags[`${meter.tag}.proxy`] = viaProxy;
+      }
+      tags[meter.tag] = reading;
+      totalUsd += reading.usd;
+    }
+    return { capUsd: base.capUsd, totalUsd, tripped: base.tripped, tags };
+  }
+  mark(label: string) {
+    return this.proxy.mark(label);
   }
 }
 

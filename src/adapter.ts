@@ -9,6 +9,7 @@
  * Adding a bot means one file in src/adapters/ implementing `Adapter`, one
  * line in src/adapters/index.ts, and one bots/<id>.json. See ADDING_A_BOT.md.
  */
+import type { TagUsage } from './meter.ts';
 import type { FakeTurn } from './task.ts';
 import type { Action, Capability, Card, FileOut, Scheduled, TurnStatus } from './types.ts';
 
@@ -29,6 +30,12 @@ export type BotConfig = {
   env: Record<string, string>;
   /** The product's settings for this bench, as documented defaults. Written into every report. */
   settings: Record<string, unknown>;
+  /**
+   * Where this bot's spend is read: "proxy" (default; its model calls go through the metering proxy under
+   * the tag `id`) or "self" (its own usage meter, through the adapter's `usage()`, for a bot that cannot point
+   * its model calls at the proxy). The cap covers both.
+   */
+  meter?: 'proxy' | 'self';
   notes?: string[];
 };
 
@@ -112,6 +119,11 @@ export interface Adapter {
   runScheduledNow?(conv: Conversation, item: Scheduled): Promise<void>;
   /** Removes the conversation and what it set up. Returns one line per thing removed or left. */
   deleteConversation(conv: Conversation): Promise<string[]>;
+  /**
+   * The bot's own usage meter, cumulative, priced at true list prices: needed when bots/<id>.json says
+   * `"meter": "self"`. Null when it cannot be read.
+   */
+  usage?(): Promise<TagUsage | null>;
   /** Pacing only, never scored: whether the bot's memory already holds a value. */
   memoryHolds?(value: string): Promise<boolean | null>;
   /** Dry run only: what the fake bot plays for the next message in this conversation. */

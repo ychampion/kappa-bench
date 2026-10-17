@@ -31,7 +31,8 @@ export type RunInfo = {
   capUsd: number;
   grader: string;
   bots: Preflight[];
-  spend: { totalUsd: number; tags: Record<string, TagUsage>; background: Record<string, number>; available: boolean };
+  /** `meters`: where each bot's spend was read, "proxy" or "self" (its own usage meter). */
+  spend: { totalUsd: number; tags: Record<string, TagUsage>; meters?: Record<string, 'proxy' | 'self'>; background: Record<string, number>; available: boolean };
   stoppedForSpend: boolean;
   stopReason: string;
   /** Anything a reader must know before trusting a number (a bot whose calls skipped the proxy, a version override). */
@@ -171,8 +172,11 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
 
   out.push('## Cost');
   out.push('');
+  const meters = info.spend.meters ?? {};
+  const meterName = (tag: string) => (meters[tag] === 'self' ? "bot's own meter" : 'metering proxy');
   const tagRows = Object.entries(info.spend.tags).map(([tag, t]) => [
     tag,
+    meterName(tag),
     usd(t.usd),
     String(t.requests),
     String(t.input),
@@ -185,10 +189,15 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
       .join(', ') || '-',
     bots.includes(tag) ? usd(info.spend.background[tag] ?? 0) : '-',
   ]);
-  out.push(info.spend.available ? table(['proxy tag', 'spend', 'requests', 'input', 'output', 'cache read', 'cache write', 'models', 'outside any job'], tagRows) : 'The metering proxy was not reachable; no spend figures.');
+  out.push(info.spend.available ? table(['tag', 'read from', 'spend', 'requests', 'input', 'output', 'cache read', 'cache write', 'models', 'outside any job'], tagRows) : 'The metering proxy was not reachable; no spend figures.');
   out.push('');
+  const own = Object.entries(meters).filter(([, m]) => m === 'self').map(([b]) => b);
+  if (own.length)
+    out.push(
+      `${own.join(', ')}: model calls do not go through the metering proxy, so spend is read from the bot's own usage meter ("meter": "self"), priced from its install's price table, sampled the same way as the proxy. A meter that reports total tokens only shows them all as input. The cap is checked against the proxy total plus this meter; the bench stops starting jobs and stops turns at the cap, but the proxy cannot refuse this bot's calls.\n`,
+    );
   out.push(
-    `Total $${info.spend.totalUsd.toFixed(2)} of a $${info.capUsd.toFixed(2)} cap. Per-attempt cost comes from proxy usage sampled every few seconds and when each attempt starts and ends. An increase that arrives while one attempt of the bot is open is that attempt's (exact); one that arrives while several are open (a higher concurrency, or a reminder waiting to fire while the next task runs) is split evenly between them (shared, an estimate). Per-tag totals are exact. "Outside any job" is spend with no attempt of that bot running (a reminder firing after its attempt ended, background memory work).`,
+    `Total $${info.spend.totalUsd.toFixed(2)} this run; the $${info.capUsd.toFixed(2)} cap is checked against all spend so far, this run's and earlier. Per-attempt cost comes from usage sampled every few seconds and when each attempt starts and ends. An increase that arrives while one attempt of the bot is open is that attempt's (exact); one that arrives while several are open (a higher concurrency, or a reminder waiting to fire while the next task runs) is split evenly between them (shared, an estimate). Per-tag totals are exact. "Outside any job" is spend with no attempt of that bot running (a reminder firing after its attempt ended, background memory work).`,
   );
   out.push('');
   out.push(
@@ -290,7 +299,7 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
         cap_usd: info.capUsd,
         started_at: info.startedAt,
         finished_at: info.finishedAt,
-        bots: info.bots.map((p) => ({ id: p.bot, product: p.product, version: p.version, commit: p.commit ?? null, model: p.model, capabilities: p.capabilities, settings: p.settings, notes: p.notes })),
+        bots: info.bots.map((p) => ({ id: p.bot, product: p.product, version: p.version, commit: p.commit ?? null, model: p.model, spend_meter: info.spend.meters?.[p.bot] ?? 'proxy', capabilities: p.capabilities, settings: p.settings, notes: p.notes })),
       },
       null,
       2,

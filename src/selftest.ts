@@ -16,7 +16,7 @@ import type { FakeAdapter, Misbehaviour } from './adapters/fake.ts';
 import { fakeGitHub } from './github.ts';
 import { fakeGrader, type Grader } from './grader.ts';
 import { decideCard, OUTWARD } from './job.ts';
-import { FakeProxy, Meter } from './meter.ts';
+import { CombinedSource, FakeProxy, Meter } from './meter.ts';
 import { renderReport, type RunInfo, stats } from './report.ts';
 import { runAll } from './runner.ts';
 import { FAKE_SOURCES } from './sources.ts';
@@ -44,12 +44,17 @@ type Setup = {
   misbehave?: (task: string, repeat: number, step: number) => Misbehaviour | null;
   cap?: number;
   grader?: Grader | null;
+  /** The bot meters itself ("meter": "self"): it charges its own meter, not the proxy. */
+  selfMeter?: boolean;
+  /** Spend already on the proxy before the run (another tag), in dollars of Sonnet input. */
+  proxySpentBefore?: number;
 };
 
 async function run(tasks: Task[], repeat: number, setup: Setup = {}) {
   const config = setup.config ?? (CONFIGS[0] as BotConfig);
   const proxy = new FakeProxy(setup.cap ?? 1000);
-  const meter = new Meter(proxy, setup.cap ?? 1000, 20);
+  if (setup.proxySpentBefore) proxy.charge('earlier', 'claude-sonnet-5-5', Math.round((setup.proxySpentBefore * 1e6) / 2), 0);
+  const own = setup.selfMeter ? new FakeProxy(Number.POSITIVE_INFINITY) : null;
   const adapter = fakeAdapter(config, {
     scale: SCALE,
     proxy,
@@ -57,7 +62,10 @@ async function run(tasks: Task[], repeat: number, setup: Setup = {}) {
     misbehave: setup.misbehave ? (m) => setup.misbehave?.(m.task, m.repeat, m.step) ?? null : undefined,
     flakiness: 0,
     seed: 7,
+    ...(own ? { selfMeter: own } : {}),
   });
+  const source = own ? new CombinedSource(proxy, [{ tag: adapter.id, read: () => adapter.usage() }]) : proxy;
+  const meter = new Meter(source, setup.cap ?? 1000, 20);
   const preflight = await adapter.preflight();
   await meter.begin();
   const result = await runAll({
@@ -77,7 +85,7 @@ async function run(tasks: Task[], repeat: number, setup: Setup = {}) {
     log: () => {},
   });
   await meter.end();
-  return { ...result, adapter: adapter as FakeAdapter, proxy, meter, preflight };
+  return { ...result, adapter: adapter as FakeAdapter, proxy, own, meter, preflight };
 }
 
 function info(records: JobRecord[], preflight: Preflight, k: number, extra: Partial<RunInfo> = {}): RunInfo {
@@ -216,6 +224,29 @@ for (const config of CONFIGS) {
     'at concurrency 1 each attempt is costed exactly, and attempts add up to the bot total',
     records.every((r) => r.cost_attribution === 'exact' && (r.usd ?? 0) > 0) && Math.abs(costed - tag) < 0.001,
     `${records.map((r) => `${r.task} ${r.cost_attribution} $${r.usd?.toFixed(4)}`).join(', ')}; total $${tag.toFixed(4)}`,
+  );
+}
+
+/* a bot that meters itself */
+{
+  const { records, proxy, own, meter } = await run([task('write-post'), task('mem-locker'), task('lookup-fx')], 1, { selfMeter: true });
+  const id = CONFIGS[0]?.id ?? '';
+  const ownTotal = (await own?.usage())?.tags[id]?.usd ?? 0;
+  const costed = records.reduce((sum, r) => sum + (r.usd ?? 0), 0);
+  expect(
+    'a self-metered bot is costed from its own meter, exactly, and nothing of it is on the proxy',
+    ownTotal > 0 && (await proxy.usage()).tags[id] === undefined && records.every((r) => r.cost_attribution === 'exact' && (r.usd ?? 0) > 0) && Math.abs(costed - ownTotal) < 0.001 && Math.abs(meter.tagSpend(id).usd - ownTotal) < 1e-9,
+    `attempts $${costed.toFixed(4)}, own meter $${ownTotal.toFixed(4)}`,
+  );
+  const shorts = set.tasks.filter((t) => t.variant === 'short').slice(0, 8);
+  // $0.03 already on the proxy and a $0.06 cap: only the sum of both meters can reach it.
+  const capped = await run(shorts, 1, { selfMeter: true, cap: 0.06, proxySpentBefore: 0.03 });
+  const ownSpend = (await capped.own?.usage())?.tags[id]?.usd ?? 0;
+  const stopped = capped.records.filter((r) => r.outcome === 'stopped_for_spend').length;
+  expect(
+    'the cap counts the proxy plus a self-metered bot, and stops new jobs',
+    capped.stoppedForSpend && stopped > 0 && capped.proxy.totalUsd < 0.06 && capped.proxy.totalUsd + ownSpend >= 0.06,
+    `proxy $${capped.proxy.totalUsd.toFixed(3)} + own $${ownSpend.toFixed(3)}; ${stopped} not started; ${capped.stopReason}`,
   );
 }
 
