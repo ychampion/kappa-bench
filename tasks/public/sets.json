@@ -1,0 +1,4 @@
+{
+  "smoke": ["lookup-fx", "write-post", "in-csv", "remind-3min", "mem-locker"],
+  "reliability": ["lookup-fx", "research-fed", "plan-budget", "plan-timezones", "write-decline", "write-post", "in-invoice", "in-receipt", "out-agenda-docx", "remind-3min", "mem-locker", "browse-wiki"]
+}
