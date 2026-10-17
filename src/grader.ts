@@ -6,6 +6,7 @@
  * The dry run uses a fixed fake grade and calls nothing.
  */
 import Anthropic from '@anthropic-ai/sdk';
+import { QUESTION_ANSWER } from './job.ts';
 import type { Task } from './task.ts';
 import type { Evidence } from './types.ts';
 
@@ -43,6 +44,13 @@ export function transcript(task: Task, ev: Evidence, names: string[]): string {
     parts.push(`Message ${i + 1}${ev.steps.length > 1 ? ` (chat ${step.chat})` : ''}: ${step.prompt}`);
     const titles = step.actions.map((a) => `${a.title}${a.ok === false ? ' [failed]' : ''}`);
     if (titles.length) parts.push(`Steps it took: ${titles.slice(0, 25).join('; ')}`);
+    // What it asked mid-turn and what it was told: the answer below may hold text from before and after.
+    const asked = step.cards.map((card) =>
+      card.type === 'question'
+        ? `it asked "${card.text.slice(0, 300)}" and the person answered "${QUESTION_ANSWER}"`
+        : `it asked permission for "${card.text.slice(0, 300)}" and the person chose ${step.approvals.find((a) => card.text.startsWith(a.card))?.decision === 'deny' ? 'deny' : 'allow'}`,
+    );
+    if (asked.length) parts.push(`While answering, ${asked.join('; then ')}. The answer below includes what it wrote before and after.`);
     parts.push(`Answer ${i + 1}:\n${step.reply.slice(0, 12_000) || '(no answer)'}`);
   });
   const fires = ev.scheduled.flatMap((s) => s.fires).filter((f) => f.text.trim());

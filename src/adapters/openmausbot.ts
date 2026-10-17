@@ -65,6 +65,8 @@ type Wire = {
   attachments?: { kind: string; path: string; mime?: string; name?: string }[];
   turnTerminal?: boolean;
   turnSucceeded?: boolean;
+  turnId?: string;
+  turnCompletedAt?: number;
 };
 type Routine = {
   id: string;
@@ -123,6 +125,76 @@ export function fileTargets(text: string): string[] {
     if (/^[a-z]:[\\/]/i.test(target) || /^file:/i.test(target) || !/^[a-z][a-z\d+.-]*:/i.test(target)) out.add(target);
   }
   return [...out];
+}
+
+/**
+ * Reminders the engine keeps in the conversation's own session (Claude Code's CronCreate / CronDelete tools)
+ * rather than as routines. The product delivers them: when one fires, the bot posts into the conversation on
+ * its own (a bot text that arrives after its turn completed, with no new message from the person). Each
+ * CronCreate is an item; a later CronDelete naming its task id (or naming none) cancels it; unprompted bot
+ * texts are its fires, each given to the latest cron created before it. Cron times are the server's clock.
+ */
+export function sessionCrons(messages: Wire[], now = Date.now()): Scheduled[] {
+  const parse = (input: unknown): Rec => {
+    if (input && typeof input === 'object') return input as Rec;
+    try {
+      return JSON.parse(String(input ?? '')) as Rec;
+    } catch {
+      return {};
+    }
+  };
+  type Cron = Scheduled & { createdAt: number; taskId: string | null; due: number | null; deleted: boolean };
+  const crons: Cron[] = [];
+  const completed = new Map<string, number>();
+  for (const m of messages) if (m.turnId && m.turnTerminal && m.turnCompletedAt) completed.set(m.turnId, m.turnCompletedAt);
+  for (const m of messages) {
+    if (m.role !== 'bot' || m.kind !== 'activity' || !m.tool || m.tool.ok === false) continue;
+    const input = parse(m.tool.input);
+    if (m.tool.name === 'CronCreate') {
+      const expression = String(input.cron ?? '');
+      const recurring = input.recurring === true;
+      const taskId = String(m.tool.output ?? '').match(/task\s+([0-9a-f]{4,})/i)?.[1] ?? null;
+      const due = recurring ? null : onceAt(expression, m.at);
+      crons.push({
+        id: `cron:${taskId ?? m.id}`,
+        title: String(input.prompt ?? 'session reminder').slice(0, 120),
+        kind: recurring ? 'recurring' : 'once',
+        active: true,
+        next_at: due === null ? null : new Date(due).toISOString(),
+        cron: expression || null,
+        text: `${recurring ? 'session cron' : 'one-shot session cron'} ${expression}`,
+        can_run_now: false,
+        fires: [],
+        createdAt: m.at,
+        taskId,
+        due,
+        deleted: false,
+      });
+    } else if (m.tool.name === 'CronDelete') {
+      const target = String(input.id ?? input.task_id ?? input.taskId ?? '');
+      for (const c of crons) if (c.createdAt <= m.at && (!target || target === c.taskId)) c.deleted = true;
+    }
+  }
+  for (const m of messages) {
+    if (m.role !== 'bot' || m.kind !== 'text' || m.turnTerminal || !m.text?.trim()) continue;
+    const done = m.turnId ? completed.get(m.turnId) : undefined;
+    if (done === undefined || m.at <= done) continue;
+    const owner = crons.filter((c) => c.createdAt < m.at).at(-1);
+    owner?.fires.push({ at: new Date(m.at).toISOString(), text: m.text, status: 'done' });
+  }
+  return crons.map(({ createdAt: _c, taskId: _t, due, deleted, ...item }) => ({
+    ...item,
+    active: !deleted && (item.kind === 'recurring' || (item.fires.length === 0 && (due === null || due > now - 120_000))),
+  }));
+}
+
+/** The time a one-shot cron "m h dom mon *" next matches after `from` (server clock, UTC here), or null. */
+function onceAt(expression: string, from: number): number | null {
+  const [m, h, dom, mon] = expression.trim().split(/\s+/).map(Number);
+  if ([m, h, dom, mon].some((n) => n === undefined || !Number.isInteger(n))) return null;
+  const year = new Date(from).getUTCFullYear();
+  const at = Date.UTC(year, (mon as number) - 1, dom as number, h as number, m as number);
+  return at >= from - 60_000 ? at : Date.UTC(year + 1, (mon as number) - 1, dom as number, h as number, m as number);
 }
 
 const escapeAttr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\t/g, '&#9;').replace(/\r/g, '&#13;').replace(/\n/g, '&#10;');
@@ -538,10 +610,12 @@ export class OpenMausBotAdapter implements Adapter {
         fires,
       });
     }
+    items.push(...sessionCrons(await this.messages(this.native(conv).threadId, 500)));
     return items;
   }
 
   async runScheduledNow(_conv: Conversation, item: Scheduled) {
+    if (item.id.startsWith('cron:')) throw new Error('a session cron cannot be run now');
     await this.call('POST', `/api/routines/${enc(item.id)}/run`);
   }
 
