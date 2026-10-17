@@ -21,7 +21,7 @@
     "connections": "none"
   },
   "notes": [
-    "The bot keeps one memory across its conversations; deleting a conversation does not clear it.",
+    "The bot keeps one memory (files: index, topics, a daily journal of chats) across its conversations; the adapter restores those files after each attempt, as Melete's clean-up deletes a chat with what it taught memory.",
     "Messages carry no time zone: run the server in the bench's time zone (BENCH_TIME_ZONE)."
   ]
 }

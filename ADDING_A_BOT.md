@@ -44,7 +44,7 @@ into the bench's neutral shapes (`src/types.ts`), and that is the whole job.
 | `listOutputs(conv)` | Files the bot made in this conversation, downloaded as bytes. |
 | `scheduled(conv)` | Reminders, routines and watches set from this conversation, each with its fires (when it ran and what it said). |
 | `runScheduledNow?(conv, item)` | Starts a test run of a routine now, if the product can. |
-| `deleteConversation(conv)` | Removes the conversation and anything it set up; returns one line per thing removed or left. |
+| `deleteConversation(conv)` | Removes the conversation and anything it set up, including what it taught the bot's memory (or restores the memory to before the attempt), so every attempt starts from the same state; returns one line per thing removed or left. |
 | `memoryHolds?(value)` | Pacing only (never scored): whether memory already holds a value, so a recall test does not race the bot's memory writer. |
 
 `productNames` lists every name that identifies the product or its engine. The grader's input has them all

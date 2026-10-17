@@ -125,7 +125,8 @@ export async function runSteps(task: Task, index: number, repeat: number, job: J
       }
       if (step.wait_memory) state.memoryChecks.push(await waitForMemory(job, vars[step.wait_memory] ?? ''));
       const chat = step.chat ?? 'a';
-      ctx.conversations[chat] ??= await job.adapter.newConversation(chat, `${task.title} (bench ${index} ${chat})`);
+      // A neutral title: a bot may read its chat titles, and the task's title would tell it what is tested.
+      ctx.conversations[chat] ??= await job.adapter.newConversation(chat, `Chat ${index}${chat}`);
       const conv = ctx.conversations[chat] as Conversation;
       const fake = fakes[i];
       if (fake) job.adapter.prime?.(conv, fake, { task: task.id, repeat, step: i });
