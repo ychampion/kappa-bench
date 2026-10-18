@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use κ-bench, please cite it as below."
+title: "κ-bench: How Reliably Can You Hand Everyday Work to a Personal Agent?"
+abstract: >-
+  A benchmark for personal agents on everyday work: live lookups, research with sources, planning,
+  writing, files in and out, reminders and routines, monitoring, memory across chats and browser
+  errands. Every bot runs the same tasks on the same model under one approval policy; deterministic
+  checks and a blind grader score the answers; pass^k, honesty, latency and cost are reported.
+type: software
+authors:
+  - name: "The κ-bench maintainers"
+repository-code: "https://github.com/ychampion/kappa-bench"
+url: "https://github.com/ychampion/kappa-bench"
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-10-18"
+keywords:
+  - benchmark
+  - personal agents
+  - AI agents
+  - evaluation
+  - reliability
+  - pass^k

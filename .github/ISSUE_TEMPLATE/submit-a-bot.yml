@@ -1,0 +1,65 @@
+name: Submit a bot
+description: Ask for a personal agent to be run and added to the leaderboard.
+title: "Submit: <bot name> <version>"
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting. Read docs/SUBMITTING.md first. The maintainers run every entry on the same model and settings as the others, then publish the report and every transcript for the public tasks.
+  - type: input
+    id: bot
+    attributes:
+      label: Bot and version
+      description: Product name, the version to pin, and its commit if open source.
+      placeholder: MyBot 1.4.0 (abc1234)
+    validations:
+      required: true
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage or repository
+    validations:
+      required: true
+  - type: input
+    id: adapter
+    attributes:
+      label: Adapter pull request
+      description: The pull request adding src/adapters/<id>.ts, bots/<id>.json and the registry line.
+    validations:
+      required: true
+  - type: textarea
+    id: install
+    attributes:
+      label: How to install the pinned version at its documented defaults
+      description: A public image, compose file or package, and any setting the bench must change (with why).
+    validations:
+      required: true
+  - type: textarea
+    id: model
+    attributes:
+      label: Model calls
+      description: Can the bot's model base URL be pointed at the metering proxy? Does its engine call any other model by default?
+    validations:
+      required: true
+  - type: textarea
+    id: smoke
+    attributes:
+      label: Smoke run (optional)
+      description: Paste the headline of your local smoke-run report, if you ran one.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact for configuration review
+      description: A GitHub handle who can review the configuration before results are published.
+    validations:
+      required: true
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: Rules
+      options:
+        - label: The adapter reads only what the product shows its user or exposes through its documented API.
+          required: true
+        - label: I understand results are published with every public transcript, including failures.
+          required: true

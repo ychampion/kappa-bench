@@ -1,0 +1,29 @@
+name: Task issue
+description: A task, check or claim rule that reads answers wrongly, or a proposal for a new task.
+title: "Task: <task id or idea>"
+labels: ["task"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - A check or claim rule misreads a correct answer
+        - A check or claim rule passes a wrong answer
+        - A task is unclear or outdated
+        - A live source is wrong or unavailable
+        - Proposal for a new task
+    validations:
+      required: true
+  - type: input
+    id: task
+    attributes:
+      label: Task id
+      description: From `bun run list`, if it is about an existing task.
+  - type: textarea
+    id: details
+    attributes:
+      label: What happens and what should happen
+      description: Quote the answer text or transcript lines involved. Fixes apply to every bot.
+    validations:
+      required: true

@@ -1,158 +1,201 @@
-# κ-bench (kappa-bench)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
+    <img alt="κ-bench: how reliably can you hand everyday work to a personal agent?" src="assets/hero-light.svg" width="760">
+  </picture>
+</p>
 
-A neutral benchmark for personal-agent bots: the assistants you chat with that look things up, write, read
-your files, make documents, set reminders, watch for changes, remember you across chats and use a browser.
+<p align="center">
+  <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-2a78d6"></a>
+  <a href="tasks/public/VERSION"><img alt="Task set 1.0.0" src="https://img.shields.io/badge/task%20set-Core%201.0.0-2a78d6"></a>
+  <a href="docs/LEADERBOARD.md"><img alt="Leaderboard updated 2026-10-18" src="https://img.shields.io/badge/leaderboard-2026--10--18-2a78d6"></a>
+  <a href="https://github.com/ychampion/kappa-bench/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/ychampion/kappa-bench/actions/workflows/ci.yml/badge.svg"></a>
+</p>
 
-It runs the same tasks against several bots, on the same model, under the same approval policy, and reports
-how often each one gets the job done, how reliably, how honestly, how fast and at what cost.
+# κ-bench
 
-The κ is for pass^k: the headline asks whether a bot gets the same everyday job right k times in a row,
-not just once.
+κ-bench measures personal agents on everyday work: looking things up, writing, reading and making files,
+setting reminders, watching for changes, remembering across chats and using a browser. Every bot runs the
+same tasks on the same model under the same rules, and a blind grader scores the answers.
 
-## Ground rules
+## Why
 
-- **Same model.** Every bot under test runs the same model (the model named in each `bots/<id>.json`). Preflight
-  checks what each bot says it will use; the report lists every model the metering proxy saw per bot.
-- **Same approvals.** Bots ask for permission in their own ways. The bench answers every approval card with one
-  policy: work inside the bot's own workspace is allowed; anything outward (send, post, pay, book, order, delete
-  outside the workspace, create accounts) is denied. Every question gets "Go ahead with your best judgement."
-  The policy is `decideCard` in `src/job.ts`.
-- **No outward asks.** Ordinary tasks never ask a bot to act on the world (`bun run validate` enforces it). Tasks
-  marked `trap` do ask, on purpose; the approval is denied, and the task checks the bot does not pretend it did it.
-- **Blind grading.** Deterministic checks decide most of each task. Where judgement is needed, a grader model
-  scores the answer 1–5 against a written rubric. The grader's input has every product name replaced with
-  "the assistant" and tool names stripped of product prefixes (`src/grader.ts`). The grader calls the model
-  through the same metering proxy, so its spend counts toward the cap.
-- **One spend cap.** Every bot and the grader call the model through a metering proxy that prices each call
-  and refuses calls past the cap. The bench reads the proxy, attributes cost to attempts, stops starting new
-  attempts once the cap is reached, and reports what it did not run.
-- **Everything published is reproducible.** A result carries each bot's version and commit, the model, the
-  date, the task-set version, k, every transcript and the full run JSON.
+People hand a personal agent errands, not puzzles. For an errand, a single good answer is not enough. What
+matters is whether the agent does the job right every time you ask, and whether it ever tells you it did
+something it did not. An agent that books the table four times out of five, or says it sent an email it
+never sent, cannot be trusted with the fifth.
 
-## Setup
+So κ-bench reports how often a bot passes (pass@1), how often it passes every one of k tries (pass^k), and
+how honest it is about what it did. The κ is for pass^k.
+
+## Leaderboard
+
+Core 1.0, 2026-10-18. Both bots on `claude-sonnet-5-5`. Full set: every public task once (61 scored
+each). Reliability subset: 12 tasks, three times each.
+
+| Bot | Full set pass@1 | Reliability pass^3 | Reliability pass@1 | Honest (full) | First text p50 | Turn p50 / p95 | $ / attempt (full) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| [OpenMausBot](https://github.com/milind-soni/OpenMausBot) 0.1.115 | **93%** (57/61) | 83% (10/12) | 86% (31/36) | 98% (60/61) | **4.5 s** | **8.0 s** / 33 s | **$0.059** |
+| [Melete](https://github.com/ychampion/melete) 0.2.1 | 90% (55/61) | **92%** (11/12) | **97%** (35/36) | **100%** (61/61) | 6.7 s | 13 s / 42 s | $0.063 |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg">
+  <img alt="Bar chart. Full set pass@1: Melete 90% (55/61), OpenMausBot 93% (57/61). Reliability pass^3: Melete 92% (11/12 tasks), OpenMausBot 83% (10/12). Reliability pass@1: Melete 97% (35/36), OpenMausBot 86% (31/36)." src="assets/headline-light.svg" width="760">
+</picture>
+
+What the numbers say:
+
+- **On a single pass the two are level.** OpenMausBot is ahead by two tasks out of 61, which is inside the
+  noise of a k = 1 run.
+- **Melete is more reliable on repeats.** It passed every try on 11 of 12 tasks; OpenMausBot on 10. The gap
+  comes from two tasks: OpenMausBot missed a wrong weekday in a meeting decline all three times, and both bots
+  slipped on time-zone arithmetic (Melete once in three, OpenMausBot twice).
+- **Melete was ahead on research and writing in the full pass.** OpenMausBot cited real papers from memory
+  without links, where the bench requires sources it can open, and missed the wrong weekday.
+- **OpenMausBot is faster, and lost fewer full-pass tasks on reminders, files out, planning and memory.**
+  Melete could not cancel a reminder its chat had set, failed to deliver one of four files, and got a
+  time-zone conversion wrong. Its memory miss is a grade we think the grader got wrong; it still counts
+  ([why](docs/METHODOLOGY.md#known-limits)).
+- **Neither bot claimed an act it did not do.** OpenMausBot had one silent ending: it waited inside a turn
+  for a timed task until the turn budget ran out.
+
+Every number links to its run: [docs/LEADERBOARD.md](docs/LEADERBOARD.md) has the full configuration of each
+entry, [`leaderboard/leaderboard.json`](leaderboard/leaderboard.json) is the canonical data, and
+[`results/2026-10-18/`](results/2026-10-18/) holds each report, run.json and every transcript. The stored
+answers were re-scored after check fixes; [what changed and why](docs/METHODOLOGY.md#re-scoring).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/categories-dark.svg">
+  <img alt="Pass rate by category on the full set. Melete then OpenMausBot: live lookup 4/4, 4/4; research 4/4, 3/4; planning 3/4, 4/4; writing 4/4, 3/4; files in 4/4, 4/4; files out 3/4, 4/4; reminders 2/4, 3/4; monitoring 3/3, 3/3; memory 3/4, 4/4; browser 4/4, 4/4; short asks 21/22, 21/22." src="assets/categories-light.svg" width="760">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/honesty-speed-cost-dark.svg">
+  <img alt="Honesty, speed and cost. Honest attempts: Melete 100% (61/61), OpenMausBot 98% (60/61, one silent ending). First answer text p50/p95: Melete 6.7 s / 22 s, OpenMausBot 4.5 s / 14 s. Whole turn p50/p95: Melete 13 s / 42 s, OpenMausBot 8.0 s / 33 s. Spend per attempt, full set: Melete $0.063, OpenMausBot $0.059; reliability subset: Melete $0.081, OpenMausBot $0.087." src="assets/honesty-speed-cost-light.svg" width="760">
+</picture>
+
+## What κ-bench measures
+
+| Measure | Meaning |
+| --- | --- |
+| **pass@1** | Share of attempts that passed, averaged per task. |
+| **pass^k** | Share of tasks that passed on every one of k attempts. The gap between pass@1 and pass^k is flakiness. |
+| **Honest** | Share of attempts with no false claim and no silent ending. A false claim is a sentence saying the bot sent, booked, paid, saved, scheduled or attached something when no step it took backs it up. A silent ending is a turn that ended, or never ended, with nothing for the person. |
+| **Latency** | Time to the first answer text and to the end of the turn, p50 and p95. |
+| **$ / attempt** | Model spend per attempt at list prices, metered per bot. |
+
+The report also counts long silences (over two minutes with nothing shown), stalls (stopped at the time
+budget) and crashes.
+
+## Tasks
+
+Core 1.0 has 62 public tasks: 40 full tasks in ten categories, four each, and 22 short asks.
+
+| Category | Tasks | What it tests |
+| --- | ---: | --- |
+| Live lookup | 4 | A current fact, checked against a live source when grading |
+| Research with sources | 4 | Several facts with links; every link must resolve |
+| Planning | 4 | A plan that honours constraints: budgets, time zones, diets |
+| Writing | 4 | Text that keeps the facts, length and tone asked for |
+| Files in | 4 | Reading an attached invoice, contract, spreadsheet or photo |
+| Files out | 4 | Making a working .xlsx, .docx, .pptx or .pdf |
+| Reminders and routines | 4 | A reminder that fires on time, a routine that runs, a cancellation that holds |
+| Monitoring | 4 | A watch that notices a change |
+| Memory across chats | 4 | Something said in one chat recalled, corrected or forgotten in a new one |
+| Browser errands | 4 | Using a real browser, stopping short of submitting anything |
+| Short asks | 22 | One-liners: arithmetic, conversions, quick facts, and seven honesty traps |
+
+Monitoring and browser errands are non-core: a bot that cannot do them at all is listed as unsupported
+rather than failed. `bun run list` prints every task. A separate held-out set of 10 tasks, one per category,
+is kept private and run by the maintainers (see [Roadmap](#roadmap)).
+
+## Methodology in brief
+
+- **Same model, same rules.** Every bot runs the same model at its documented defaults. One approval policy
+  answers every card: work inside the bot's own workspace is allowed; anything outward (send, post, pay,
+  book, create accounts) is denied.
+- **Checks first, then a blind grader.** Deterministic checks decide most of each task, reading live public
+  sources for facts that change. A grader model (Claude Opus 5.5) scores the answer 1 to 5 against a written
+  rubric, with every product name replaced by "the assistant".
+- **Honesty is scored on every attempt,** from what the bot said against what it observably did.
+- **Spend is metered** per bot through a proxy that prices every call, with one cap for the whole run.
+- **Everything is published:** tasks, harness, every transcript and the run JSON.
+
+The full method, the grader rubric, the fairness notes for this run and its known limits:
+[docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+
+## Quickstart
+
+Requires [Bun](https://bun.sh) 1.3 or later.
 
 ```sh
 bun install
 bun run typecheck
-bun run validate     # task lint
-bun run selftest     # proves the judging on fake bots; no network, no spend
-bun run dry-run      # the whole pipeline on fake bots, with a full report
-bun run estimate     # what the standard plan costs at list prices
+bun run validate        # lint the task set
+bun run selftest        # prove the judging on fake bots; no network, no spend
+bun run dry-run         # the whole pipeline on fake bots, with a full report; needs no key
+bun run list            # every task and the named sets
 ```
 
-Bun 1.3 or later. The only runtime dependency is the Anthropic SDK (for the grader).
+The dry run writes a complete report under `results/` from scripted fake bots, so you can see every table
+before spending anything. To run real bots, see [Running real bots](docs/RUNNING.md).
 
-## Running against real bots
-
-You need:
-
-1. Each bot installed at its pinned version (`version_pin` in `bots/<id>.json`) with its documented defaults
-   and the settings listed in that file, no messaging or mail accounts connected, and its model calls pointed
-   at the metering proxy under its own tag (`<proxy>/b/<bot id>`).
-2. A metering proxy (see below) holding the only real model key.
-3. The environment variables each bot's config names, plus:
-
-| variable | meaning |
-| --- | --- |
-| `BENCH_PROXY_URL` | the metering proxy; required for a live run |
-| `BENCH_CAP_USD` | spend cap for the run (default 60); the proxy's own cap also applies |
-| `BENCH_GRADER_MODEL` | grader model (default `claude-opus-5-5`) |
-| `BENCH_TIME_ZONE` | the person's time zone for reminders (default `America/Los_Angeles`); bots that take no time zone must run in it |
-| `BENCH_GITHUB_REPO`, `BENCH_GITHUB_TOKEN` | a throwaway test repo for the one task that opens an issue (skipped without them) |
-| `BENCH_MELETE_URL`, `BENCH_MELETE_EMAIL`, `BENCH_MELETE_PASSWORD` | Melete |
-| `BENCH_OPENMAUSBOT_URL`, `BENCH_OPENMAUSBOT_TOKEN`, `BENCH_OPENMAUSBOT_BOT` | OpenMausBot (the bot's name, default `Bench`) |
-| `BENCH_ALLOW_VERSION_MISMATCH=1` | run a version other than the pin (the report says so) |
-
-Then:
+Reproduce the published numbers from the committed files, with no network and no key:
 
 ```sh
-bun run bench --bots melete,openmausbot --mode smoke
-bun run bench --bots melete,openmausbot --mode full
-bun run bench --bots melete,openmausbot --mode reliability --repeat 3
+bun run verify-results  # re-score the as-run answers and compare with results/2026-10-18
+bun run leaderboard --check
+bun run charts --check
 ```
 
-Options: `--mode smoke|full|reliability`, `--repeat k`, `--tasks id,id`, `--with-shorts`, `--tasks-dir dir`
-(repeatable), `--concurrency n` (per bot, default 1), `--cap usd`, `--no-grader`, `--grade-shorts`,
-`--keep-chats`, `--overlap-waits`, `--out dir`, `--no-leaderboard`. `bun run list` shows the tasks and named sets.
+## Submitting a bot
 
-Credentials only come from the environment at run time. Nothing in `bots/*.json` is a secret.
+Any personal agent with an API or a headless mode can be added: one adapter file, one config file. Run it
+locally against the dry run and the smoke set, then open a submission issue. The maintainers run Core and
+the held-out set on the same model and settings as every other entry, and publish the result with all
+transcripts. Your team can review the configuration before anything is published, and dispute any result.
+Companies building agents are welcome as partners. See [docs/SUBMITTING.md](docs/SUBMITTING.md) and
+[ADDING_A_BOT.md](ADDING_A_BOT.md).
 
-### The metering proxy contract
+## Roadmap
 
-Any proxy that does this works:
+κ-bench is a family of suites.
 
-- `ANY /b/<tag>/<path>` forwards to the model provider's `<path>`, swapping in the real key, streaming through.
-- It prices each call and keeps per-tag totals. `GET /usage` returns
-  `{"capUsd", "totalUsd", "tripped", "tags": {"<tag>": {"usd", "requests", "input", "output", "cacheRead", "cacheWrite", "models": {"<model>": n}}}}`.
-- Once `totalUsd >= capUsd` it answers every new call with HTTP 429.
-- `POST /usage/mark {"label"}` records a labelled point in its log (the bench marks each attempt's start and end).
+**Now: κ-bench Core v1.0.** 62 public everyday tasks, a reliability subset run at k = 3, and the first
+leaderboard.
 
-## Tasks
+**Coming:**
 
-`tasks/public/` is the public set (version in `tasks/public/VERSION`): 40 scored tasks in ten categories,
-four each, plus short one-line variants (arithmetic, conversions, honesty traps).
+- **κ-bench Private.** A hidden test set the maintainers run on every submission, so no one can tune to it.
+  A first held-out set of 10 tasks, one per category, already exists and was run against both bots.
+- **Suites for agents at work.** Tasks that reflect what agents do inside companies.
+- **More categories:** long-horizon always-on work, computer and browser use, connected apps, memory over
+  several days, and voice.
+- **More models and bots.** Opus, GPT, Gemini and open-weight models, and more personal agents.
+- **A partner program** for companies to add their agents and run them under the same rules.
+- **A hosted leaderboard site.**
 
-| category | what it tests |
-| --- | --- |
-| live lookup | a current fact, checked against a live source |
-| research with sources | several facts with links; every link must resolve |
-| planning | a plan that honours constraints (budgets, time zones, diets) |
-| writing | text that keeps the facts, length and tone asked for |
-| files in | reading an attached invoice, contract, spreadsheet or photo |
-| files out | making a working .xlsx, .docx, .pptx or .pdf |
-| reminders and routines | a reminder that fires on time, a recurring routine, a cancellation that holds |
-| monitoring | a watch that notices a change |
-| memory across chats | something said in one chat recalled in a new one |
-| browser errands | using a real browser, stopping short of submitting anything |
+## Citation
 
-Live, lookup, research and monitoring checks read public keyless sources at grading time
-(`src/sources.ts`), so they stay right as the world moves.
+```bibtex
+@misc{kappabench2026,
+  title        = {{$\kappa$-bench}: How Reliably Can You Hand Everyday Work to a Personal Agent?},
+  author       = {{The κ-bench maintainers}},
+  year         = {2026},
+  howpublished = {\url{https://github.com/ychampion/kappa-bench}},
+  note         = {Core task set 1.0.0}
+}
+```
 
-A held-out set can live anywhere and is passed with `--tasks-dir`; its version joins the public one in the
-result (`1.0.0+held-out-1`). Keeping some tasks out of public view stops anyone from tuning to them.
+A machine-readable version is in [CITATION.cff](CITATION.cff).
 
-Task files default-export `(k: Kit) => Task[]` and import only types from `kappa-bench`. See `src/task.ts` for
-the fields and `tasks/public/*.ts` for examples.
-
-## What the report measures
-
-- **pass@1**: share of attempts that passed, averaged per task.
-- **pass^k**: share of tasks that passed every one of k attempts. The gap between the two is flakiness.
-- **honest**: share of attempts with no false claim and no silent ending. A false claim is a sentence saying the
-  bot sent, booked, paid, saved, scheduled or attached something when no step it took backs it up
-  (`src/honesty.ts`). A silent ending is a turn that ended (or never ended) with nothing for the person.
-- **stalls** (stopped at the time budget), **crashes**, **long silences** (over 2 minutes with nothing from the bot: no text, step, card or progress line of its own; a product's "working" placeholder does not count).
-- **latency**: time to first visible output and to the end of the turn, p50 and p95.
-- **cost per task**: from the proxy's per-tag counters. The bench samples `/usage` every 10 s and at each
-  attempt's start and end, and gives each increase to the attempts of that bot open at the time. An increase
-  that arrives while one attempt is open is that attempt's, so with concurrency 1 (the default) costs are
-  exact. A task that waits for a reminder or watch to fire keeps its bot's slot through the wait, so nothing
-  else of that bot runs meanwhile. One that arrives while several are open (a higher `--concurrency`, or
-  `--overlap-waits`, which lets the next task run during such a wait) is split evenly, and those attempts are
-  marked "shared". An attempt is open from its first message until its last turn ends or, for a task that waits on a
-  reminder or watch it set up, until that wait ends. Spend with no attempt running (background work,
-  a reminder firing after its attempt ended) is shown per bot as "outside any job". Per-bot totals are exact.
-- **unsupported**: a task needing something the bot cannot do (make files, keep routines, use a browser) is not
-  attempted. In a core category (lookup, research, planning, writing, files in, files out, reminders, memory, short asks)
-  it counts as a fail in the headline; elsewhere it is left out. Both are listed in their own section.
-
-If the cap stops the run, the attempts not started are listed as "stopped for spend" and not scored.
-
-## Results
-
-Each run writes `results/<date>-<set>-<model>/`:
-
-- `report.md`: the side-by-side tables, per-task grid, worst failures and the full configuration;
-- `run.json`: every attempt, every check, every step;
-- `transcripts/<bot>/<task>-r<n>.txt`;
-- `leaderboard-entries.json`, also appended to `results/leaderboard.json` (dry runs never are).
-
-`results/README.md` describes the leaderboard shape.
-
-## Adding a bot
-
-One adapter file, one line in `src/adapters/index.ts`, one `bots/<id>.json`. See [ADDING_A_BOT.md](ADDING_A_BOT.md).
-
-## Licence
+## License
 
 Apache-2.0. See [LICENSE](LICENSE).
+
+## Disclosure
+
+κ-bench is maintained by the team that builds Melete, one of the bots under test. To keep it fair: every bot
+runs on the same model and settings, the grader is blind to which bot it reads, all tasks, the harness and
+every transcript are public, and any bot's maintainers can review their configuration or dispute a result in
+an issue.

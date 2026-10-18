@@ -1,0 +1,37 @@
+name: Result dispute
+description: Challenge a published result.
+title: "Dispute: <bot> <task> <run>"
+labels: ["dispute"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Any bot's maintainers, or anyone else, can dispute a result. If the check, a claim rule or the grader input was wrong, the fix applies to every bot, the stored answers are re-scored, and the change is listed in the report and the changelog.
+  - type: input
+    id: result
+    attributes:
+      label: Result
+      description: Results folder, bot, task and attempt.
+      placeholder: results/2026-10-18/full, openmausbot, research-fasting, r1
+    validations:
+      required: true
+  - type: textarea
+    id: transcript
+    attributes:
+      label: Transcript lines
+      description: Quote the lines that show the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why the result is wrong
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Are you a maintainer of this bot?
+      options:
+        - "Yes"
+        - "No"

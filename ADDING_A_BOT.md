@@ -89,3 +89,5 @@ bun run bench --bots mybot --mode smoke --no-grader
 
 The fake bot (`src/adapters/fake.ts`) shows the event shapes an adapter should produce. Then read a few
 transcripts in `results/.../transcripts/` against what the bot's own interface showed.
+
+To get your bot onto the leaderboard, see [docs/SUBMITTING.md](docs/SUBMITTING.md).
