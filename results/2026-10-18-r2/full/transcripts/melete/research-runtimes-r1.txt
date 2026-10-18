@@ -1,0 +1,72 @@
+# research-runtimes (research), bot melete, repeat 1
+started 2026-10-18T15:59:03.360Z
+
+## message 1 (chat a)
+> Which versions are current right now for Node.js (the active LTS line), Python and Go? Give each with its release date and a source link.
+
+[   0.5 s] step:other     Used the skill: Research with sources
+[   2.3 s] status         Thinking
+[   4.0 s] text           Checking what 
+[   4.1 s] text           I already know, then the official release pages for Node.js, Python and 
+[   5.1 s] status         Thought it through
+[   5.4 s] text           Go.
+[   5.4 s] step:memory    Checking what I remember
+[   5.4 s] step:web       Reading page nodejs.org/dist/index.json
+[   5.6 s] step:web       Reading page python.org/downloads
+[   5.6 s] step:web       Reading page go.dev/dl
+[   5.7 s] step:memory    Checked what I remember [done]
+[   6.0 s] step:web       Read page nodejs.org/dist/index.json [done]
+[   6.0 s] progress       card: nodejs.org
+[   6.0 s] step:web       Read page python.org/downloads [done]
+[   6.0 s] progress       card: Download Python | Python.org
+[   6.3 s] step:web       Read page go.dev/dl [done]
+[   6.3 s] progress       card: go.dev
+[   6.6 s] status         Thinking
+[  12.7 s] text            Node 
+[  12.7 s] text           and Python are covered. I still need the Go release date, because the download feed doesn't include 
+[  12.8 s] status         Thought it through
+[  12.9 s] step:web       Reading page go.dev/doc/devel/release
+[  12.9 s] text           one.
+[  13.4 s] step:web       Read page go.dev/doc/devel/release [done]
+[  13.4 s] progress       card: Release History - The Go Programming Language
+[  13.5 s] status         Thinking
+[  18.8 s] text           The Node feed lists v24.22.0 as the newest LTS build. I'll check the official schedule to confirm the "active" status, since Node 26 is due to enter LTS around 
+[  18.9 s] status         Thought it through
+[  19.0 s] step:web       Reading page raw.githubusercontent.com/nodejs/Release/main/schedule.json
+[  19.0 s] text           now.
+[  19.4 s] step:web       Read page raw.githubusercontent.com/nodejs/Release/main/schedule.json [done]
+[  19.4 s] progress       card: raw.githubusercontent.com
+[  19.6 s] status         Thinking
+[  25.7 s] status         Thought it through
+[  25.8 s] text            As of Sunday 18 Oct 2026 (the day I read these pages), the 
+[  25.8 s] text           current versions are: | | Current version | Release date | Source | |---|---|---|---| | **Node.js** (active LTS, v24 "Krypton") | 24.22.0 | 14 Oct 2026 | [nodejs.org release index](https://nodejs.org/dist/index.json) | | **Python** (latest release) | 3.15.0 | 9 Oct 2026 | [python.org/downloads](https://www.python.org/downloads/) | | **Go** | 1.27.2 | 8 Oct 2026 | [go.dev release history](https://
+[  26.3 s] text           1.26.9.
+[  26.3 s] end            done
+
+status: done; first output 548 ms; total 26349 ms; longest quiet 6426 ms
+
+reply:
+As of Sunday 18 Oct 2026 (the day I read these pages), the current versions are:
+
+| | Current version | Release date | Source |
+|---|---|---|---|
+| **Node.js** (active LTS, v24 "Krypton") | 24.22.0 | 14 Oct 2026 | [nodejs.org release index](https://nodejs.org/dist/index.json) |
+| **Python** (latest release) | 3.15.0 | 9 Oct 2026 | [python.org/downloads](https://www.python.org/downloads/) |
+| **Go** | 1.27.2 | 8 Oct 2026 | [go.dev release history](https://go.dev/doc/devel/release) |
+
+- **Node:** v24 has been in LTS since 28 Oct 2025. According to the [Node.js release schedule](https://raw.githubusercontent.com/nodejs/Release/main/schedule.json), it moves to maintenance on 20 Oct 2026, and v26 becomes the new LTS line on 28 Oct 2026. v24.22.0 is the right answer today, but it will stop being the active line within about 10 days. The newest Node build overall is 26.12.0, but it isn't LTS yet.
+- **Python:** 3.15.0 is the newest feature release. If you want the previous line, it's 3.14.8, released 30 Sep 2026. python.org currently marks 3.14 as "bugfix".
+- **Go:** 1.27.2 is a security and bug-fix update to 1.27.0, which came out on 19 Aug 2026. The 1.26 line is still supported, at 1.26.9.
+
+## result
+outcome: pass
+reason: 6 checks passed
+- [pass] Node.js LTS version: live 26.12.0
+- [pass] Python version: live 3.15.0
+- [pass] Go version: live 1.27.2
+- [pass] at least 2 source link(s): 4 links, 4 domains
+- [pass] every link resolves: 4 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is correct, complete, well sourced and concise, with one noticeable slip: it says v24 moves to maintenance on 20 Oct, two days away, yet says it will stop being the active line 'within about 10 days'.
+clean-up:
+- deleted the chat and what it taught memory

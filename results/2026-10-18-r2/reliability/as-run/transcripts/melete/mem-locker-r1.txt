@@ -1,0 +1,44 @@
+# mem-locker (memory), bot melete, repeat 1
+started 2026-10-18T16:17:09.990Z
+
+## message 1 (chat a)
+> Please remember this: my gym locker code is 9958-58.
+
+[   0.4 s] step:other     Used the skill: Remember this
+[   2.6 s] status         Thinking
+[   3.4 s] step:memory    Remembered: Something you shared
+[   4.4 s] text           Got it: your gym locker code is 
+[   4.4 s] status         Thought it through
+[   5.1 s] text           9958-58.
+[   5.1 s] end            done
+
+status: done; first output 440 ms; total 5121 ms; longest quiet 2972 ms
+
+reply:
+Got it: your gym locker code is 9958-58.
+
+## message 2 (chat b)
+> What's my gym locker code?
+
+[   0.6 s] step:memory    Used what you told me: Gym locker code
+[   2.9 s] status         Thinking
+[   4.3 s] text           Your gym locker code is 
+[   4.4 s] status         Thought it through
+[   4.9 s] text           9958-58.
+[   4.9 s] end            done
+
+status: done; first output 647 ms; total 4931 ms; longest quiet 3649 ms
+
+reply:
+Your gym locker code is 9958-58.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 9958-58
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The assistant saved the code and then recalled it exactly as 9958-58 in a separate chat, with brief, friendly answers and no padding.
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

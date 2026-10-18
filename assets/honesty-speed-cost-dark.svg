@@ -15,41 +15,42 @@
 <g><title>Melete: 61 of 61 attempts honest, 0 false claims, 0 silent endings</title>
 <path d="M24,130h378a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-378z" fill="#3987e5"/>
 <text x="414" y="143.5" font-size="13" fill="#f0efec">Melete  100% (61/61; 0 false claims, 0 silent)</text></g>
-<g><title>OpenMausBot: 60 of 61 attempts honest, 0 false claims, 1 silent endings</title>
-<path d="M24,152h371.7352a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-371.7352z" fill="#d95926"/>
-<text x="407.7352" y="165.5" font-size="13" fill="#f0efec">OpenMausBot  98% (60/61; 0 false claims, 1 silent)</text></g>
+<g><title>OpenMausBot: 61 of 61 attempts honest, 0 false claims, 0 silent endings</title>
+<path d="M24,152h378a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-378z" fill="#d95926"/>
+<text x="414" y="165.5" font-size="13" fill="#f0efec">OpenMausBot  100% (61/61; 0 false claims, 0 silent)</text></g>
 <text x="24" y="234" font-size="16" font-weight="600" fill="#f0efec">Speed, full set (seconds, lower is better)</text>
 <text x="24" y="255" font-size="13" fill="#c3c2b7">Bar to the median (p50); line to the 95th percentile (p95).</text>
 <line x1="24" y1="272" x2="24" y2="412" stroke="#383835" stroke-width="1"/><text x="24" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">0 s</text>
-<line x1="116.4" y1="272" x2="116.4" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="116.4" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">10 s</text>
-<line x1="208.8" y1="272" x2="208.8" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="208.8" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">20 s</text>
-<line x1="301.2" y1="272" x2="301.2" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="301.2" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">30 s</text>
-<line x1="393.6" y1="272" x2="393.6" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="393.6" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">40 s</text>
-<line x1="486" y1="272" x2="486" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="486" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">50 s</text>
+<line x1="101" y1="272" x2="101" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="101" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">10 s</text>
+<line x1="178" y1="272" x2="178" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="178" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">20 s</text>
+<line x1="255" y1="272" x2="255" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="255" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">30 s</text>
+<line x1="332" y1="272" x2="332" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="332" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">40 s</text>
+<line x1="409" y1="272" x2="409" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="409" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">50 s</text>
+<line x1="486" y1="272" x2="486" y2="412" stroke="#2c2c2a" stroke-width="1"/><text x="486" y="428" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">60 s</text>
 <text x="24" y="284" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">First answer text</text>
-<g><title>Melete, first answer text: p50 6.7 s, p95 22 s</title>
-<path d="M24,292h57.538399999999996a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-57.538399999999996z" fill="#3987e5"/>
-<line x1="85.5384" y1="301" x2="222.66924" y2="301" stroke="#3987e5" stroke-width="2" stroke-linecap="round"/>
-<circle cx="222.66924" cy="301" r="4" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
-<text x="234.66924" y="305.5" font-size="13" fill="#f0efec">Melete  p50 6.7 s · p95 22 s</text></g>
-<g><title>OpenMausBot, first answer text: p50 4.5 s, p95 14 s</title>
-<path d="M24,314h38.00504000000001a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-38.00504000000001z" fill="#d95926"/>
-<line x1="66.00504000000001" y1="323" x2="153.90516" y2="323" stroke="#d95926" stroke-width="2" stroke-linecap="round"/>
-<circle cx="153.90516" cy="323" r="4" fill="#d95926" stroke="#1a1a19" stroke-width="2"/>
-<text x="165.90516" y="327.5" font-size="13" fill="#f0efec">OpenMausBot  p50 4.5 s · p95 14 s</text></g>
+<g><title>Melete, first answer text: p50 4.3 s, p95 13 s</title>
+<path d="M24,292h28.979100000000003a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-28.979100000000003z" fill="#3987e5"/>
+<line x1="56.9791" y1="301" x2="124.33099999999999" y2="301" stroke="#3987e5" stroke-width="2" stroke-linecap="round"/>
+<circle cx="124.33099999999999" cy="301" r="4" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+<text x="136.331" y="305.5" font-size="13" fill="#f0efec">Melete  p50 4.3 s · p95 13 s</text></g>
+<g><title>OpenMausBot, first answer text: p50 4.9 s, p95 14 s</title>
+<path d="M24,314h33.422000000000004a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-33.422000000000004z" fill="#d95926"/>
+<line x1="61.422000000000004" y1="323" x2="132.416" y2="323" stroke="#d95926" stroke-width="2" stroke-linecap="round"/>
+<circle cx="132.416" cy="323" r="4" fill="#d95926" stroke="#1a1a19" stroke-width="2"/>
+<text x="144.416" y="327.5" font-size="13" fill="#f0efec">OpenMausBot  p50 4.9 s · p95 14 s</text></g>
 <text x="24" y="360" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Whole turn</text>
-<g><title>Melete, whole turn: p50 13 s, p95 42 s</title>
-<path d="M24,368h113.41268000000002a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-113.41268000000002z" fill="#3987e5"/>
-<line x1="141.41268000000002" y1="377" x2="408.16224" y2="377" stroke="#3987e5" stroke-width="2" stroke-linecap="round"/>
-<circle cx="408.16224" cy="377" r="4" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
-<text x="420.16224" y="381.5" font-size="13" fill="#f0efec">Melete  p50 13 s · p95 42 s</text></g>
-<g><title>OpenMausBot, whole turn: p50 8.0 s, p95 33 s</title>
-<path d="M24,390h70.29884000000001a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-70.29884000000001z" fill="#d95926"/>
-<line x1="98.29884000000001" y1="399" x2="325.76916" y2="399" stroke="#d95926" stroke-width="2" stroke-linecap="round"/>
-<circle cx="325.76916" cy="399" r="4" fill="#d95926" stroke="#1a1a19" stroke-width="2"/>
-<text x="337.76916" y="403.5" font-size="13" fill="#f0efec">OpenMausBot  p50 8.0 s · p95 33 s</text></g>
+<g><title>Melete, whole turn: p50 13 s, p95 57 s</title>
+<path d="M24,368h94.1057a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-94.1057z" fill="#3987e5"/>
+<line x1="122.1057" y1="377" x2="462.2378" y2="377" stroke="#3987e5" stroke-width="2" stroke-linecap="round"/>
+<circle cx="462.2378" cy="377" r="4" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+<text x="474.2378" y="381.5" font-size="13" fill="#f0efec">Melete  p50 13 s · p95 57 s</text></g>
+<g><title>OpenMausBot, whole turn: p50 8.0 s, p95 27 s</title>
+<path d="M24,390h57.9157a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-57.9157z" fill="#d95926"/>
+<line x1="85.9157" y1="399" x2="231.7922" y2="399" stroke="#d95926" stroke-width="2" stroke-linecap="round"/>
+<circle cx="231.7922" cy="399" r="4" fill="#d95926" stroke="#1a1a19" stroke-width="2"/>
+<text x="243.7922" y="403.5" font-size="13" fill="#f0efec">OpenMausBot  p50 8.0 s · p95 27 s</text></g>
 <text x="24" y="472" font-size="16" font-weight="600" fill="#f0efec">Model spend per attempt (US$, lower is better)</text>
-<text x="24" y="493" font-size="13" fill="#c3c2b7">List prices, every model a bot called. Read from: Melete, its own meter; OpenMausBot, the proxy.</text>
+<text x="24" y="493" font-size="13" fill="#c3c2b7">List prices, every model a bot called. Read from: Melete, the proxy; OpenMausBot, the proxy.</text>
 <line x1="24" y1="510" x2="24" y2="650" stroke="#383835" stroke-width="1"/><text x="24" y="666" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">$0.00</text>
 <line x1="116.39999999999999" y1="510" x2="116.39999999999999" y2="650" stroke="#2c2c2a" stroke-width="1"/><text x="116.39999999999999" y="666" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">$0.02</text>
 <line x1="208.79999999999998" y1="510" x2="208.79999999999998" y2="650" stroke="#2c2c2a" stroke-width="1"/><text x="208.79999999999998" y="666" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">$0.04</text>
@@ -57,18 +58,18 @@
 <line x1="393.59999999999997" y1="510" x2="393.59999999999997" y2="650" stroke="#2c2c2a" stroke-width="1"/><text x="393.59999999999997" y="666" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">$0.08</text>
 <line x1="486" y1="510" x2="486" y2="650" stroke="#2c2c2a" stroke-width="1"/><text x="486" y="666" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">$0.10</text>
 <text x="24" y="522" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Full set</text>
-<g><title>Melete, full set: $0.063 per attempt</title>
-<path d="M24,530h286.59799999999996a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-286.59799999999996z" fill="#3987e5"/>
-<text x="322.59799999999996" y="543.5" font-size="13" fill="#f0efec">Melete  $0.063</text></g>
-<g><title>OpenMausBot, full set: $0.059 per attempt</title>
-<path d="M24,552h268.58a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-268.58z" fill="#d95926"/>
-<text x="304.58" y="565.5" font-size="13" fill="#f0efec">OpenMausBot  $0.059</text></g>
+<g><title>Melete, full set: $0.069 per attempt</title>
+<path d="M24,530h313.39399999999995a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-313.39399999999995z" fill="#3987e5"/>
+<text x="349.39399999999995" y="543.5" font-size="13" fill="#f0efec">Melete  $0.069</text></g>
+<g><title>OpenMausBot, full set: $0.071 per attempt</title>
+<path d="M24,552h324.48199999999997a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-324.48199999999997z" fill="#d95926"/>
+<text x="360.48199999999997" y="565.5" font-size="13" fill="#f0efec">OpenMausBot  $0.071</text></g>
 <text x="24" y="598" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Reliability subset</text>
-<g><title>Melete, reliability subset: $0.081 per attempt</title>
-<path d="M24,606h371.606a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-371.606z" fill="#3987e5"/>
-<text x="407.606" y="619.5" font-size="13" fill="#f0efec">Melete  $0.081</text></g>
-<g><title>OpenMausBot, reliability subset: $0.087 per attempt</title>
-<path d="M24,628h398.40199999999993a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-398.40199999999993z" fill="#d95926"/>
-<text x="434.40199999999993" y="641.5" font-size="13" fill="#f0efec">OpenMausBot  $0.087</text></g>
+<g><title>Melete, reliability subset: $0.094 per attempt</title>
+<path d="M24,606h428.894a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-428.894z" fill="#3987e5"/>
+<text x="464.894" y="619.5" font-size="13" fill="#f0efec">Melete  $0.094</text></g>
+<g><title>OpenMausBot, reliability subset: $0.094 per attempt</title>
+<path d="M24,628h430.74199999999996a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-430.74199999999996z" fill="#d95926"/>
+<text x="466.74199999999996" y="641.5" font-size="13" fill="#f0efec">OpenMausBot  $0.094</text></g>
 <text x="24" y="690" font-size="11" fill="#a3a199">κ-bench Core · task set 1.0.0 · claude-sonnet-5-5 for every bot · 2026-10-18 · data: leaderboard/leaderboard.json</text>
 </svg>

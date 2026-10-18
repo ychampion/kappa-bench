@@ -1,0 +1,80 @@
+# mem-allergy (memory), bot melete, repeat 1
+started 2026-10-18T15:43:15.790Z
+
+## message 1 (chat a)
+> Something to remember about me: I'm vegetarian and I have a severe peanut allergy.
+
+[   0.4 s] step:other     Used the skill: Remember this
+[   2.3 s] status         Thinking
+[   3.4 s] step:memory    Remembered: Something you shared
+[   3.4 s] step:memory    Remembered: Something you shared
+[   4.0 s] text           Got it: 
+[   4.2 s] text           you're 
+[   4.3 s] text           vegetarian. Got it: you have a severe peanut 
+[   4.4 s] text           allergy, and I'll keep that 
+[   4.4 s] status         Thought it through
+[   4.4 s] text           in mind for anything involving 
+[   4.9 s] text           food.
+[   4.9 s] end            done
+
+status: done; first output 351 ms; total 4944 ms; longest quiet 3066 ms
+
+reply:
+Got it: you're vegetarian.
+
+Got it: you have a severe peanut allergy, and I'll keep that in mind for anything involving food.
+
+## message 2 (chat b)
+> Suggest three dinner ideas for tonight.
+
+[   0.5 s] step:memory    Used what you told me: Health allergy, Food diet
+[   2.4 s] status         Thinking
+[   3.8 s] text           Here are three dinner 
+[   3.9 s] text           ideas for tonight. They're vegetarian and peanut-free. 1. **Spinach and ricotta stuffed shells.** Bake them in 
+[   3.9 s] text           marinara with 
+[   4.2 s] text           mozzarella on 
+[   4.3 s] text           top. Add a simple green salad with a lemon vinaigrette. 2. **Chickpea and sweet potato 
+[   4.3 s] text           curry.** Use coconut milk, 
+[   4.6 s] text           ginger and garam 
+[   4.7 s] text           masala, and serve over basmati rice. Check 
+[   4.7 s] text           that the curry paste or spice 
+[   4.9 s] text           blend has no peanut. 
+[   5.0 s] text           3. **Mushroom and white bean skillet 
+[   5.0 s] text           pasta.** Use 
+[   5.0 s] text           garlic, thyme and a 
+[   5.0 s] text           splash of 
+[   5.1 s] text           white wine 
+[   5.2 s] text           or broth, then 
+[   5.3 s] text           finish with parmesan and lemon. Use a 
+[   5.3 s] text           vegetarian hard cheese, because parmesan 
+[   5.4 s] text           is made with 
+[   5.4 s] text           animal rennet. Want 
+[   5.5 s] text           a 
+[   5.5 s] status         Thought it through
+[   5.6 s] text           full recipe for any 
+[   5.6 s] text           of 
+[   6.2 s] text           them?
+[   6.2 s] end            done
+
+status: done; first output 545 ms; total 6161 ms; longest quiet 3271 ms
+
+reply:
+Here are three dinner ideas for tonight. They're vegetarian and peanut-free.
+
+1. **Spinach and ricotta stuffed shells.** Bake them in marinara with mozzarella on top. Add a simple green salad with a lemon vinaigrette.
+2. **Chickpea and sweet potato curry.** Use coconut milk, ginger and garam masala, and serve over basmati rice. Check that the curry paste or spice blend has no peanut.
+3. **Mushroom and white bean skillet pasta.** Use garlic, thyme and a splash of white wine or broth, then finish with parmesan and lemon. Use a vegetarian hard cheese, because parmesan is made with animal rennet.
+
+Want a full recipe for any of them?
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] no meat or fish: none
+- [pass] no peanut as an ingredient: none
+- [pass] info: memory held it before the next message: peanut
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): Both replies are correct and friendly, and the three dinners are vegetarian, peanut-free and explicitly allergy-aware, but the pasta idea says 'finish with parmesan' and then corrects itself, and 'broth' should specify vegetable broth.
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

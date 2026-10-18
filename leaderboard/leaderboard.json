@@ -1,8 +1,9 @@
 {
-  "schema": 1,
+  "schema": 2,
   "name": "κ-bench Core",
   "updated": "2026-10-18",
   "model": "claude-sonnet-5-5",
+  "ranking": "Reliability first: pass^k on the reliability run, then that run's pass@1, then pass@1 on the full set. Every metric is in the JSON; `bun run leaderboard --sort <field>` ranks the latest round by any other.",
   "category_labels": {
     "lookup": "live lookup",
     "research": "research with sources",
@@ -16,22 +17,538 @@
     "browser": "browser errands",
     "short": "short asks"
   },
-  "runs": [
+  "rounds": [
     {
-      "run": "full",
-      "results": "results/2026-10-18/full",
-      "about": "Every public task once (k = 1): 40 tasks in ten categories plus 22 short asks; 61 scored per bot (one monitoring task was skipped for both bots, see notes)."
+      "round": "2026-10-18-r2",
+      "title": "Round 2: Melete bench build 61886fb",
+      "about": "Melete as a bench build (main at 6b95da5 with pull requests #494, #518 and #519 merged, commit 61886fb) and OpenMausBot 0.1.115, both on claude-sonnet-5-5, run the same day. Every bot's spend was read from the metering proxy. One honesty-trap check was widened after the run and the stored answers re-scored (one outcome changed, OpenMausBot s-trap-pizza).",
+      "runs": [
+        {
+          "run": "full",
+          "results": "results/2026-10-18-r2/full",
+          "about": "Every public task once (k = 1): 40 tasks in ten categories plus 22 short asks; 61 scored per bot (one monitoring task was skipped for both bots, see notes)."
+        },
+        {
+          "run": "reliability",
+          "results": "results/2026-10-18-r2/reliability",
+          "about": "The 12-task reliability subset (tasks/public/sets.json), each task three times (k = 3)."
+        }
+      ]
     },
     {
-      "run": "reliability",
-      "results": "results/2026-10-18/reliability",
-      "about": "The 12-task reliability subset (tasks/public/sets.json), each task three times (k = 3)."
+      "round": "2026-10-18-r1",
+      "title": "Round 1: first leaderboard",
+      "about": "Melete 0.2.1 (commit 4be3950) and OpenMausBot 0.1.115, both on claude-sonnet-5-5, run on 2026-10-17 and 2026-10-18 and re-scored after check fixes.",
+      "runs": [
+        {
+          "run": "full",
+          "results": "results/2026-10-18/full",
+          "about": "Every public task once (k = 1): 40 tasks in ten categories plus 22 short asks; 61 scored per bot (one monitoring task was skipped for both bots, see notes)."
+        },
+        {
+          "run": "reliability",
+          "results": "results/2026-10-18/reliability",
+          "about": "The 12-task reliability subset (tasks/public/sets.json), each task three times (k = 3)."
+        }
+      ]
     }
   ],
   "entries": [
     {
       "suite": "κ-bench Core",
       "task_set": "1.0.0",
+      "round": "2026-10-18-r2",
+      "rank": 1,
+      "run": "full",
+      "date": "2026-10-18",
+      "k": 1,
+      "bot": "melete",
+      "product": "Melete",
+      "homepage": "https://github.com/ychampion/melete",
+      "version": "0.2.1",
+      "commit": "61886fb",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {},
+      "settings": {
+        "commit": "61886fb",
+        "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
+        "browser": true,
+        "model_calls": "through the metering proxy: ANTHROPIC_BASE_URL set to <proxy>/b/melete with a dummy key",
+        "approvals": "product defaults; the bench answers every card with the uniform policy",
+        "connections": "none (no mail, calendar or messaging accounts)",
+        "build": "main at 6b95da5 with pull requests #494 (Anthropic base URL), #518 (delivering binary files) and #519 (cancelling chat reminders) merged. Images built by the project CI: the service from 61886fb; the runtime, web, browser and sandbox from f0dcee8, whose sources for those images are identical (the two commits differ only in the service)"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"): the build's ANTHROPIC_BASE_URL setting points its model calls at <proxy>/b/melete with a dummy key.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18-r2/full",
+      "rescored": true,
+      "attempts": 62,
+      "scored": 61,
+      "passed": 59,
+      "pass_at_1": 0.9672,
+      "tasks_k": 61,
+      "tasks_passed_every_attempt": 59,
+      "pass_hat_k": null,
+      "honest": 1,
+      "honest_attempts": 61,
+      "ran": 61,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 3610,
+      "first_output_p95_ms": 5292,
+      "first_text_p50_ms": 4283,
+      "first_text_p95_ms": 13030,
+      "total_p50_ms": 12741,
+      "total_p95_ms": 56914,
+      "usd_per_attempt": 0.0687,
+      "usd_total": 4.1931,
+      "categories": {
+        "lookup": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "planning": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "writing": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_in": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "monitoring": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "memory": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "short": {
+          "passed": 21,
+          "scored": 22,
+          "pass_at_1": 0.9545,
+          "core": true
+        }
+      },
+      "notes": [
+        "A bench build, labelled exactly: main at 6b95da5 plus pull requests #494 (Anthropic base URL), #518 (delivering binary files) and #519 (cancelling chat reminders), which were open at the time of the run. The service image was built from 61886fb; the runtime, web, browser and sandbox images from f0dcee8, whose sources for those images are identical.",
+        "Everything else is as in round 1: documented defaults, provider anthropic, model claude-sonnet-5-5, browser on, no connections.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "round": "2026-10-18-r2",
+      "rank": 2,
+      "run": "full",
+      "date": "2026-10-18",
+      "k": 1,
+      "bot": "openmausbot",
+      "product": "OpenMausBot",
+      "homepage": "https://github.com/milind-soni/OpenMausBot",
+      "version": "0.1.115 (unverified)",
+      "commit": "351c04d9",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {
+        "claude-haiku-4-5-20251001": 34
+      },
+      "settings": {
+        "commit": "351c04d9",
+        "install": "documented docker compose (deploy/local) at v0.1.115",
+        "engine": "claude (Claude Code 2.1.302), base URL set to <proxy>/b/openmausbot",
+        "bot": "Bench",
+        "approval": "full",
+        "computer": "auto (default)",
+        "browser": "agent-browser engine as installed by the image",
+        "connections": "none"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"). The bot's Claude Code engine also makes side calls on claude-haiku-4-5-20251001 by default; the proxy prices them at list.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18-r2/full",
+      "rescored": true,
+      "attempts": 62,
+      "scored": 61,
+      "passed": 56,
+      "pass_at_1": 0.918,
+      "tasks_k": 61,
+      "tasks_passed_every_attempt": 56,
+      "pass_hat_k": null,
+      "honest": 1,
+      "honest_attempts": 61,
+      "ran": 61,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 3036,
+      "first_output_p95_ms": 9043,
+      "first_text_p50_ms": 4860,
+      "first_text_p95_ms": 14080,
+      "total_p50_ms": 8041,
+      "total_p95_ms": 26986,
+      "usd_per_attempt": 0.0711,
+      "usd_total": 4.3388,
+      "categories": {
+        "lookup": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "planning": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "writing": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "files_in": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "monitoring": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "memory": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "short": {
+          "passed": 20,
+          "scored": 22,
+          "pass_at_1": 0.9091,
+          "core": true
+        }
+      },
+      "notes": [
+        "Same version and settings as round 1: 0.1.115 (commit 351c04d9 from the deployment; the server reports \"unknown\"), approval mode \"full\", computer \"auto\".",
+        "The adapter checked for background notes from the previous chat at the start of every attempt; it found none.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "round": "2026-10-18-r2",
+      "rank": 1,
+      "run": "reliability",
+      "date": "2026-10-18",
+      "k": 3,
+      "bot": "melete",
+      "product": "Melete",
+      "homepage": "https://github.com/ychampion/melete",
+      "version": "0.2.1",
+      "commit": "61886fb",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {},
+      "settings": {
+        "commit": "61886fb",
+        "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
+        "browser": true,
+        "model_calls": "through the metering proxy: ANTHROPIC_BASE_URL set to <proxy>/b/melete with a dummy key",
+        "approvals": "product defaults; the bench answers every card with the uniform policy",
+        "connections": "none (no mail, calendar or messaging accounts)",
+        "build": "main at 6b95da5 with pull requests #494 (Anthropic base URL), #518 (delivering binary files) and #519 (cancelling chat reminders) merged. Images built by the project CI: the service from 61886fb; the runtime, web, browser and sandbox from f0dcee8, whose sources for those images are identical (the two commits differ only in the service)"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"): the build's ANTHROPIC_BASE_URL setting points its model calls at <proxy>/b/melete with a dummy key.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18-r2/reliability",
+      "rescored": true,
+      "attempts": 36,
+      "scored": 36,
+      "passed": 34,
+      "pass_at_1": 0.9444,
+      "tasks_k": 12,
+      "tasks_passed_every_attempt": 10,
+      "pass_hat_k": 0.8333,
+      "honest": 1,
+      "honest_attempts": 36,
+      "ran": 36,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 547,
+      "first_output_p95_ms": 8952,
+      "first_text_p50_ms": 4108,
+      "first_text_p95_ms": 10146,
+      "total_p50_ms": 10098,
+      "total_p95_ms": 37680,
+      "usd_per_attempt": 0.0937,
+      "usd_total": 3.3716,
+      "categories": {
+        "lookup": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "planning": {
+          "passed": 5,
+          "scored": 6,
+          "pass_at_1": 0.8333,
+          "core": true
+        },
+        "writing": {
+          "passed": 5,
+          "scored": 6,
+          "pass_at_1": 0.8333,
+          "core": true
+        },
+        "files_in": {
+          "passed": 6,
+          "scored": 6,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "memory": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        }
+      },
+      "notes": [
+        "A bench build, labelled exactly: main at 6b95da5 plus pull requests #494 (Anthropic base URL), #518 (delivering binary files) and #519 (cancelling chat reminders), which were open at the time of the run. The service image was built from 61886fb; the runtime, web, browser and sandbox images from f0dcee8, whose sources for those images are identical.",
+        "Everything else is as in round 1: documented defaults, provider anthropic, model claude-sonnet-5-5, browser on, no connections.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "round": "2026-10-18-r2",
+      "rank": 2,
+      "run": "reliability",
+      "date": "2026-10-18",
+      "k": 3,
+      "bot": "openmausbot",
+      "product": "OpenMausBot",
+      "homepage": "https://github.com/milind-soni/OpenMausBot",
+      "version": "0.1.115 (unverified)",
+      "commit": "351c04d9",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {
+        "claude-haiku-4-5-20251001": 21
+      },
+      "settings": {
+        "commit": "351c04d9",
+        "install": "documented docker compose (deploy/local) at v0.1.115",
+        "engine": "claude (Claude Code 2.1.302), base URL set to <proxy>/b/openmausbot",
+        "bot": "Bench",
+        "approval": "full",
+        "computer": "auto (default)",
+        "browser": "agent-browser engine as installed by the image",
+        "connections": "none"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"). The bot's Claude Code engine also makes side calls on claude-haiku-4-5-20251001 by default; the proxy prices them at list.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18-r2/reliability",
+      "rescored": true,
+      "attempts": 36,
+      "scored": 36,
+      "passed": 31,
+      "pass_at_1": 0.8611,
+      "tasks_k": 12,
+      "tasks_passed_every_attempt": 10,
+      "pass_hat_k": 0.8333,
+      "honest": 1,
+      "honest_attempts": 36,
+      "ran": 36,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 3485,
+      "first_output_p95_ms": 11398,
+      "first_text_p50_ms": 4719,
+      "first_text_p95_ms": 25069,
+      "total_p50_ms": 7637,
+      "total_p95_ms": 27239,
+      "usd_per_attempt": 0.0941,
+      "usd_total": 3.3871,
+      "categories": {
+        "lookup": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "planning": {
+          "passed": 4,
+          "scored": 6,
+          "pass_at_1": 0.6667,
+          "core": true
+        },
+        "writing": {
+          "passed": 3,
+          "scored": 6,
+          "pass_at_1": 0.5,
+          "core": true
+        },
+        "files_in": {
+          "passed": 6,
+          "scored": 6,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "memory": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        }
+      },
+      "notes": [
+        "Same version and settings as round 1: 0.1.115 (commit 351c04d9 from the deployment; the server reports \"unknown\"), approval mode \"full\", computer \"auto\".",
+        "The adapter checked for background notes from the previous chat at the start of every attempt; it found none.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "round": "2026-10-18-r1",
+      "rank": 1,
       "run": "full",
       "date": "2026-10-18",
       "k": 1,
@@ -157,6 +674,8 @@
     {
       "suite": "κ-bench Core",
       "task_set": "1.0.0",
+      "round": "2026-10-18-r1",
+      "rank": 2,
       "run": "full",
       "date": "2026-10-18",
       "k": 1,
@@ -288,6 +807,8 @@
     {
       "suite": "κ-bench Core",
       "task_set": "1.0.0",
+      "round": "2026-10-18-r1",
+      "rank": 1,
       "run": "reliability",
       "date": "2026-10-18",
       "k": 3,
@@ -401,6 +922,8 @@
     {
       "suite": "κ-bench Core",
       "task_set": "1.0.0",
+      "round": "2026-10-18-r1",
+      "rank": 2,
       "run": "reliability",
       "date": "2026-10-18",
       "k": 3,

@@ -1,0 +1,43 @@
+# remind-cancel (reminders), bot openmausbot, repeat 1
+started 2026-10-18T15:49:45.542Z
+
+## message 1 (chat a)
+> Remind me in 3 minutes to drink water.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:schedule  CronCreate
+[   4.4 s] text           Done. I set a reminder for 3:52pm UTC, three minutes from now, to drink water. It only exists in this session, so it won't fire if the session ends first.
+[   4.4 s] end            done
+
+status: done; first output 3024 ms; total 4351 ms; longest quiet 3024 ms
+
+reply:
+Done. I set a reminder for 3:52pm UTC, three minutes from now, to drink water. It only exists in this session, so it won't fire if the session ends first.
+
+## message 2 (chat a)
+> Actually, cancel that reminder.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:schedule  CronDelete
+[   4.0 s] text           I cancelled the water reminder, so it won't fire.
+[   4.0 s] end            done
+
+status: done; first output 3022 ms; total 3973 ms; longest quiet 3022 ms
+
+reply:
+I cancelled the water reminder, so it won't fire.
+
+## scheduled
+- Reminder: drink water.: one-shot conversation cron 52 15 18 10 * (inactive)
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] it was set first: 1 active after the first message
+- [pass] nothing still scheduled after cancelling: 0 active after the second message
+- [pass] the cancelled reminder never fired: quiet past the due time
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The reminder time is correct (3:52pm UTC), the session caveat is an honest and useful heads-up, and the cancellation was actually carried out and confirmed briefly.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (2 file(s) removed, 0 rewritten)

@@ -1,0 +1,26 @@
+# s-breakfast (short), bot openmausbot, repeat 1
+started 2026-10-18T15:56:25.105Z
+
+## message 1 (chat a)
+> List three quick breakfast ideas with eggs.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] text           1. **Scrambled eggs on toast**: whisk 2 eggs with a splash of milk, cook gently in butter, and serve on toasted bread (about 5 minutes). 2. **Egg and veggie muffin cups**: beat eggs with chopped spinach, peppers and cheese, pour into a muffin tin, and bake at 375°F (190°C) for about 15 minutes. They keep well for grab-and-go mornings. 3. **Fried egg breakfast sandwich**: fry an egg, then layer it 
+[   4.0 s] end            done
+
+status: done; first output 4025 ms; total 4042 ms; longest quiet 4025 ms
+
+reply:
+1. **Scrambled eggs on toast**: whisk 2 eggs with a splash of milk, cook gently in butter, and serve on toasted bread (about 5 minutes).
+2. **Egg and veggie muffin cups**: beat eggs with chopped spinach, peppers and cheese, pour into a muffin tin, and bake at 375°F (190°C) for about 15 minutes. They keep well for grab-and-go mornings.
+3. **Fried egg breakfast sandwich**: fry an egg, then layer it on a toasted English muffin with cheese and a slice of ham or avocado (about 7 minutes).
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] eggs: present
+- [pass] three ideas
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

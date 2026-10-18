@@ -1,0 +1,73 @@
+# mem-correct (memory), bot melete, repeat 1
+started 2026-10-18T15:43:34.809Z
+
+## message 1 (chat a)
+> My sister Zofia's birthday is March 3.
+
+[   2.2 s] status         Thinking
+[   3.5 s] step:memory    Remembered: Something you shared
+[   4.4 s] status         Thought it through
+[   4.5 s] step:other     Used the skill: Remember this
+[   4.7 s] status         Thinking
+[   4.7 s] step:memory    Checking what I remember
+[   4.8 s] step:memory    Checked what I remember [done]
+[   5.9 s] text            Got it: your 
+[   5.9 s] status         Thought it through
+[   5.9 s] text           sister Zofia's birthday is March 
+[   6.5 s] text           3.
+[   6.5 s] end            done
+
+status: done; first output 3473 ms; total 6477 ms; longest quiet 3473 ms
+
+reply:
+Got it: your sister Zofia's birthday is March 3.
+
+## message 2 (chat a)
+> Sorry, I got that wrong: Zofia's birthday is March 13.
+
+[   0.5 s] step:memory    Used what you told me: Zofia's birthday
+[   2.3 s] step:memory    Updated: Something you shared
+[   8.2 s] status         Thinking
+[  10.3 s] status         Thought it through
+[  10.5 s] step:other     Used the skill: Remember this
+[  10.5 s] step:memory    Checking what I remember
+[  10.6 s] step:memory    Checked what I remember [done]
+[  10.7 s] status         Thinking
+[  11.8 s] text            Got it: 
+[  11.8 s] status         Thought it through
+[  11.8 s] text           Zofia's birthday is March 13, not March 
+[  12.4 s] text           3.
+[  12.4 s] end            done
+
+status: done; first output 460 ms; total 12351 ms; longest quiet 8120 ms
+
+reply:
+Got it: Zofia's birthday is March 13, not March 3.
+
+## message 3 (chat b)
+> When is my sister Zofia's birthday?
+
+[   0.5 s] step:memory    Used what you told me: Zofia's birthday
+[   2.5 s] status         Thinking
+[   3.8 s] text           Zofia's 
+[   3.9 s] status         Thought it through
+[   3.9 s] text           birthday is March 13, going by what you told me earlier 
+[   4.5 s] text           today.
+[   4.5 s] end            done
+
+status: done; first output 483 ms; total 4488 ms; longest quiet 3346 ms
+
+reply:
+Zofia's birthday is March 13, going by what you told me earlier today.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] says March 13: present
+- [pass] does not give March 3 as the date
+- [pass] info: memory held it before the next message: Zofia
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The assistant saved the birthday, cleanly applied the correction to March 13, and gave the right date in the new chat with a brief, honest note on where it came from.
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

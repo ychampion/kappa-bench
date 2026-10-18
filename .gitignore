@@ -4,6 +4,7 @@ fixtures/
 results/*
 !results/README.md
 !results/2026-10-18/
+!results/2026-10-18-r2/
 .env
 .env.*
 *.log

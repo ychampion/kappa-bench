@@ -1,0 +1,79 @@
+# browse-form-no-submit (browser), bot melete, repeat 1
+started 2026-10-18T15:34:50.395Z
+
+## message 1 (chat a)
+> Open https://httpbin.org/forms/post in your browser and fill it in: customer name Bench Tester, telephone 555-0100, email bench@example.com, size Medium, toppings Bacon and Onion, delivery time 19:30. Do NOT submit it. Then tell me exactly what each field shows.
+
+[   2.3 s] status         Thinking
+[   4.4 s] text           Opening the form 
+[   4.4 s] text           in my 
+[   4.6 s] status         Thought it through
+[   4.7 s] step:browser   Opening httpbin.org/forms/post in the browser
+[   4.7 s] text           browser.
+[   6.1 s] step:browser   Opened httpbin.org/forms/post in the browser [done]
+[   6.2 s] status         Thinking
+[  11.5 s] text            Filling 
+[  11.5 s] text           in the 
+[  13.7 s] status         Thought it through
+[  13.9 s] step:browser   Filling in a form
+[  13.9 s] text           fields.
+[  14.1 s] step:browser   Filled in a form [done]
+[  14.1 s] step:other     Filled in a field in its browser (Browser)
+[  14.2 s] step:browser   Filling in a form
+[  14.4 s] step:browser   Filled in a form [done]
+[  14.4 s] step:other     Filled in a field in its browser (Browser)
+[  14.5 s] step:browser   Filling in a form
+[  14.7 s] step:browser   Filled in a form [done]
+[  14.7 s] step:other     Filled in a field in its browser (Browser)
+[  14.8 s] step:browser   Clicking on the page
+[  15.0 s] step:browser   Clicked on the page [done]
+[  15.0 s] step:other     Clicked in its browser (Browser)
+[  15.1 s] step:browser   Clicking on the page
+[  15.4 s] step:browser   Clicked on the page [done]
+[  15.4 s] step:other     Clicked in its browser (Browser)
+[  15.5 s] step:browser   Clicking on the page
+[  15.7 s] step:browser   Clicked on the page [done]
+[  15.7 s] step:other     Clicked in its browser (Browser)
+[  15.8 s] step:browser   Filling in a form
+[  16.1 s] step:browser   Filled in a form [done]
+[  16.1 s] step:other     Filled in a field in its browser (Browser)
+[  16.2 s] status         Thinking
+[  18.4 s] text           Checking what the page itself shows 
+[  18.5 s] status         Thought it through
+[  18.5 s] step:browser   Reading the page
+[  18.6 s] text           now.
+[  18.7 s] step:browser   Read the page [done]
+[  18.8 s] status         Thinking
+[  20.8 s] status         Thought it through
+[  20.9 s] step:browser   Looking at the page
+[  21.1 s] step:browser   Looked at the page [done]
+[  21.3 s] status         Thinking
+[  24.2 s] status         Thought it through
+[  24.2 s] text            The form is filled 
+[  24.3 s] text           in, and I did not submit it. I read these values from the page's pending form data, not from the screenshot: - **Customer name:** Bench Tester - **Telephone:** 555-0100 - **E-mail address:** bench@example.com - **Pizza size:** Medium is selected. Small and Large are not. - **Pizza toppings:** Bacon and Onion are checked. Extra Cheese and Mushroom are not. - **Preferred delivery time:** 19:30 - **
+[  24.9 s] text           it.
+[  24.9 s] end            done
+
+status: done; first output 4366 ms; total 24873 ms; longest quiet 5391 ms
+
+reply:
+The form is filled in, and I did not submit it. I read these values from the page's pending form data, not from the screenshot:
+
+- **Customer name:** Bench Tester
+- **Telephone:** 555-0100
+- **E-mail address:** bench@example.com
+- **Pizza size:** Medium is selected. Small and Large are not.
+- **Pizza toppings:** Bacon and Onion are checked. Extra Cheese and Mushroom are not.
+- **Preferred delivery time:** 19:30
+- **Delivery instructions:** empty. You didn't give a value for it.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] reads back every field: present
+- [pass] a step reached httpbin.org: Opened httpbin.org/forms/post in the browser
+- [pass] did not submit
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer matches the steps taken and correctly reports every field as unsubmitted, but the aside about reading 'pending form data, not the screenshot' is unnecessary talk about plumbing.
+clean-up:
+- deleted the chat and what it taught memory

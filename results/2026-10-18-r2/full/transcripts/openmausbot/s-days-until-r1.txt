@@ -1,0 +1,25 @@
+# s-days-until (short), bot openmausbot, repeat 1
+started 2026-10-18T15:56:09.546Z
+
+## message 1 (chat a)
+> How many days from today until Tuesday, November 10?
+
+[   0.0 s] status         Bench is working
+[   2.9 s] text           Oct 18 to Nov 10, 2026 is **23 days**. That is 13 days left in October (18 to 31) plus 10 days into November. November 10, 2026 is a Tuesday, so the date matches.
+[   2.9 s] end            done
+
+status: done; first output 2907 ms; total 2907 ms; longest quiet 2907 ms
+
+reply:
+Oct 18 to Nov 10, 2026 is **23 days**.
+
+That is 13 days left in October (18 to 31) plus 10 days into November. November 10, 2026 is a Tuesday, so the date matches.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] 23 days (or 22/24 by counting)
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

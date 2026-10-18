@@ -1,6 +1,6 @@
 {
   "name": "kappa-bench",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "κ-bench: a benchmark for personal agents on everyday work. Same tasks, same model and rules for every bot, blind grading, pass^k, honesty, latency and cost.",
   "license": "Apache-2.0",
   "private": true,

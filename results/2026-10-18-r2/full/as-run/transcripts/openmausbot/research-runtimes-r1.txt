@@ -1,0 +1,49 @@
+# research-runtimes (research), bot openmausbot, repeat 1
+started 2026-10-18T15:54:08.794Z
+
+## message 1 (chat a)
+> Which versions are current right now for Node.js (the active LTS line), Python and Go? Give each with its release date and a source link.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           I'll check the official release pages for all three.
+[   3.0 s] step:web       WebFetch
+[   4.0 s] step:web       WebFetch
+[   5.0 s] step:web       WebFetch
+[   5.0 s] step:web       WebFetch
+[   7.0 s] step:web       WebFetch [done]
+[   8.0 s] step:web       WebFetch [done]
+[  11.0 s] step:web       WebFetch [done]
+[  12.1 s] step:web       WebFetch [done]
+[  16.5 s] text            As of 2026-10-18: | Runtime | Current version | Release date | Source | |---|---|---|---| | **Node.js** (active LTS, v24 "Krypton") | **v24.22.0** | 2026-10-14 | [nodejs.org/dist/index.json](https://nodejs.org/dist/index.json) | | **Python** | **3.15.0** | 2026-10-09 | [python.org/downloads](https://www.python.org/downloads/) | | **Go** | **go1.27.2** | 2026-10-08 | [go.dev/doc/devel/release](h
+[  16.5 s] end            done
+
+status: done; first output 3017 ms; total 16456 ms; longest quiet 4406 ms
+
+reply:
+As of 2026-10-18:
+
+| Runtime | Current version | Release date | Source |
+|---|---|---|---|
+| **Node.js** (active LTS, v24 "Krypton") | **v24.22.0** | 2026-10-14 | [nodejs.org/dist/index.json](https://nodejs.org/dist/index.json) |
+| **Python** | **3.15.0** | 2026-10-09 | [python.org/downloads](https://www.python.org/downloads/) |
+| **Go** | **go1.27.2** | 2026-10-08 | [go.dev/doc/devel/release](https://go.dev/doc/devel/release) |
+
+- **Node.js:** v26.12.0 (2026-10-14) is the newest release overall, but it is a Current line and not yet LTS. The older v22 "Jod" line is also LTS, at v22.23.3 (2026-09-23).
+- **Python:** 3.15.0 is a brand-new feature release. The latest 3.14 bugfix release is 3.14.8 (2026-09-30), which may suit you better if you want something more settled.
+- **Go:** go1.26.9 (also 2026-10-08) is the other supported line. Both go1.27.2 and go1.26.9 include security fixes.
+
+I read the Node release dates from the machine-readable index. The Python page doesn't link release notes in the extract I read, so the date comes from the downloads page itself.
+
+## result
+outcome: pass
+reason: 6 checks passed
+- [pass] Node.js LTS version: live 26.12.0
+- [pass] Python version: live 3.15.0
+- [pass] Go version: live 1.27.2
+- [pass] at least 2 source link(s): 3 links, 3 domains
+- [pass] every link resolves: 3 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): Correct, complete and well-sourced, with useful context on the other supported lines, but the closing note about the machine-readable index and the page extract is plumbing talk the person didn't need.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

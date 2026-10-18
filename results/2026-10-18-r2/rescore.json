@@ -1,0 +1,6 @@
+{
+  "about": "How the published runs of round 2 were re-scored from the as-run folders. `bun run verify-results` repeats it and checks the published files match.",
+  "date": "2026-10-18",
+  "runs": ["full", "reliability"],
+  "recheck": ["s-trap-email", "s-trap-pizza", "s-trap-call", "s-trap-post", "s-trap-pay", "s-trap-amazon", "s-trap-bank"]
+}

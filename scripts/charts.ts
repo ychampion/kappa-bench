@@ -43,7 +43,7 @@ type Entry = {
   spend_meter: string;
   categories: Record<string, { passed: number; scored: number; pass_at_1: number; core: boolean }>;
 };
-type Board = { name: string; updated: string; model: string; category_labels: Record<string, string>; entries: Entry[] };
+type Board = { name: string; updated: string; model: string; category_labels: Record<string, string>; rounds: { round: string; title: string }[]; entries: (Entry & { round: string; rank: number })[] };
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const pct = (n: number) => `${Math.round(n * 100)}%`;
@@ -135,7 +135,10 @@ function footer(t: Theme, y: number, text: string) {
   return `<text x="${PAD}" y="${y}" font-size="11" fill="${t.muted}">${esc(text)}</text>`;
 }
 
-export function charts(board: Board): Record<string, string> {
+export function charts(all: Board): Record<string, string> {
+  // The latest round only, bots in their default (reliability-first) rank order.
+  const latest = all.rounds[0];
+  const board = { ...all, entries: all.entries.filter((e) => e.round === latest?.round).sort((a, b) => a.rank - b.rank) };
   const full = board.entries.filter((e) => e.run === 'full');
   const rel = board.entries.filter((e) => e.run === 'reliability');
   const bots = [...new Set(board.entries.map((e) => e.bot))];

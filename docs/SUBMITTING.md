@@ -19,6 +19,8 @@ Rules that keep entries comparable:
 - Point the bot's model calls at the metering proxy (`<proxy>/b/<id>`). If the product cannot, its adapter
   must read the bot's own usage meter, and the entry says so.
 - Never answer an approval card or a question in the adapter; the bench's policy does.
+- Do not tune the product to κ-bench or detect it. [INTEGRITY.md](INTEGRITY.md) has the rules; entries that break
+  them are marked or removed.
 
 ## 2. Run it locally
 

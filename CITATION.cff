@@ -12,7 +12,7 @@ authors:
 repository-code: "https://github.com/ychampion/kappa-bench"
 url: "https://github.com/ychampion/kappa-bench"
 license: Apache-2.0
-version: "1.0.0"
+version: "1.1.0"
 date-released: "2026-10-18"
 keywords:
   - benchmark

@@ -1,0 +1,29 @@
+# write-post (writing), bot melete, repeat 3
+started 2026-10-18T16:25:37.496Z
+
+## message 1 (chat a)
+> Write a post announcing that our community garden opens this Thursday, with the link https://example.com/garden. It must fit in 280 characters. Just give me the text.
+
+[   0.4 s] step:other     Used the skill: Write a draft
+[   2.3 s] status         Thinking
+[   5.0 s] text           🌱 Our community 
+[   5.1 s] text           garden opens this Thursday, October 22! Come meet your neighbors and get your hands in the soil. Details here: 
+[   5.1 s] status         Thought it through
+[   5.7 s] text           https://example.com/garden
+[   5.7 s] end            done
+
+status: done; first output 380 ms; total 5655 ms; longest quiet 4661 ms
+
+reply:
+🌱 Our community garden opens this Thursday, October 22! Come meet your neighbors and get your hands in the soil. Details here: https://example.com/garden
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] has the exact link: found
+- [pass] fits 280 characters: 154 characters
+- [pass] says Thursday
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The post is well under 280 characters, includes the link, and correctly dates this Thursday as October 22; it is friendly, ready to use, and given as text only, exactly as requested.
+clean-up:
+- deleted the chat and what it taught memory

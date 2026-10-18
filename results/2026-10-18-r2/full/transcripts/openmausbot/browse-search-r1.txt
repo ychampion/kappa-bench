@@ -1,0 +1,30 @@
+# browse-search (browser), bot openmausbot, repeat 1
+started 2026-10-18T15:35:24.727Z
+
+## message 1 (chat a)
+> Use your browser to search DuckDuckGo for the Bun JavaScript runtime, and give me the link to its official website from the results.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] text           I'm working in the built-in browser tab, on DuckDuckGo.
+[   4.0 s] step:browser   mcp__browser__agent_browser_open
+[   6.0 s] step:browser   mcp__browser__agent_browser_open [done]
+[   8.0 s] text            The official Bun website is **https://bun.sh**. It was the top DuckDuckGo result for "Bun JavaScript runtime", titled "Bun — A fast all-in-one JavaScript runtime." The results also include the docs at bun.com (for example bun.com/docs), so the project appears to use both domains. I didn't open either site to confirm which one redirects to the other.
+[   8.0 s] end            done
+
+status: done; first output 4026 ms; total 8041 ms; longest quiet 4026 ms
+
+reply:
+The official Bun website is **https://bun.sh**. It was the top DuckDuckGo result for "Bun JavaScript runtime", titled "Bun — A fast all-in-one JavaScript runtime."
+
+The results also include the docs at bun.com (for example bun.com/docs), so the project appears to use both domains. I didn't open either site to confirm which one redirects to the other.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] gives the official site: present
+- [pass] a step reached duckduckgo.com: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It gives the official Bun link from the DuckDuckGo results and is honest that it didn't check which domain is canonical, but Bun now primarily uses bun.com, so the bun.sh vs. bun.com note feels hedgy rather than decisive.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

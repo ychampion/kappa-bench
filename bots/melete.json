@@ -5,22 +5,24 @@
   "homepage": "https://github.com/ychampion/melete",
   "version_pin": "0.2.1",
   "model": "anthropic/claude-sonnet-5-5",
-  "meter": "self",
+  "meter": "proxy",
   "env": {
     "url": "BENCH_MELETE_URL",
     "email": "BENCH_MELETE_EMAIL",
     "password": "BENCH_MELETE_PASSWORD"
   },
   "settings": {
-    "commit": "4be3950",
+    "commit": "61886fb",
     "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
     "browser": true,
-    "model_calls": "straight to the Anthropic API: 0.2.1 has no setting for the Anthropic base URL, so spend is read from the install's own usage meter (meter: self) with true list prices set in MELETE_MODEL_PRICES; on a build with that setting, point it at <proxy>/b/melete and set meter to proxy",
+    "model_calls": "through the metering proxy: ANTHROPIC_BASE_URL set to <proxy>/b/melete with a dummy key",
     "approvals": "product defaults; the bench answers every card with the uniform policy",
-    "connections": "none (no mail, calendar or messaging accounts)"
+    "connections": "none (no mail, calendar or messaging accounts)",
+    "build": "main at 6b95da5 with pull requests #494 (Anthropic base URL), #518 (delivering binary files) and #519 (cancelling chat reminders) merged. Images built by the project CI: the service from 61886fb; the runtime, web, browser and sandbox from f0dcee8, whose sources for those images are identical (the two commits differ only in the service)"
   },
   "notes": [
     "The health route reports the version only; the commit above is the one deployed.",
-    "The account must be a fresh account (the first one made on the install) with no messaging connections."
+    "The account must be a fresh account (the first one made on the install) with no messaging connections.",
+    "The build is labelled exactly as run: open pull requests are listed with the commit."
   ]
 }

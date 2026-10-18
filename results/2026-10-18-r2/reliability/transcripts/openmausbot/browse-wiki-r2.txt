@@ -1,0 +1,34 @@
+# browse-wiki (browser), bot openmausbot, repeat 2
+started 2026-10-18T16:22:21.117Z
+
+## message 1 (chat a)
+> Use your browser: go to wikipedia.org, search for Ada Lovelace, open her article and tell me her date of birth as the article gives it.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           I'm working in the built-in browser tab, starting at wikipedia.org.
+[   3.0 s] step:browser   mcp__browser__agent_browser_open
+[   7.0 s] step:browser   mcp__browser__agent_browser_open [done]
+[   8.0 s] step:browser   mcp__browser__agent_browser_fill
+[   8.0 s] step:browser   mcp__browser__agent_browser_press
+[   9.0 s] step:browser   mcp__browser__agent_browser_press [done]
+[  11.1 s] step:browser   mcp__browser__agent_browser_eval
+[  12.7 s] text            Ada Lovelace's article on English Wikipedia gives her date of birth as **10 December 1815**. The infobox lists her as "Augusta Ada Byron", born in London, England. I searched from wikipedia.org and landed on https://en.wikipedia.org/wiki/Ada_Lovelace. I read the date from the infobox.
+[  12.7 s] end            done
+
+status: done; first output 3020 ms; total 12747 ms; longest quiet 4018 ms
+
+reply:
+Ada Lovelace's article on English Wikipedia gives her date of birth as **10 December 1815**. The infobox lists her as "Augusta Ada Byron", born in London, England.
+
+I searched from wikipedia.org and landed on https://en.wikipedia.org/wiki/Ada_Lovelace. I read the date from the infobox.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] birth date 10 December 1815: present
+- [pass] a step reached wikipedia.org: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The answer correctly gives 10 December 1815 as the infobox shows it and links the article, with a brief, appropriate note on how it got there and no padding.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

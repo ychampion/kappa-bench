@@ -1,0 +1,39 @@
+# mem-locker (memory), bot openmausbot, repeat 1
+started 2026-10-18T16:16:09.496Z
+
+## message 1 (chat a)
+> Please remember this: my gym locker code is 6065-8D.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:memory    mcp__agents__memory_update
+[   4.0 s] text           Got it. I've saved your gym locker code (6065-8D) to memory.
+[   4.0 s] end            done
+
+status: done; first output 3030 ms; total 4050 ms; longest quiet 3030 ms
+
+reply:
+Got it. I've saved your gym locker code (6065-8D) to memory.
+
+## message 2 (chat b)
+> What's my gym locker code?
+
+[   0.0 s] status         Bench is working
+[   2.4 s] text           Your gym locker code is **6065-8D**.
+[   2.4 s] end            done
+
+status: done; first output 2398 ms; total 2398 ms; longest quiet 2398 ms
+
+reply:
+Your gym locker code is **6065-8D**.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 6065-8D
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The code was saved to memory and then recalled exactly in a separate chat, and both replies are short, correct, and skip any extra detail.
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 1 rewritten)

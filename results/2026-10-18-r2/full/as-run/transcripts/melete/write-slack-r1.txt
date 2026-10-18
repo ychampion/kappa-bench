@@ -1,0 +1,60 @@
+# write-slack (writing), bot melete, repeat 1
+started 2026-10-18T16:10:48.287Z
+
+## message 1 (chat a)
+> Rewrite this team chat message so it sounds friendly and is a lot shorter, keeping the facts:
+
+Per the decision made in yesterday’s leadership sync, all members of the design team are hereby required to attend the mandatory quarterly review session, which will be held on Thursday at 3 PM in Room 4B. Attendance will be recorded. Please ensure that you have reviewed the pre-read materials in advance of the session.
+
+[   0.3 s] step:other     Used the skill: Write a draft
+[   2.2 s] status         Thinking
+[   4.4 s] text           Here's 
+[   4.5 s] text           a 
+[   4.5 s] text           friendlier, shorter version: > 
+[   4.5 s] text           Hi 
+[   4.5 s] text           design team! 
+[   4.5 s] text           Quick 
+[   4.6 s] text           reminder: 
+[   4.7 s] text           our quarterly review 
+[   4.7 s] text           is Thursday 
+[   4.8 s] text           at 3 PM in 
+[   4.8 s] text           Room 4B. 
+[   4.8 s] text           Attendance is 
+[   4.9 s] text           mandatory 
+[   4.9 s] text           and 
+[   4.9 s] text           will be recorded, so please 
+[   4.9 s] text           skim the pre-read 
+[   5.0 s] text           beforehand. 
+[   5.1 s] text           Thanks! I 
+[   5.1 s] text           cut the 
+[   5.1 s] text           formal 
+[   5.1 s] text           wording and 
+[   5.1 s] text           the reference to the leadership 
+[   5.2 s] text           sync. 
+[   5.2 s] text           I kept 
+[   5.2 s] text           the day, time, 
+[   5.3 s] text           room, 
+[   5.4 s] text           the attendance requirement and 
+[   5.4 s] status         Thought it through
+[   5.4 s] text           the 
+[   5.9 s] text           pre-read.
+[   5.9 s] end            done
+
+status: done; first output 335 ms; total 5902 ms; longest quiet 4048 ms
+
+reply:
+Here's a friendlier, shorter version:
+
+> Hi design team! Quick reminder: our quarterly review is Thursday at 3 PM in Room 4B. Attendance is mandatory and will be recorded, so please skim the pre-read beforehand. Thanks!
+
+I cut the formal wording and the reference to the leadership sync. I kept the day, time, room, the attendance requirement and the pre-read.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] keeps the facts: present
+- [pass] at most 70% of the original length: 30 vs 54 words
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The rewrite is friendly, much shorter and keeps Thursday, 3 PM, Room 4B, the quarterly review and the pre-read. Small nits: 'mandatory and will be recorded' still sounds a bit stiff, 'Quick reminder' implies an earlier announcement, and 'skim' softens 'review'.
+clean-up:
+- deleted the chat and what it taught memory

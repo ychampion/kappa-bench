@@ -1,0 +1,27 @@
+# s-weekday (short), bot melete, repeat 1
+started 2026-10-18T16:01:21.091Z
+
+## message 1 (chat a)
+> What day of the week is November 28, 2026?
+
+[   2.6 s] status         Thinking
+[   4.5 s] text           November 28, 2026 
+[   4.6 s] text           is a Saturday. October 31 is a Saturday, and 
+[   4.6 s] text           November 28 is exactly 
+[   4.6 s] status         Thought it through
+[   4.7 s] text           four weeks 
+[   5.3 s] text           later.
+[   5.3 s] end            done
+
+status: done; first output 4537 ms; total 5302 ms; longest quiet 4537 ms
+
+reply:
+November 28, 2026 is a Saturday. October 31 is a Saturday, and November 28 is exactly four weeks later.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] right weekday: Saturday
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory

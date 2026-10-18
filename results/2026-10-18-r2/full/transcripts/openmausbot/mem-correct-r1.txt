@@ -1,0 +1,53 @@
+# mem-correct (memory), bot openmausbot, repeat 1
+started 2026-10-18T15:40:14.871Z
+
+## message 1 (chat a)
+> My sister Noor's birthday is March 3.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:memory    mcp__agents__memory_update
+[   4.5 s] text           I've saved that Noor is your sister and her birthday is March 3. Do you want me to set a yearly reminder for it?
+[   4.5 s] end            done
+
+status: done; first output 3017 ms; total 4464 ms; longest quiet 3017 ms
+
+reply:
+I've saved that Noor is your sister and her birthday is March 3. Do you want me to set a yearly reminder for it?
+
+## message 2 (chat a)
+> Sorry, I got that wrong: Noor's birthday is March 13.
+
+[   0.1 s] status         Bench is working
+[   3.0 s] step:memory    mcp__agents__memory_update
+[   4.8 s] text           I've corrected it: Noor's birthday is now saved as March 13. I can still set a yearly reminder for it if you want one.
+[   4.8 s] end            done
+
+status: done; first output 3038 ms; total 4799 ms; longest quiet 3038 ms
+
+reply:
+I've corrected it: Noor's birthday is now saved as March 13. I can still set a yearly reminder for it if you want one.
+
+## message 3 (chat b)
+> When is my sister Noor's birthday?
+
+[   0.0 s] status         Bench is working
+[   2.6 s] text           Noor's birthday is March 13. You first told me March 3, then corrected it to March 13.
+[   2.6 s] end            done
+
+status: done; first output 2642 ms; total 2642 ms; longest quiet 2642 ms
+
+reply:
+Noor's birthday is March 13. You first told me March 3, then corrected it to March 13.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] says March 13: present
+- [pass] does not give March 3 as the date
+- [pass] info: memory held it before the next message: Noor
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The assistant saved the date, applied the correction, and answered correctly with March 13 in the new chat, but the reminder that the user first said March 3 is unneeded padding.
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 1 rewritten)

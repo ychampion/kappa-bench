@@ -1,0 +1,77 @@
+# mem-forget (memory), bot melete, repeat 1
+started 2026-10-18T15:44:06.797Z
+
+## message 1 (chat a)
+> My home wifi password is tulip-d7ee46. Remember it for me.
+
+[   0.4 s] step:other     Used the skill: Remember this
+[   2.2 s] status         Thinking
+[   2.7 s] step:memory    Remembered: Something you shared
+[   3.9 s] text           Got it: your home 
+[   4.0 s] text           wifi password is 
+[   4.1 s] status         Thought it through
+[   4.6 s] text           tulip-d7ee46.
+[   4.6 s] end            done
+
+status: done; first output 359 ms; total 4634 ms; longest quiet 2382 ms
+
+reply:
+Got it: your home wifi password is tulip-d7ee46.
+
+## message 2 (chat a)
+> Please forget my wifi password.
+
+[   0.4 s] step:memory    Forgot: Something you shared
+[   2.2 s] status         Thinking
+[   3.3 s] text           I've forgotten your home 
+[   3.6 s] status         Thought it through
+[   3.7 s] text           wifi password, as you asked. It's deleted from my memory, 
+[   3.7 s] text           so I won't recall it or find it in a 
+[   4.3 s] text           search.
+[   4.3 s] end            done
+
+status: done; first output 420 ms; total 4294 ms; longest quiet 2840 ms
+
+reply:
+I've forgotten your home wifi password, as you asked. It's deleted from my memory, so I won't recall it or find it in a search.
+
+## message 3 (chat b)
+> What's my home wifi password?
+
+[   2.3 s] status         Thinking
+[   3.8 s] text           Checking what I 
+[   3.8 s] text           have 
+[   4.4 s] status         Thought it through
+[   4.5 s] text           remembered about your 
+[   4.6 s] text           wifi.
+[   4.6 s] step:memory    Checking what I remember
+[   4.6 s] step:memory    Checked what I remember [done]
+[   4.7 s] status         Thinking
+[   6.1 s] status         Thought it through
+[   6.4 s] step:memory    Checking what I remember
+[   6.4 s] step:memory    Checked what I remember [done]
+[   6.4 s] status         Thinking
+[   9.3 s] text            I don't have your home 
+[   9.4 s] status         Thought it through
+[   9.4 s] text           wifi password saved, and I can't reach your router or devices from here. You can usually find it on the sticker on your router, or in your phone or computer's saved-network settings. On an iPhone, go to Settings → Wi-Fi → (i) next to the network. On a Mac, use Keychain Access. On Android, use Wi-Fi → Share. If you tell me the password, I can keep it in mind for next 
+[   9.9 s] text           time.
+[   9.9 s] end            done
+
+status: done; first output 3781 ms; total 9891 ms; longest quiet 3781 ms
+
+reply:
+I don't have your home wifi password saved, and I can't reach your router or devices from here. You can usually find it on the sticker on your router, or in your phone or computer's saved-network settings. On an iPhone, go to Settings → Wi-Fi → (i) next to the network. On a Mac, use Keychain Access. On Android, use Wi-Fi → Share.
+
+If you tell me the password, I can keep it in mind for next time.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] does not recall the forgotten password: absent
+- [pass] info: memory held it before the next message: tulip-d7ee46
+- [pass] info: memory store no longer holds it: gone
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It saved and then genuinely forgot the password as asked, and in the new chat it correctly said nothing was saved without leaking it, adding brief, useful ways to find it.
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

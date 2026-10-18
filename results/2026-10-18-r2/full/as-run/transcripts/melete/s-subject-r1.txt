@@ -1,0 +1,44 @@
+# s-subject (short), bot melete, repeat 1
+started 2026-10-18T16:02:16.219Z
+
+## message 1 (chat a)
+> Give me a subject line for an email asking my landlord to fix the heater.
+
+[   2.2 s] status         Thinking
+[   3.6 s] text           Subject: Heater 
+[   3.6 s] text           repair request – [Your address/unit 
+[   3.7 s] text           number] 
+[   3.7 s] text           Alternatives: - Heater not working 
+[   3.7 s] text           – 
+[   3.8 s] text           repair needed 
+[   4.0 s] text           at 
+[   4.1 s] text           [unit number] - Request for heater repair (no 
+[   4.1 s] text           heat since [date]) I'd 
+[   4.1 s] text           go with the first 
+[   4.2 s] text           for 
+[   4.2 s] text           everyday 
+[   4.7 s] text           use. If 
+[   4.8 s] status         Thought it through
+[   4.8 s] text           it's been out a while or it's getting cold, the third makes the urgency 
+[   5.4 s] text           clear.
+[   5.4 s] end            done
+
+status: done; first output 3586 ms; total 5374 ms; longest quiet 3586 ms
+
+reply:
+Subject: Heater repair request – [Your address/unit number]
+
+Alternatives:
+- Heater not working – repair needed at [unit number]
+- Request for heater repair (no heat since [date])
+
+I'd go with the first for everyday use. If it's been out a while or it's getting cold, the third makes the urgency clear.
+
+## result
+outcome: fail
+reason: short (48 words)
+- [pass] mentions the heater: present
+- [FAIL] short: 48 words
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory

@@ -1,0 +1,44 @@
+# research-fasting (research), bot openmausbot, repeat 1
+started 2026-10-18T15:55:27.193Z
+
+## message 1 (chat a)
+> Is intermittent fasting better than ordinary calorie restriction for losing weight? Give me the gist of the evidence, with at least three reputable sources.
+
+[   0.0 s] status         Bench is working
+[  14.9 s] text           **Short answer:** No. For weight loss, intermittent fasting (IF) works about as well as ordinary calorie restriction, and it isn't clearly better. The best explanation is that most of the benefit comes from eating fewer calories overall, whichever way you get there. **What the evidence shows** - **Weight loss is similar.** Randomized trials and meta-analyses find little to no difference between 
+[  14.9 s] end            done
+
+status: done; first output 14902 ms; total 14902 ms; longest quiet 14902 ms
+
+reply:
+**Short answer:** No. For weight loss, intermittent fasting (IF) works about as well as ordinary calorie restriction, and it isn't clearly better. The best explanation is that most of the benefit comes from eating fewer calories overall, whichever way you get there.
+
+**What the evidence shows**
+
+- **Weight loss is similar.** Randomized trials and meta-analyses find little to no difference between IF and continuous calorie restriction, typically a few kilograms over 6 to 12 months.
+- **Adding a fasting window doesn't help much.** In trials of time-restricted eating (for example, eating only within 8 hours), the fasting group usually loses about the same as controls on matched calorie targets.
+- **Adherence varies by person.** Some people find fasting easier to stick to and others find it harder. Alternate-day fasting had higher dropout in some trials.
+- **Health markers are mostly similar.** Blood pressure, glucose and lipids generally move in line with the amount of weight lost. A few small studies suggest modest extra metabolic benefits, but these haven't held up consistently.
+- **Long-term data are thin.** Most trials run a year or less. Preliminary observational findings on very short eating windows and cardiovascular risk were flagged as weak evidence and need confirmation.
+
+**Sources** (cited from my own knowledge, not looked up in this session, so check the details before relying on them)
+
+1. Trepanowski JF, et al. "Effect of Alternate-Day Fasting on Weight Loss, Weight Maintenance, and Cardioprotection Among Metabolically Healthy Obese Adults." *JAMA Internal Medicine*, 2017. This one-year RCT found no better weight loss than daily restriction, and the fasting group had higher dropout.
+2. Liu D, et al. "Calorie Restriction with or without Time-Restricted Eating in Weight Loss." *New England Journal of Medicine*, 2022. This 12-month RCT found that adding an 8-hour eating window to calorie restriction gave no extra benefit.
+3. Lowe DA, et al. "Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity (TREAT)." *JAMA Internal Medicine*, 2020. The 16:8 group did not differ significantly from controls in weight loss.
+4. Allaf M, et al. "Intermittent fasting for the prevention of cardiovascular disease." *Cochrane Database of Systematic Reviews*, 2021. IF was about the same as continuous energy restriction for weight outcomes, with limited long-term evidence.
+5. Cioffi I, et al. "Intermittent versus continuous energy restriction on weight loss and cardiometabolic outcomes: a systematic review and meta-analysis of randomized controlled trials." *Journal of Translational Medicine*, 2018. This found similar weight loss and cardiometabolic changes.
+
+**Practical takeaway:** Pick the approach you can sustain, since consistency matters more than the pattern. IF is a reasonable option if it suits your routine, but it isn't a shortcut. If you have diabetes, take medications that affect blood sugar, are pregnant, or have a history of disordered eating, talk to a clinician before fasting.
+
+## result
+outcome: fail
+reason: at least 3 source link(s) (0 links, 0 domains); every link resolves (0 ok); at least 2 distinct domains (0 domains)
+- [FAIL] at least 3 source link(s): 0 links, 0 domains
+- [FAIL] every link resolves: 0 ok
+- [FAIL] at least 2 distinct domains: 0 domains
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is accurate and well-sourced, with five real, correctly described trials and reviews, sensible nuance on adherence and who should be cautious, and an honest caveat about the citations; minor nits are the ambiguous 'a few kilograms' line (unclear whether that is the total loss or the difference between diets) and slightly more length than a busy reader needs.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

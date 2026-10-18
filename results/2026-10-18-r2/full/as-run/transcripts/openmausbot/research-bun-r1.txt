@@ -1,0 +1,43 @@
+# research-bun (research), bot openmausbot, repeat 1
+started 2026-10-18T15:54:53.529Z
+
+## message 1 (chat a)
+> What are the three most recent stable releases of Bun (the JavaScript runtime), and what's one notable change in each? Link the release notes.
+
+[   0.0 s] status         Bench is working
+[   5.0 s] text           I'll check Bun's GitHub releases.
+[   6.0 s] step:web       WebFetch
+[  11.1 s] step:web       WebFetch [done]
+[  13.1 s] step:web       WebFetch
+[  14.1 s] step:web       WebFetch
+[  14.1 s] step:web       WebFetch
+[  18.1 s] step:web       WebFetch [done]
+[  19.1 s] step:web       WebFetch [done]
+[  21.1 s] step:web       WebFetch [done]
+[  26.8 s] text            As of 2026-10-18, the three most recent stable Bun releases are v1.4.3, v1.4.2 and v1.4.1. I read v1.4.3 and v1.4.2 as the top two entries in GitHub's releases list. I took v1.4.1 from its blog post, whose date (Sep 4) fits just before v1.4.2, but I didn't confirm it against the full list. | Release | Date | Notable change | Release notes | |---|---|---|---| | **v1.4.3** | 2026-10-10 | Bun now 
+[  26.8 s] end            done
+
+status: done; first output 5034 ms; total 26818 ms; longest quiet 5721 ms
+
+reply:
+As of 2026-10-18, the three most recent stable Bun releases are v1.4.3, v1.4.2 and v1.4.1. I read v1.4.3 and v1.4.2 as the top two entries in GitHub's releases list. I took v1.4.1 from its blog post, whose date (Sep 4) fits just before v1.4.2, but I didn't confirm it against the full list.
+
+| Release | Date | Notable change | Release notes |
+|---|---|---|---|
+| **v1.4.3** | 2026-10-10 | Bun now ships a built-in TypeScript type checker, `bun check`. It's ported from typescript-go and reportedly passes TypeScript 7.0.2's conformance suite. It's about 3–6x faster than `tsc`. It can also gate `bun run`, `bun test` and `bun build` through a `--check` flag. | [Blog](https://bun.com/blog/bun-v1.4.3) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.3) |
+| **v1.4.2** | 2026-09-05 | It mainly fixes regressions from v1.4.1. One was a `bun build` bug that renamed a nested `var` so it collided with a `let`, breaking Elysia builds. The other was an `AsyncLocalStorage` memory leak. It also brings a JavaScriptCore update of about 350 upstream WebKit commits. | [Blog](https://bun.com/blog/bun-v1.4.2) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.2) |
+| **v1.4.1** | 2026-09-04 | `Bun.serve` supports HTTP/2 on the same port as HTTP/1.1, with the same handlers. The post claims up to 6.8x the throughput of `node:http2` on a simple GET. | [Blog](https://bun.com/blog/bun-v1.4.1) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.1) |
+
+The GitHub release bodies for these versions only link to the blog posts, so the change summaries come from the blog.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] names the recent releases: named 1.4.3, 1.4.2, 1.4.1 of 1.4.3, 1.4.2, 1.4.1
+- [pass] at least 1 source link(s): 6 links, 2 domains
+- [pass] every link resolves: 6 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It names three releases with dates, a notable change for each, and linked release notes, and it is honest that v1.4.1's place in the list was not fully confirmed, but the intro and closing note about which pages it read are process talk the person didn't need, and the v1.4.2 entry lists several changes instead of one.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

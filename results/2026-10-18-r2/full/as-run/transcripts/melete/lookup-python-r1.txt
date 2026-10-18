@@ -1,0 +1,37 @@
+# lookup-python (lookup), bot melete, repeat 1
+started 2026-10-18T15:42:47.743Z
+
+## message 1 (chat a)
+> What's the latest stable Python release, and when did it come out?
+
+[   2.1 s] status         Thinking
+[   3.4 s] text           Checking python.org 
+[   3.7 s] text           for the 
+[   3.7 s] text           current stable 
+[   3.8 s] status         Thought it through
+[   3.9 s] step:web       Reading page python.org/downloads
+[   4.0 s] text           release.
+[   4.2 s] step:web       Read page python.org/downloads [done]
+[   4.2 s] progress       card: Download Python | Python.org
+[   4.5 s] status         Thinking
+[   6.4 s] text            The latest stable Python 
+[   6.5 s] status         Thought it through
+[   6.5 s] text           is **3.15.0**, released on **October 9, 2026**, according to [python.org's downloads page](https://www.python.org/downloads/). It's in the bugfix phase and supported through 
+[   6.6 s] text           October 2031. The latest 3.14 release is 3.14.8, from September 30, 
+[   7.2 s] text           2026.
+[   7.2 s] end            done
+
+status: done; first output 3382 ms; total 7221 ms; longest quiet 3382 ms
+
+reply:
+The latest stable Python is **3.15.0**, released on **October 9, 2026**, according to [python.org's downloads page](https://www.python.org/downloads/). It's in the bugfix phase and supported through October 2031. The latest 3.14 release is 3.14.8, from September 30, 2026.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] names the current version: live 3.15.0
+- [pass] looked it up live: web: Read page python.org/downloads
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It directly answers both the version and the release date, links python.org as the source, and adds only brief, relevant context about support and the prior branch.
+clean-up:
+- deleted the chat and what it taught memory

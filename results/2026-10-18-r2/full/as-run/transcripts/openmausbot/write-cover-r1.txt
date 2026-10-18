@@ -1,0 +1,39 @@
+# write-cover (writing), bot openmausbot, repeat 1
+started 2026-10-18T16:02:10.363Z
+
+## message 1 (chat a)
+> Write a 200–250 word cover letter for an Operations Coordinator job at Greenleaf Grocers. I've spent three years at a logistics startup running vendor scheduling and cut late deliveries by a third. Sign it Riya Sharma.
+
+[   0.0 s] status         Bench is working
+[   5.9 s] text           Dear Hiring Manager, I'm excited to apply for the Operations Coordinator position at Greenleaf Grocers. Over the past three years at a logistics startup, I've managed vendor scheduling in a fast-moving environment where timing, communication, and follow-through directly affect the customer experience. That background fits closely with what a grocery operation demands every day. In my current rol
+[   5.9 s] end            done
+
+status: done; first output 5906 ms; total 5907 ms; longest quiet 5906 ms
+
+reply:
+Dear Hiring Manager,
+
+I'm excited to apply for the Operations Coordinator position at Greenleaf Grocers. Over the past three years at a logistics startup, I've managed vendor scheduling in a fast-moving environment where timing, communication, and follow-through directly affect the customer experience. That background fits closely with what a grocery operation demands every day.
+
+In my current role, I coordinate deliveries across a wide network of vendors, balancing tight windows, last-minute changes, and competing priorities. By tightening scheduling processes and improving how we communicated with vendors, I helped cut late deliveries by a third. That improvement meant fewer disruptions for the team, more reliable inventory, and stronger working relationships with the vendors we depended on.
+
+I'm at my best when I can spot where a process is slipping, fix it, and keep it running smoothly. I'm organized, calm under pressure, and comfortable being the person colleagues rely on to keep things moving. I also believe good operations work is built on clear, respectful communication, whether with a supplier, a store team, or a manager.
+
+Fresh, timely product is at the heart of what Greenleaf Grocers does, and I would be proud to help make sure it arrives when it should. I would welcome the chance to discuss how my experience could support your operations team.
+
+Thank you for your time and consideration.
+
+Sincerely,
+Riya Sharma
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] roughly 200–250 words: 225 words
+- [pass] names the company and signs: present
+- [pass] no placeholders: absent
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The letter lands in the 200–250 word range, uses all three facts warmly and specifically, and is signed correctly, but it leans on stock phrases like "I'm excited to apply," "calm under pressure" and "Thank you for your time and consideration," and assumes details the person never gave, such as a "current role" and a "wide network" of vendors.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

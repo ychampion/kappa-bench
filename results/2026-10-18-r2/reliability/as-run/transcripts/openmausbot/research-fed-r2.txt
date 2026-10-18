@@ -1,0 +1,44 @@
+# research-fed (research), bot openmausbot, repeat 2
+started 2026-10-18T16:17:17.777Z
+
+## message 1 (chat a)
+> What is the Federal Reserve's current target range for the federal funds rate, and when did it last change? Cite your sources.
+
+[   0.1 s] status         Bench is working
+[   3.0 s] text           I'll check current sources.
+[   4.0 s] step:web       WebFetch
+[   4.0 s] step:web       WebSearch
+[   8.0 s] step:web       WebFetch [done]
+[  10.1 s] step:web       WebSearch [done]
+[  17.0 s] text            **The target range is 3.75% to 4.00%.** The FOMC set it on September 16, 2026, and it took effect September 17. - **What changed:** The FOMC voted 12–0 to raise the range by 25 basis points, from 3.50%–3.75%. Reports describe it as the first hike since 2023. The previous move was a 25 bp cut on December 11, 2025. - **Related rates:** The interest rate on reserve balances went to 3.90% and the p
+[  17.0 s] end            done
+
+status: done; first output 3032 ms; total 17034 ms; longest quiet 6978 ms
+
+reply:
+**The target range is 3.75% to 4.00%.** The FOMC set it on September 16, 2026, and it took effect September 17.
+
+- **What changed:** The FOMC voted 12–0 to raise the range by 25 basis points, from 3.50%–3.75%. Reports describe it as the first hike since 2023. The previous move was a 25 bp cut on December 11, 2025.
+- **Related rates:** The interest rate on reserve balances went to 3.90% and the primary credit rate to 4.0%, both effective September 17.
+- **What's next:** The median projection implies one more 25 bp hike by the end of 2026. The next FOMC meeting should be October 27–28. I'm going from memory of the 2026 calendar there and didn't check it, but it would fall after today (October 18). So the range should still be current.
+
+The Fed's rate-history page dates the change September 17, the effective date. The statement and news reports date the decision September 16. I couldn't open the statement PDF directly, so the details above come from the Fed's rate-history page and a search summary of the news coverage. The Fed statement is the authoritative source if you need to confirm the exact wording.
+
+Sources:
+- [Federal Reserve – Open Market Operations / policy rate history](https://www.federalreserve.gov/monetarypolicy/openmarket.htm)
+- [Federal Reserve – FOMC statement, Sept 16, 2026 (PDF)](https://www.federalreserve.gov/monetarypolicy/files/monetary20260916a1.pdf)
+- [CNBC – Fed rate decision September 2026: Rates rise to 3.75%-4%](https://www.cnbc.com/2026/09/16/fed-rate-decision-september-2026.html)
+- [Advisor Perspectives – Fed's Interest Rate Decision: September 16, 2026](https://www.advisorperspectives.com/dshort/updates/2026/09/16/feds-interest-rate-decision-september-16-2026)
+- [Atlanta Fed – FOMC Statement](https://www.atlantafed.org/news-and-events/2026/09/16/fomc-statement)
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] names the current range: live 3.75%–4.00%
+- [pass] at least 1 source link(s): 5 links, 4 domains
+- [pass] every link resolves: 5 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It answers both parts correctly with linked sources and is honest about what it couldn't verify, but the unchecked next-meeting date and the notes about which pages it could and couldn't open add some padding and plumbing talk.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

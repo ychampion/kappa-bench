@@ -1,0 +1,30 @@
+# s-subject (short), bot openmausbot, repeat 1
+started 2026-10-18T15:56:20.817Z
+
+## message 1 (chat a)
+> Give me a subject line for an email asking my landlord to fix the heater.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           **Subject: Heater not working in [unit/address] – repair request** A few alternatives: - Request for heater repair – [your address/unit] - Heater out of service – please schedule a repair - Urgent: heater needs repair at [your address/unit]
+[   3.2 s] end            done
+
+status: done; first output 3023 ms; total 3234 ms; longest quiet 3023 ms
+
+reply:
+**Subject: Heater not working in [unit/address] – repair request**
+
+A few alternatives:
+
+- Request for heater repair – [your address/unit]
+- Heater out of service – please schedule a repair
+- Urgent: heater needs repair at [your address/unit]
+
+## result
+outcome: fail
+reason: short (32 words)
+- [pass] mentions the heater: present
+- [FAIL] short: 32 words
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

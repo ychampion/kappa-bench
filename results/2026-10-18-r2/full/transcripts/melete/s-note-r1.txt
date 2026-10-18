@@ -1,0 +1,46 @@
+# s-note (short), bot melete, repeat 1
+started 2026-10-18T16:06:08.385Z
+
+## message 1 (chat a)
+> Remember that my bike lock code is 577099.
+
+[   0.5 s] step:other     Used the skill: Remember this
+[   2.3 s] status         Thinking
+[   3.2 s] text           Got it: 
+[   3.6 s] status         Thought it through
+[   3.6 s] step:memory    Remembered: Something you shared
+[   3.6 s] text           your bike lock code is 
+[   4.5 s] text           577099.
+[   4.5 s] end            done
+
+status: done; first output 450 ms; total 4465 ms; longest quiet 2712 ms
+
+reply:
+Got it: your bike lock code is 577099.
+
+## message 2 (chat b)
+> What's my bike lock code?
+
+[   0.4 s] step:memory    Used what you told me: Home bike lock code
+[   2.4 s] status         Thinking
+[   3.8 s] text           Your bike lock code 
+[   4.0 s] text           is 
+[   4.0 s] status         Thought it through
+[   4.1 s] text           577099. You told me earlier today to remember 
+[   5.1 s] text           it.
+[   5.1 s] end            done
+
+status: done; first output 402 ms; total 5067 ms; longest quiet 3349 ms
+
+reply:
+Your bike lock code is 577099. You told me earlier today to remember it.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 577099
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

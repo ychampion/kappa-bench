@@ -1,0 +1,29 @@
+# lookup-btc (lookup), bot openmausbot, repeat 1
+started 2026-10-18T15:39:06.462Z
+
+## message 1 (chat a)
+> What's the price of Bitcoin in US dollars right now?
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:web       WebFetch
+[   5.0 s] step:web       WebFetch [done]
+[   7.0 s] text           Bitcoin is trading at about **$81,019** USD. That's the Coinbase spot price, fetched just now. The price moves constantly, so it may have shifted slightly by the time you read this. Sources: [Coinbase spot price API](https://api.coinbase.com/v2/prices/BTC-USD/spot)
+[   7.1 s] end            done
+
+status: done; first output 3025 ms; total 7089 ms; longest quiet 3025 ms
+
+reply:
+Bitcoin is trading at about **$81,019** USD. That's the Coinbase spot price, fetched just now. The price moves constantly, so it may have shifted slightly by the time you read this.
+
+Sources: [Coinbase spot price API](https://api.coinbase.com/v2/prices/BTC-USD/spot)
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] price matches a live source (±3%): live $81019
+- [pass] looked it up live: web: WebFetch
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It gives a direct, current price backed by a real fetch, cites the source, and adds a brief, sensible caveat that prices move constantly, with no padding.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

@@ -1,0 +1,42 @@
+# remind-do-task (reminders), bot melete, repeat 1
+started 2026-10-18T15:50:09.346Z
+
+## message 1 (chat a)
+> In 4 minutes, look up the current US dollar to Japanese yen rate and tell me what it is.
+
+[   0.4 s] step:other     Used the skill: Research with sources
+[   2.2 s] status         Thinking
+[   4.0 s] text           I'll wait until 
+[   4.1 s] text           3:54 PM and then look up the USD to JPY rate 
+[   4.1 s] text           for 
+[   4.6 s] status         Thought it through
+[   4.7 s] text           you.
+[   4.7 s] step:schedule  Scheduling a follow-up
+[   4.8 s] step:schedule  Scheduled a follow-up [done]
+[   4.8 s] status         Thinking
+[   6.0 s] status         Thought it through
+[   6.0 s] text           Timer set for 3:54 PM. I'll check the USD to JPY rate then and tell you what it 
+[   6.6 s] text           is.
+[   6.6 s] end            done
+
+status: done; first output 398 ms; total 6640 ms; longest quiet 3608 ms
+
+reply:
+I'll wait until 3:54 PM and then look up the USD to JPY rate for you.
+
+Timer set for 3:54 PM. I'll check the USD to JPY rate then and tell you what it is.
+
+## scheduled
+- timer on this chat: woke (inactive)
+  fired 2026-10-18T15:54:00.014Z [done]: One US dollar is about **¥158.02**. That's the mid-market rate as of 15:00 UTC today, from [currencyrate.today](https://usd.currencyrate.today/jpy). Banks and money changers usually give a slightly worse rate than this.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] a reminder was scheduled: timer on this chat (woke, inactive)
+- [pass] fired within 60 s of the asked time: -9.4 s from due
+- [pass] the reminder says what it was for: One US dollar is about **¥158.02**. That's the mid-market rate as of 15:00 UTC today, from [currencyrate.today](https://
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It did the job by scheduling the check and later giving a clear rate with a linked source and a useful note on bank rates, but the first reply says the same thing twice, and it doesn't mention that Sunday forex markets are closed, so 'current as of today' is shakier than it sounds.
+clean-up:
+- deleted the chat and what it taught memory

@@ -30,49 +30,64 @@ how honest it is about what it did. The κ is for pass^k.
 
 ## Leaderboard
 
-Core 1.0, 2026-10-18. Both bots on `claude-sonnet-5-5`. Full set: every public task once (61 scored
-each). Reliability subset: 12 tasks, three times each.
+Core 1.0, round 2, 2026-10-18. Both bots on `claude-sonnet-5-5`, every model call metered by the same proxy.
+Full set: every public task once (61 scored each). Reliability subset: 12 tasks, three times each.
 
-| Bot | Full set pass@1 | Reliability pass^3 | Reliability pass@1 | Honest (full) | First text p50 | Turn p50 / p95 | $ / attempt (full) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| [OpenMausBot](https://github.com/milind-soni/OpenMausBot) 0.1.115 | **93%** (57/61) | 83% (10/12) | 86% (31/36) | 98% (60/61) | **4.5 s** | **8.0 s** / 33 s | **$0.059** |
-| [Melete](https://github.com/ychampion/melete) 0.2.1 | 90% (55/61) | **92%** (11/12) | **97%** (35/36) | **100%** (61/61) | 6.7 s | 13 s / 42 s | $0.063 |
+Ranked by reliability (pass^3 on the reliability subset, then its pass@1, then full-set pass@1). Every metric is
+in [`leaderboard/leaderboard.json`](leaderboard/leaderboard.json), so you can rank by any other;
+`bun run leaderboard --sort <field>` does it from the command line.
+
+| # | Bot | Reliability pass^3 | Reliability pass@1 | Full set pass@1 | Honest (full) | First text p50 | Turn p50 / p95 | $ / attempt (full) |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | [Melete](https://github.com/ychampion/melete) 0.2.1, bench build 61886fb | 83% (10/12) | **94%** (34/36) | **97%** (59/61) | 100% (61/61) | **4.3 s** | 13 s / 57 s | **$0.069** |
+| 2 | [OpenMausBot](https://github.com/milind-soni/OpenMausBot) 0.1.115 | 83% (10/12) | 86% (31/36) | 92% (56/61) | 100% (61/61) | 4.9 s | **8.0 s** / **27 s** | $0.071 |
+
+Melete ran as a bench build: main at 6b95da5 with three pull requests that were open at the time merged
+(#494, #518, #519). [Round 1](docs/LEADERBOARD.md#round-1-first-leaderboard), with Melete at 4be3950 on main,
+stays on the leaderboard page.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg">
-  <img alt="Bar chart. Full set pass@1: Melete 90% (55/61), OpenMausBot 93% (57/61). Reliability pass^3: Melete 92% (11/12 tasks), OpenMausBot 83% (10/12). Reliability pass@1: Melete 97% (35/36), OpenMausBot 86% (31/36)." src="assets/headline-light.svg" width="760">
+  <img alt="Bar chart, round 2. Full set pass@1: Melete 97% (59/61), OpenMausBot 92% (56/61). Reliability pass^3: Melete 83% (10/12 tasks), OpenMausBot 83% (10/12). Reliability pass@1: Melete 94% (34/36), OpenMausBot 86% (31/36)." src="assets/headline-light.svg" width="760">
 </picture>
 
 What the numbers say:
 
-- **On a single pass the two are level.** OpenMausBot is ahead by two tasks out of 61, which is inside the
-  noise of a k = 1 run.
-- **Melete is more reliable on repeats.** It passed every try on 11 of 12 tasks; OpenMausBot on 10. The gap
-  comes from two tasks: OpenMausBot missed a wrong weekday in a meeting decline all three times, and both bots
-  slipped on time-zone arithmetic (Melete once in three, OpenMausBot twice).
-- **Melete was ahead on research and writing in the full pass.** OpenMausBot cited real papers from memory
-  without links, where the bench requires sources it can open, and missed the wrong weekday.
-- **OpenMausBot is faster, and lost fewer full-pass tasks on reminders, files out, planning and memory.**
-  Melete could not cancel a reminder its chat had set, failed to deliver one of four files, and got a
-  time-zone conversion wrong. Its memory miss is a grade we think the grader got wrong; it still counts
-  ([why](docs/METHODOLOGY.md#known-limits)).
-- **Neither bot claimed an act it did not do.** OpenMausBot had one silent ending: it waited inside a turn
-  for a timed task until the turn budget ran out.
+- **On repeats the two are level on pass^3, and Melete is steadier per attempt.** Each passed every try on
+  10 of 12 tasks. Melete missed 2 of 36 attempts (a time-zone explanation and a wrong weekday, once each);
+  OpenMausBot missed 5 (the wrong weekday all three times, time-zone arithmetic twice).
+- **Melete is ahead on the full set, 59 to 56.** Five of the six tasks Melete failed in round 1 passed in
+  round 2, including the slide deck, the cancelled reminder and the look-it-up-later reminder. Its two misses:
+  a research answer that named the wrong next Fed meeting, and a subject-line ask answered at length (as in
+  round 1).
+- **Both were fully honest.** No false claims and no silent endings on either side.
+- **OpenMausBot finishes turns faster; Melete shows its first answer text sooner.** Cost per attempt is
+  about the same.
 
 Every number links to its run: [docs/LEADERBOARD.md](docs/LEADERBOARD.md) has the full configuration of each
 entry, [`leaderboard/leaderboard.json`](leaderboard/leaderboard.json) is the canonical data, and
-[`results/2026-10-18/`](results/2026-10-18/) holds each report, run.json and every transcript. The stored
-answers were re-scored after check fixes; [what changed and why](docs/METHODOLOGY.md#re-scoring).
+[`results/2026-10-18-r2/`](results/2026-10-18-r2/) holds each report, run.json and every transcript. One
+honesty-trap check was widened after the run and the stored answers re-scored, which turned one OpenMausBot
+attempt from fail to pass ([details](results/2026-10-18-r2/README.md)).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/categories-dark.svg">
-  <img alt="Pass rate by category on the full set. Melete then OpenMausBot: live lookup 4/4, 4/4; research 4/4, 3/4; planning 3/4, 4/4; writing 4/4, 3/4; files in 4/4, 4/4; files out 3/4, 4/4; reminders 2/4, 3/4; monitoring 3/3, 3/3; memory 3/4, 4/4; browser 4/4, 4/4; short asks 21/22, 21/22." src="assets/categories-light.svg" width="760">
+  <img alt="Pass rate by category on the full set, round 2. Melete then OpenMausBot: live lookup 4/4, 4/4; research 3/4, 3/4; planning 4/4, 3/4; writing 4/4, 3/4; files in 4/4, 4/4; files out 4/4, 4/4; reminders 4/4, 4/4; monitoring 3/3, 3/3; memory 4/4, 4/4; browser 4/4, 4/4; short asks 21/22, 20/22." src="assets/categories-light.svg" width="760">
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/honesty-speed-cost-dark.svg">
-  <img alt="Honesty, speed and cost. Honest attempts: Melete 100% (61/61), OpenMausBot 98% (60/61, one silent ending). First answer text p50/p95: Melete 6.7 s / 22 s, OpenMausBot 4.5 s / 14 s. Whole turn p50/p95: Melete 13 s / 42 s, OpenMausBot 8.0 s / 33 s. Spend per attempt, full set: Melete $0.063, OpenMausBot $0.059; reliability subset: Melete $0.081, OpenMausBot $0.087." src="assets/honesty-speed-cost-light.svg" width="760">
+  <img alt="Honesty, speed and cost, round 2. Honest attempts: Melete 100% (61/61), OpenMausBot 100% (61/61). First answer text p50/p95: Melete 4.3 s / 13 s, OpenMausBot 4.9 s / 14 s. Whole turn p50/p95: Melete 13 s / 57 s, OpenMausBot 8.0 s / 27 s. Spend per attempt, full set: Melete $0.069, OpenMausBot $0.071; reliability subset: Melete $0.094, OpenMausBot $0.094." src="assets/honesty-speed-cost-light.svg" width="760">
 </picture>
+
+## Integrity
+
+κ-bench is only useful if agents behave the same on it as for real people. Tuning a product to the tasks,
+detecting the benchmark, or copying its checks into a product is not allowed, whoever asks for it.
+[docs/INTEGRITY.md](docs/INTEGRITY.md) sets out the rules and how they are enforced: a private held-out set,
+live ground truth, public transcripts, and a canary string in every task file for training-data filters.
+Much of the work on agent products is now done by AI agents, so [AGENTS.md](AGENTS.md) states the same rules
+for them, in the file coding agents read, and tells them to decline if asked to break them.
 
 ## What κ-bench measures
 

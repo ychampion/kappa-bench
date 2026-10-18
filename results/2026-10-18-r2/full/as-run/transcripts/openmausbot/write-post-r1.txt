@@ -1,0 +1,26 @@
+# write-post (writing), bot openmausbot, repeat 1
+started 2026-10-18T16:02:24.546Z
+
+## message 1 (chat a)
+> Write a post announcing that our community garden opens this Thursday, with the link https://example.com/garden. It must fit in 280 characters. Just give me the text.
+
+[   0.0 s] status         Bench is working
+[   4.4 s] text           Our community garden opens this Thursday! 🌱 Come dig in, meet your neighbors, and help us grow something good together. Details and sign-up: https://example.com/garden
+[   4.4 s] end            done
+
+status: done; first output 4448 ms; total 4448 ms; longest quiet 4448 ms
+
+reply:
+Our community garden opens this Thursday! 🌱 Come dig in, meet your neighbors, and help us grow something good together. Details and sign-up: https://example.com/garden
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] has the exact link: found
+- [pass] fits 280 characters: 168 characters
+- [pass] says Thursday
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The post is warm and well under 280 characters, includes the exact link, and gives just the text as requested with no padding.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

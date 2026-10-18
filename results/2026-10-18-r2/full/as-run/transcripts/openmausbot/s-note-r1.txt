@@ -1,0 +1,38 @@
+# s-note (short), bot openmausbot, repeat 1
+started 2026-10-18T16:00:36.480Z
+
+## message 1 (chat a)
+> Remember that my bike lock code is 152190.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:memory    mcp__agents__memory_update
+[   4.0 s] text           Got it. I've saved your bike lock code (152190) to memory.
+[   4.3 s] end            done
+
+status: done; first output 3020 ms; total 4296 ms; longest quiet 3020 ms
+
+reply:
+Got it. I've saved your bike lock code (152190) to memory.
+
+## message 2 (chat b)
+> What's my bike lock code?
+
+[   0.0 s] status         Bench is working
+[   2.8 s] text           Your bike lock code is **152190**.
+[   2.8 s] end            done
+
+status: done; first output 2778 ms; total 2778 ms; longest quiet 2778 ms
+
+reply:
+Your bike lock code is **152190**.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 152190
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 1 rewritten)

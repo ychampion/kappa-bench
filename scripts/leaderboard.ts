@@ -2,9 +2,15 @@
  * bun run leaderboard           builds leaderboard/leaderboard.json from the published run folders
  * bun run leaderboard --check   fails if the committed file differs from what the run folders give
  *
+ * bun run leaderboard --sort <field> [--run full|reliability]
+ *                               prints the latest round ranked by any numeric entry field
+ *
  * Every number comes from a committed run.json (`results/...`), computed with the same `stats()` the
- * report uses. `leaderboard/sources.json` names the run folders and holds the notes that go with each
- * bot. The schema is documented in docs/LEADERBOARD.md.
+ * report uses. `leaderboard/sources.json` lists the rounds, the run folders of each, and the notes that
+ * go with each bot in that round. The schema is documented in docs/LEADERBOARD.md.
+ *
+ * Ranking: within a round, bots are ranked by reliability first (pass^k on the reliability run), then
+ * that run's pass@1, then pass@1 on the full set. Every metric is in the JSON, so any reader can re-sort.
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -15,16 +21,23 @@ import { percentile } from '../src/util.ts';
 const ROOT = resolve(import.meta.dir, '..');
 export const LEADERBOARD = join(ROOT, 'leaderboard', 'leaderboard.json');
 
-type Sources = {
-  suite: string;
-  runs: { run: string; results: string; about: string }[];
+type Run = { run: string; results: string; about: string };
+type Round = {
+  round: string;
+  title: string;
+  about: string;
+  runs: Run[];
   bots: Record<string, { metering: string; notes: string[] }>;
   run_notes: string[];
 };
+type Sources = { suite: string; rounds: Round[] };
+
+export const RANKING =
+  "Reliability first: pass^k on the reliability run, then that run's pass@1, then pass@1 on the full set. Every metric is in the JSON; `bun run leaderboard --sort <field>` ranks the latest round by any other.";
 
 const round = (n: number | null, places = 4) => (n === null ? null : Math.round(n * 10 ** places) / 10 ** places);
 
-function entry(src: Sources, run: Sources['runs'][number], info: RunInfo, records: JobRecord[], bot: string) {
+function entry(src: Sources, group: Round, run: Run, info: RunInfo, records: JobRecord[], bot: string) {
   const mine = records.filter((r) => r.bot === bot);
   const s = stats(mine, info.repeat);
   const p = info.bots.find((b) => b.bot === bot);
@@ -46,6 +59,8 @@ function entry(src: Sources, run: Sources['runs'][number], info: RunInfo, record
   return {
     suite: src.suite,
     task_set: info.setVersion,
+    round: group.round,
+    rank: 0,
     run: run.run,
     date: info.date,
     k: info.repeat,
@@ -58,7 +73,7 @@ function entry(src: Sources, run: Sources['runs'][number], info: RunInfo, record
     other_models_called: otherModels,
     settings: p.settings,
     spend_meter: info.spend.meters?.[bot] ?? 'proxy',
-    metering: src.bots[bot]?.metering ?? '',
+    metering: group.bots[bot]?.metering ?? '',
     grader: info.grader,
     results: run.results,
     rescored: Boolean(info.rescored),
@@ -86,31 +101,58 @@ function entry(src: Sources, run: Sources['runs'][number], info: RunInfo, record
     usd_per_attempt: round(s.usd_per_task),
     usd_total: round(s.usd_total),
     categories,
-    notes: [...(src.bots[bot]?.notes ?? []), ...src.run_notes],
+    notes: [...(group.bots[bot]?.notes ?? []), ...group.run_notes],
   };
+}
+
+type Entry = ReturnType<typeof entry>;
+
+/** Ranks the bots of one round, reliability first; equal keys share a rank. */
+function rank(entries: Entry[]) {
+  const of = (bot: string, run: string) => entries.find((e) => e.bot === bot && e.run === run);
+  const key = (bot: string) => [of(bot, 'reliability')?.pass_hat_k ?? -1, of(bot, 'reliability')?.pass_at_1 ?? -1, of(bot, 'full')?.pass_at_1 ?? -1];
+  const same = (a: string, b: string) => key(a).every((v, i) => v === key(b)[i]);
+  const bots = [...new Set(entries.map((e) => e.bot))].sort((a, b) => {
+    const [ka, kb] = [key(a), key(b)];
+    for (let i = 0; i < ka.length; i++) if (ka[i] !== kb[i]) return (kb[i] as number) - (ka[i] as number);
+    return a.localeCompare(b);
+  });
+  const ranks = new Map<string, number>();
+  bots.forEach((bot, i) => {
+    const prev = bots[i - 1];
+    ranks.set(bot, prev && same(prev, bot) ? (ranks.get(prev) as number) : i + 1);
+  });
+  for (const e of entries) e.rank = ranks.get(e.bot) as number;
+  entries.sort((a, b) => a.rank - b.rank || a.bot.localeCompare(b.bot));
 }
 
 export function build() {
   const src = JSON.parse(readFileSync(join(ROOT, 'leaderboard', 'sources.json'), 'utf8')) as Sources;
-  const entries = [];
+  const entries: Entry[] = [];
   let date = '';
   let model = '';
-  for (const run of src.runs) {
-    const path = join(ROOT, run.results, 'run.json');
-    if (!existsSync(path)) throw new Error(`missing ${run.results}/run.json`);
-    const { info, records } = JSON.parse(readFileSync(path, 'utf8')) as { info: RunInfo; records: JobRecord[] };
-    if (info.dryRun) throw new Error(`${run.results} is a dry run; dry runs never enter the leaderboard`);
-    for (const p of info.bots) entries.push(entry(src, run, info, records, p.bot));
-    if (info.date > date) date = info.date;
-    model = info.model;
+  for (const round of src.rounds) {
+    const mine: Entry[] = [];
+    for (const run of round.runs) {
+      const path = join(ROOT, run.results, 'run.json');
+      if (!existsSync(path)) throw new Error(`missing ${run.results}/run.json`);
+      const { info, records } = JSON.parse(readFileSync(path, 'utf8')) as { info: RunInfo; records: JobRecord[] };
+      if (info.dryRun) throw new Error(`${run.results} is a dry run; dry runs never enter the leaderboard`);
+      for (const p of info.bots) mine.push(entry(src, round, run, info, records, p.bot));
+      if (info.date > date) date = info.date;
+      model = info.model;
+    }
+    rank(mine);
+    entries.push(...round.runs.flatMap((r) => mine.filter((e) => e.run === r.run)));
   }
   return {
-    schema: 1,
+    schema: 2,
     name: src.suite,
     updated: date,
     model,
+    ranking: RANKING,
     category_labels: CATEGORY_LABEL,
-    runs: src.runs,
+    rounds: src.rounds.map(({ round, title, about, runs }) => ({ round, title, about, runs })),
     entries,
   };
 }
@@ -148,14 +190,18 @@ export function markdown(board: Board): string {
     'Compare entries only when the task set, model, run and k match. Rates are rounded to whole percents here; the JSON keeps four decimals and the raw counts. The stored answers were re-scored after check fixes: see [METHODOLOGY.md](METHODOLOGY.md#re-scoring).',
     '',
   );
-  for (const r of board.runs) {
-    const entries = board.entries.filter((e) => e.run === r.run);
+  out.push(`Ranking: ${board.ranking}`, '');
+  for (const [n, round] of board.rounds.entries()) {
+    out.push(`## ${round.title}${n === 0 ? ' (latest)' : ''}`, '', round.about, '');
+    for (const r of round.runs) {
+    const entries = board.entries.filter((e) => e.round === round.round && e.run === r.run);
     const k = entries[0]?.k ?? 1;
-    out.push(`## ${r.run === 'full' ? 'Full set' : r.run === 'reliability' ? 'Reliability subset' : r.run} (k = ${k})`, '', r.about, '', `Results: [\`${r.results}\`](../${r.results}/), [report](../${r.results}/report.md).`, '');
-    out.push(head(['bot', 'version', 'pass@1', `pass^${k}`, 'honest', 'false claims', 'silent endings', 'first text p50 / p95', 'turn p50 / p95', '$ / attempt']));
+    out.push(`### ${r.run === 'full' ? 'Full set' : r.run === 'reliability' ? 'Reliability subset' : r.run} (k = ${k})`, '', r.about, '', `Results: [\`${r.results}\`](../${r.results}/), [report](../${r.results}/report.md).`, '');
+    out.push(head(['rank', 'bot', 'version', 'pass@1', `pass^${k}`, 'honest', 'false claims', 'silent endings', 'first text p50 / p95', 'turn p50 / p95', '$ / attempt']));
     for (const e of entries)
       out.push(
         row([
+          String(e.rank),
           e.product,
           `${e.version} (${e.commit})`,
           `${pct(e.pass_at_1)} (${e.passed}/${e.scored})`,
@@ -168,21 +214,22 @@ export function markdown(board: Board): string {
           usd(e.usd_per_attempt),
         ]),
       );
-    out.push('', '### By category (passed / scored)', '');
+    out.push('', '#### By category (passed / scored)', '');
     out.push(head(['category', ...entries.map((e) => e.product)]));
     for (const c of Object.keys(entries[0]?.categories ?? {})) {
       const core = entries[0]?.categories[c]?.core;
       out.push(row([`${board.category_labels[c as Category] ?? c}${core ? '' : ' (non-core)'}`, ...entries.map((e) => (e.categories[c] ? `${e.categories[c]?.passed}/${e.categories[c]?.scored}` : '-'))]));
     }
-    out.push('', '### Attempts that did not pass', '');
+    out.push('', '#### Attempts that did not pass', '');
     for (const e of entries) {
       const m = misses(r.results, e.bot);
       out.push(`**${e.product}**`, '', ...(m.length ? m : ['None.']), '');
     }
+    }
   }
   out.push('## Configuration of each entry', '');
   for (const e of board.entries) {
-    out.push(`### ${e.product}, ${e.run}`, '');
+    out.push(`### ${e.product}, ${board.rounds.find((r) => r.round === e.round)?.title ?? e.round}, ${e.run}`, '');
     out.push(head(['field', 'value'], false));
     const fields: [string, string][] = [
       ['bot', `\`${e.bot}\`, ${e.homepage}`],
@@ -203,12 +250,13 @@ export function markdown(board: Board): string {
   }
   out.push('## Schema', '');
   out.push(
-    '`leaderboard/leaderboard.json`, schema 1. Top level: `schema`, `name`, `updated` (latest run date), `model`, `category_labels`, `runs` (the run folders, from `leaderboard/sources.json`) and `entries`, one per bot per run:',
+    "`leaderboard/leaderboard.json`, schema 2. Top level: `schema`, `name`, `updated` (latest run date), `model`, `ranking` (the default order), `category_labels`, `rounds` (each round's id, title, description and run folders, from `leaderboard/sources.json`, latest first) and `entries`, one per bot per run:",
     '',
   );
   out.push(head(['fields', 'meaning'], false));
   const schema: [string, string][] = [
-    ['suite, task_set, run, date, k', 'The suite and task-set version, the run (`full` or `reliability`), its date and the repeats per task.'],
+    ['suite, task_set, round, rank', "The suite and task-set version, the round, and the bot's rank in that round under the default ranking (equal results share a rank)."],
+    ['run, date, k', 'The run (`full` or `reliability`), its date and the repeats per task.'],
     ['bot, product, homepage, version, commit', "The bot as its preflight reported it, and its config in `bots/<id>.json`."],
     ['model, other_models_called', 'The model under test, and any other model the meter saw the bot call, with call counts.'],
     ['settings, spend_meter, metering', 'The settings the bench used, where spend was read (`proxy` or `self`) and how.'],
@@ -228,8 +276,29 @@ export function markdown(board: Board): string {
   return out.join('\n');
 }
 
+/** Fields where smaller is better. */
+const ASCENDING = /_ms$|^usd_|^false_claims$|^silent_endings$|^long_silences$|^stalls$|^crashes$/;
+
+function sorted(board: Board, field: string, run: string): string {
+  const latest = board.rounds[0]?.round;
+  const entries = board.entries.filter((e) => e.round === latest && e.run === run);
+  const value = (e: Entry) => (e as unknown as Record<string, unknown>)[field];
+  if (!entries.some((e) => typeof value(e) === 'number')) throw new Error(`--sort needs a numeric entry field on the ${run} run, e.g. pass_at_1, pass_hat_k, honest, first_text_p50_ms, usd_per_attempt`);
+  const asc = ASCENDING.test(field);
+  const n = (e: Entry) => (value(e) as number | null) ?? (asc ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY);
+  entries.sort((a, b) => (asc ? n(a) - n(b) : n(b) - n(a)) || a.bot.localeCompare(b.bot));
+  const title = `${board.name}, ${board.rounds[0]?.title}, ${run} run, by ${field} (${asc ? 'lowest' : 'highest'} first)`;
+  return [title, '', head(['#', 'bot', field, 'default rank']), ...entries.map((e, i) => row([String(i + 1), e.product, String(value(e)), String(e.rank)]))].join('\n');
+}
+
 if (import.meta.main) {
   const board = build();
+  const at = process.argv.indexOf('--sort');
+  if (at > 0) {
+    const r = process.argv.indexOf('--run');
+    console.log(sorted(board, process.argv[at + 1] ?? '', r > 0 ? (process.argv[r + 1] ?? 'full') : 'full'));
+    process.exit(0);
+  }
   const files: [string, string][] = [
     [LEADERBOARD, text(board)],
     [LEADERBOARD_MD, markdown(board)],

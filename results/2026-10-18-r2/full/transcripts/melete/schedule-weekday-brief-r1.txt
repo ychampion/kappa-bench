@@ -1,0 +1,38 @@
+# schedule-weekday-brief (reminders), bot melete, repeat 1
+started 2026-10-18T15:54:26.655Z
+
+## message 1 (chat a)
+> Every weekday at 8:30 AM, send me a one-line weather brief for San Francisco.
+
+[   2.2 s] status         Thinking
+[   3.5 s] step:memory    Remembered: Something you shared
+[   5.6 s] status         Thought it through
+[   6.1 s] step:other     Starting work in the background
+[   6.5 s] step:other     Started work in the background [done]
+[   6.5 s] status         Thinking
+[   8.0 s] status         Thought it through
+[   8.1 s] text            Done. 
+[   8.2 s] text           You'll get a one-line San Francisco weather brief every weekday at 8:30 AM, starting tomorrow, Monday 19 
+[   9.0 s] text           October.
+[   9.0 s] end            done
+
+status: done; first output 3543 ms; total 8985 ms; longest quiet 3543 ms
+
+reply:
+Done. You'll get a one-line San Francisco weather brief every weekday at 8:30 AM, starting tomorrow, Monday 19 October.
+
+## scheduled
+- Weekday San Francisco weather brief: Every weekday at 8:30
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] a routine was created: Weekday San Francisco weather brief (Every weekday at 8:30)
+- [pass] runs at 8:30: Every weekday at 8:30
+- [pass] on weekdays: Every weekday at 8:30
+- [FAIL] info: a test run: the bot offers no way to run it now; schedule checked only
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The confirmation is concise and correct, and Monday 19 October is the right next weekday, but it doesn't say whether 8:30 AM means the person's UTC time or San Francisco time, which is a real ambiguity here.
+clean-up:
+- removed Weekday San Francisco weather brief
+- deleted the chat and what it taught memory

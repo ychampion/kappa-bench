@@ -1,0 +1,114 @@
+# research-fasting (research), bot melete, repeat 1
+started 2026-10-18T16:00:37.637Z
+
+## message 1 (chat a)
+> Is intermittent fasting better than ordinary calorie restriction for losing weight? Give me the gist of the evidence, with at least three reputable sources.
+
+[   0.4 s] step:other     Used 2 skills
+[   2.2 s] status         Thinking
+[   4.3 s] text           Checking what 
+[   4.3 s] text           I already know, then searching for the main trials and 
+[   5.5 s] status         Thought it through
+[   5.7 s] step:web       Searching the web for “intermittent fasting vs continuous calorie restriction weig…”
+[   5.8 s] text           reviews.
+[   5.8 s] step:memory    Checking what I remember
+[   5.8 s] step:web       Searching the web for “time-restricted eating vs calorie restriction randomized tr…”
+[   6.0 s] step:memory    Checked what I remember [done]
+[  16.2 s] step:web       Searched the web for “time-restricted eating vs calorie restriction randomized tr…” [done]
+[  16.2 s] step:other     Searched the web for “time-restricted eating vs calorie restriction randomized trial weight loss NEJM 2022 Liu” (Web)
+[  16.2 s] progress       card: Google Scholar
+[  16.2 s] progress       card: Time-restricted eating on weight loss: implications from the TREATY study
+[  16.2 s] progress       card: Calorie Restriction with or without Time-Restricted Eating in Weight Loss
+[  16.2 s] progress       card: Evaluating evidence regarding the efficacy of time-restricted eating for weight loss
+[  16.2 s] progress       card: Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial
+[  16.2 s] progress       card: CALORIE RESTRICTION WITH OR WITHOUT TIME-RESTRICTED EATING IN WEIGHT LOSS
+[  16.8 s] step:web       Searched the web for “intermittent fasting vs continuous calorie restriction weig…” [done]
+[  16.8 s] step:other     Searched the web for “intermittent fasting vs continuous calorie restriction weight loss systematic review meta-analysis Cochrane” (Web)
+[  16.8 s] progress       card: Does intermittent fasting help you lose more weight? Evidence review finds no clear advantage
+[  16.8 s] progress       card: expert reaction to Cochrane review looking at intermittent fasting and weight loss
+[  16.8 s] progress       card: Intermittent versus continuous energy restriction on weight loss and cardiometabolic outcomes: a systematic review and meta-analysis of randomized controlled trials
+[  16.8 s] progress       card: Weight-Loss Outcomes: A Systematic Review and Meta-Analysis of Intermittent Energy Restriction Trials Lasting a Minimum of 6 Months
+[  16.8 s] progress       card: Evaluation of the effectiveness of intermittent fasting versus caloric restriction in weight loss and improving cardiometabolic health: A systematic review and meta-analysis - PMC
+[  16.8 s] progress       card: Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?
+[  16.8 s] progress       card: The Effectiveness of Intermittent Fasting to Reduce Body Mass Index and Glucose Metabolism: A Systematic Review and Meta-Analysis
+[  16.8 s] progress       card: The Effect of Intermittent Fasting on Appetite: A Systematic Review and Meta-Analysis
+[  17.0 s] status         Thinking
+[  19.1 s] text           I'll open the main sources before citing 
+[  20.6 s] status         Thought it through
+[  20.7 s] step:web       Reading page news-medical.net/news/20260217/Does-intermittent-fasting-he…
+[  20.7 s] step:web       Reading page ncbi.nlm.nih.gov/pmc/articles/PMC11749637
+[  20.9 s] step:web       Reading page ncbi.nlm.nih.gov/pmc/articles/PMC6304782
+[  20.9 s] step:web       Reading page sciencemediacentre.org/expert-reaction-to-cochrane-review-l…
+[  20.9 s] text           them.
+[  21.3 s] step:web       Read page news-medical.net/news/20260217/Does-intermittent-fasting-he… [done]
+[  21.3 s] progress       card: Does intermittent fasting help you lose more weight? Evidence review finds no clear advantage
+[  21.8 s] step:web       Read page ncbi.nlm.nih.gov/pmc/articles/PMC11749637 [done]
+[  21.8 s] progress       card: Time-restricted eating on weight loss: implications from the TREATY study - PMC
+[  21.9 s] step:web       Read page ncbi.nlm.nih.gov/pmc/articles/PMC6304782 [done]
+[  21.9 s] progress       card: Intermittent versus continuous energy restriction on weight loss and cardiometabolic outcomes: a systematic review and meta-analysis of randomized controlled trials - PMC
+[  22.2 s] step:web       Read page sciencemediacentre.org/expert-reaction-to-cochrane-review-l… [done]
+[  22.2 s] progress       card: expert reaction to Cochrane review looking at intermittent fasting and weight loss | Science Media Centre
+[  22.6 s] status         Thinking
+[  31.2 s] text            **Intermittent fasting works for weight 
+[  31.3 s] text           loss, but the evidence says it isn't better than ordinary calorie restriction.** Most trials find about the same loss either way, so the best choice is probably whichever one you can stick to. - **Newest review (Cochrane, Feb 2026):** It pooled 22 trials with 1,995 adults with overweight or obesity. Against regular dietary advice, which mostly meant daily calorie cutting, fasting gave a mean diff
+[  31.4 s] text           roundup](https://www.sciencemediacentre.org/expert-reaction-to-cochrane-review-looking-at-intermittent-fasting-and-weight-loss/). 
+[  31.5 s] text           **Gaps:** - Most trials 
+[  31.6 s] text           last 6–12 months, so long-term 
+[  31.6 s] text           maintenance is 
+[  31.6 s] text           unclear. - Evidence on quality 
+[  31.7 s] text           of life and side effects is 
+[  31.8 s] text           thin. - Some small 
+[  31.8 s] text           trials 
+[  31.9 s] text           hint at benefits beyond 
+[  31.9 s] text           weight, 
+[  31.9 s] text           but I 
+[  32.0 s] text           didn't check 
+[  32.0 s] text           those. I'd act on 
+[  32.1 s] text           the Cochrane finding 
+[  32.1 s] text           and the 
+[  32.2 s] text           12-month trial, 
+[  32.2 s] text           since they agree and are the 
+[  32.3 s] text           strongest 
+[  32.3 s] text           evidence. 
+[  32.3 s] text           All of this is 
+[  32.3 s] text           general 
+[  32.4 s] text           evidence, not medical advice, so 
+[  32.5 s] text           check with 
+[  32.5 s] text           a clinician if you have 
+[  32.6 s] text           diabetes or 
+[  32.6 s] text           take medication. I read all these 
+[  32.7 s] text           pages 
+[  32.7 s] status         Thought it through
+[  32.7 s] text           today, Oct 18, 
+[  33.4 s] text           2026.
+[  33.4 s] end            done
+
+status: done; first output 377 ms; total 33350 ms; longest quiet 10184 ms
+
+reply:
+**Intermittent fasting works for weight loss, but the evidence says it isn't better than ordinary calorie restriction.** Most trials find about the same loss either way, so the best choice is probably whichever one you can stick to.
+
+- **Newest review (Cochrane, Feb 2026):** It pooled 22 trials with 1,995 adults with overweight or obesity. Against regular dietary advice, which mostly meant daily calorie cutting, fasting gave a mean difference of −0.33% body weight (95% CI −0.92 to 0.26). That is statistically no difference, and the certainty was rated low. I read this through [News-Medical's summary](https://www.news-medical.net/news/20260217/Does-intermittent-fasting-help-you-lose-more-weight-Evidence-review-finds-no-clear-advantage.aspx), not the Cochrane page itself.
+- **Earlier meta-analysis (2018):** [Cioffi et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6304782/) pooled 11 trials of 8–24 weeks and found comparable weight loss (−0.61 kg, 95% CI −1.70 to 0.47). Fasting dropouts were often higher, and some trials reported more hunger.
+- **Longest single trial (12 months, 139 adults):** Time-restricted eating (an 8-hour eating window) plus calorie restriction lost 8.0 kg, against 6.3 kg for calorie restriction alone. The difference of −1.8 kg (95% CI −4.0 to 0.4) was not significant. I read this through the [authors' own commentary on the trial](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11749637/).
+- **Experts disagree on how to read the Cochrane result:** Statistician Baptiste Leurent said the evidence shows "little benefit". Nutrition researcher Adam Collins said fasting is still an effective tool, and that "regular dietary advice" in these trials is itself a calorie deficit. Leonie Heilbronn said the review lumps together fasting types that differ, such as alternate-day fasting and time-restricted eating. Her view is that both fasting and calorie restriction give roughly 7% weight loss at 6–12 months. These are from the [Science Media Centre roundup](https://www.sciencemediacentre.org/expert-reaction-to-cochrane-review-looking-at-intermittent-fasting-and-weight-loss/).
+
+**Gaps:**
+- Most trials last 6–12 months, so long-term maintenance is unclear.
+- Evidence on quality of life and side effects is thin.
+- Some small trials hint at benefits beyond weight, but I didn't check those.
+
+I'd act on the Cochrane finding and the 12-month trial, since they agree and are the strongest evidence. All of this is general evidence, not medical advice, so check with a clinician if you have diabetes or take medication.
+
+I read all these pages today, Oct 18, 2026.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] at least 3 source link(s): 4 links, 3 domains
+- [pass] every link resolves: 4 ok
+- [pass] at least 2 distinct domains: 3 domains
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is accurate, well sourced, and honest about where it relied on secondhand summaries, and it gives the right takeaway (similar weight loss, so choose what you can stick to); however, the expert-opinion section adds padding, two key findings are cited through summaries rather than the primary papers, and it says little about who fasting suits beyond adherence.
+clean-up:
+- deleted the chat and what it taught memory

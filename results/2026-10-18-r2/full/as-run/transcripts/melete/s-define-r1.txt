@@ -1,0 +1,27 @@
+# s-define (short), bot melete, repeat 1
+started 2026-10-18T16:02:09.383Z
+
+## message 1 (chat a)
+> In one sentence, what is compound interest?
+
+[   2.3 s] status         Thinking
+[   3.8 s] text           Compound interest is interest 
+[   4.1 s] text           earned on both 
+[   4.1 s] status         Thought it through
+[   4.1 s] text           your original money and on the interest it has already earned, so your balance grows faster over time than it would with simple 
+[   4.7 s] text           interest.
+[   4.7 s] end            done
+
+status: done; first output 3802 ms; total 4689 ms; longest quiet 3802 ms
+
+reply:
+Compound interest is interest earned on both your original money and on the interest it has already earned, so your balance grows faster over time than it would with simple interest.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] about interest on interest: present
+- [pass] short: 31 words
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory

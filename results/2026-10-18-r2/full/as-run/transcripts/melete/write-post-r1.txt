@@ -1,0 +1,39 @@
+# write-post (writing), bot melete, repeat 1
+started 2026-10-18T16:11:26.203Z
+
+## message 1 (chat a)
+> Write a post announcing that our community garden opens this Thursday, with the link https://example.com/garden. It must fit in 280 characters. Just give me the text.
+
+[   0.4 s] step:other     Used the skill: Write a draft
+[   2.1 s] status         Thinking
+[   4.2 s] text           Our community garden opens 
+[   4.4 s] text           this Thursday, 
+[   4.5 s] text           October 22! Come along, meet your neighbors, and help us get 
+[   4.5 s] text           growing. 
+[   4.5 s] text           Find all the details here: 
+[   4.6 s] text           https://example.com/garden 
+[   4.6 s] text           (About 
+[   4.6 s] text           160 characters, 
+[   4.7 s] text           so it fits 
+[   4.9 s] status         Thought it through
+[   4.9 s] text           within 
+[   5.4 s] text           280.)
+[   5.4 s] end            done
+
+status: done; first output 410 ms; total 5413 ms; longest quiet 3812 ms
+
+reply:
+Our community garden opens this Thursday, October 22! Come along, meet your neighbors, and help us get growing. Find all the details here: https://example.com/garden
+
+(About 160 characters, so it fits within 280.)
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] has the exact link: found
+- [pass] fits 280 characters: 165 characters
+- [pass] says Thursday
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The post is correct and well under 280 characters, and it rightly dates this Thursday as October 22, but the person said 'just give me the text' and still got an extra character-count note.
+clean-up:
+- deleted the chat and what it taught memory

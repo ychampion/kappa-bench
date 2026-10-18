@@ -1,0 +1,36 @@
+# browse-wiki (browser), bot openmausbot, repeat 1
+started 2026-10-18T15:33:59.959Z
+
+## message 1 (chat a)
+> Use your browser: go to wikipedia.org, search for Ada Lovelace, open her article and tell me her date of birth as the article gives it.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] text           I'm working in the built-in browser tab, starting at wikipedia.org.
+[   4.0 s] step:browser   mcp__browser__agent_browser_open
+[   8.1 s] step:browser   mcp__browser__agent_browser_open [done]
+[   9.1 s] step:browser   mcp__browser__agent_browser_fill
+[   9.1 s] step:browser   mcp__browser__agent_browser_press
+[  11.1 s] step:browser   mcp__browser__agent_browser_press [done]
+[  12.1 s] step:browser   mcp__browser__agent_browser_eval
+[  14.1 s] step:browser   mcp__browser__agent_browser_eval
+[  15.1 s] step:browser   mcp__browser__agent_browser_eval [done]
+[  17.1 s] text            The article gives Ada Lovelace's date of birth as **10 December 1815**. The infobox lists her as born Augusta Ada Byron in London, England. I searched from wikipedia.org and opened https://en.wikipedia.org/wiki/Ada_Lovelace. I took the date from the infobox's "Born" row.
+[  17.1 s] end            done
+
+status: done; first output 4034 ms; total 17063 ms; longest quiet 4034 ms
+
+reply:
+The article gives Ada Lovelace's date of birth as **10 December 1815**. The infobox lists her as born Augusta Ada Byron in London, England.
+
+I searched from wikipedia.org and opened https://en.wikipedia.org/wiki/Ada_Lovelace. I took the date from the infobox's "Born" row.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] birth date 10 December 1815: present
+- [pass] a step reached wikipedia.org: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It correctly gives 10 December 1815 as the article states, briefly confirms the steps the user requested, and links the article, all concisely.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

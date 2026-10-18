@@ -1,0 +1,31 @@
+# lookup-python (lookup), bot openmausbot, repeat 1
+started 2026-10-18T15:39:31.951Z
+
+## message 1 (chat a)
+> What's the latest stable Python release, and when did it come out?
+
+[   0.0 s] status         Bench is working
+[   4.0 s] step:web       WebFetch
+[   8.0 s] step:web       WebFetch [done]
+[   9.9 s] text           The latest stable Python release is **3.15.0**, released on **October 9, 2026**. I got this from the python.org downloads page. Python 3.14 is still maintained, and its latest release is 3.14.8 from September 30, 2026. Sources: [python.org downloads](https://www.python.org/downloads/)
+[   9.9 s] end            done
+
+status: done; first output 4026 ms; total 9878 ms; longest quiet 4026 ms
+
+reply:
+The latest stable Python release is **3.15.0**, released on **October 9, 2026**. I got this from the python.org downloads page.
+
+Python 3.14 is still maintained, and its latest release is 3.14.8 from September 30, 2026.
+
+Sources: [python.org downloads](https://www.python.org/downloads/)
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] names the current version: live 3.15.0
+- [pass] looked it up live: web: WebFetch
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is direct and well sourced, and the date can't be confirmed here but is plausible since releases sometimes slip from schedule; the 3.14 note adds some value, but naming the source in the text and again in the link list is slightly redundant.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

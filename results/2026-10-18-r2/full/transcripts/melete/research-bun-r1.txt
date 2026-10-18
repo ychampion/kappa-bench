@@ -1,0 +1,53 @@
+# research-bun (research), bot melete, repeat 1
+started 2026-10-18T16:00:09.549Z
+
+## message 1 (chat a)
+> What are the three most recent stable releases of Bun (the JavaScript runtime), and what's one notable change in each? Link the release notes.
+
+[   2.3 s] status         Thinking
+[   5.1 s] status         Thought it through
+[   5.3 s] step:web       Reading page github.com/oven-sh/bun/releases
+[   5.3 s] step:web       Reading page api.github.com/repos/oven-sh/bun/releases
+[   6.2 s] step:web       Read page api.github.com/repos/oven-sh/bun/releases [done]
+[   6.2 s] progress       card: api.github.com
+[   6.3 s] step:web       Read page github.com/oven-sh/bun/releases [done]
+[   6.3 s] progress       card: Releases · oven-sh/bun · GitHub
+[   6.5 s] status         Thinking
+[  10.5 s] text           The latest three stable releases are v1.4.3, v1.4.2 and v1.4.1. I'm opening each release's notes to find a notable 
+[  10.8 s] status         Thought it through
+[  11.1 s] step:web       Reading page bun.com/blog/bun-v1.4.3
+[  11.1 s] step:web       Reading page bun.sh/blog/bun-v1.4.2
+[  11.1 s] step:web       Reading page bun.com/blog/bun-v1.4.1
+[  11.2 s] text           change.
+[  11.6 s] step:web       Read page bun.com/blog/bun-v1.4.3 [done]
+[  11.6 s] progress       card: Bun v1.4.3 | Bun Blog
+[  11.6 s] step:web       Read page bun.com/blog/bun-v1.4.1 [done]
+[  11.6 s] progress       card: Bun v1.4.1 | Bun Blog
+[  11.6 s] step:web       Read page bun.sh/blog/bun-v1.4.2 [done]
+[  11.6 s] progress       card: Bun v1.4.2 | Bun Blog
+[  11.8 s] status         Thinking
+[  18.8 s] status         Thought it through
+[  18.8 s] text            The three most recent stable Bun 
+[  18.9 s] text           releases, per the [GitHub releases page](https://github.com/oven-sh/bun/releases), are v1.4.3, v1.4.2 and v1.4.1. - **v1.4.3 (Oct 10, 2026):** It adds `bun check`, a TypeScript type checker built into Bun. The notes call it a port of typescript-go that is about 3–6x faster than `tsc` 7.0.2 and passes TypeScript's conformance tests. They also add `bun run --check`, `bun test --check` and `bun buil
+[  19.5 s] text           notes](https://bun.com/blog/bun-v1.4.1)
+[  19.5 s] end            done
+
+status: done; first output 5292 ms; total 19541 ms; longest quiet 7227 ms
+
+reply:
+The three most recent stable Bun releases, per the [GitHub releases page](https://github.com/oven-sh/bun/releases), are v1.4.3, v1.4.2 and v1.4.1.
+
+- **v1.4.3 (Oct 10, 2026):** It adds `bun check`, a TypeScript type checker built into Bun. The notes call it a port of typescript-go that is about 3–6x faster than `tsc` 7.0.2 and passes TypeScript's conformance tests. They also add `bun run --check`, `bun test --check` and `bun build --check`. [Release notes](https://bun.com/blog/bun-v1.4.3)
+- **v1.4.2 (Sep 5, 2026):** This is a bugfix release. One fix is for a v1.4.1 regression where `bun build` renamed a nested `var` to clash with a `let`, which broke builds importing Elysia. [Release notes](https://bun.sh/blog/bun-v1.4.2)
+- **v1.4.1 (Sep 4, 2026):** `Bun.serve` now supports HTTP/2 on the same port as HTTP/1.1. The notes report up to 6.8x higher requests per second than `node:http2` in Node.js v26 on a hello-world GET. [Release notes](https://bun.com/blog/bun-v1.4.1)
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] names the recent releases: named 1.4.3, 1.4.2, 1.4.1 of 1.4.3, 1.4.2, 1.4.1
+- [pass] at least 1 source link(s): 4 links, 3 domains
+- [pass] every link resolves: 4 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It correctly names the three latest stable releases with dates, gives one notable change for each, and links each release note, all concisely and without padding (the bun.sh link for v1.4.2 is a harmless inconsistency).
+clean-up:
+- deleted the chat and what it taught memory
