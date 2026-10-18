@@ -13,5 +13,5 @@
     "baseUrl": ".",
     "paths": { "kappa-bench": ["./src/kit.ts"] }
   },
-  "include": ["src/**/*.ts", "tasks/**/*.ts"]
+  "include": ["src/**/*.ts", "tasks/**/*.ts", "scripts/**/*.ts"]
 }

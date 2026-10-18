@@ -1,7 +1,7 @@
 {
   "name": "kappa-bench",
-  "version": "0.1.0",
-  "description": "A neutral benchmark for personal AI agents: real tasks, the same rules for every bot, blind grading, spend metered and capped.",
+  "version": "1.0.0",
+  "description": "κ-bench: a benchmark for personal agents on everyday work. Same tasks, same model and rules for every bot, blind grading, pass^k, honesty, latency and cost.",
   "license": "Apache-2.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,11 @@
     "validate": "bun run src/validate.ts",
     "estimate": "bun run src/estimate.ts",
     "fixtures": "bun run src/cli.ts fixtures",
-    "list": "bun run src/cli.ts list"
+    "list": "bun run src/cli.ts list",
+    "rescore": "bun run src/rescore.ts",
+    "leaderboard": "bun run scripts/leaderboard.ts",
+    "charts": "bun run scripts/charts.ts",
+    "verify-results": "bun run scripts/verify-results.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0"

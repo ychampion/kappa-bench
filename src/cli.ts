@@ -18,7 +18,6 @@
  *   --keep-chats        leave the bots' conversations in place
  *   --overlap-waits     run a bot's next job while a task waits for its reminder or watch to fire (faster; costs become shared)
  *   --out dir           results root (default results/)
- *   --no-leaderboard    do not append to results/leaderboard.json
  *   --scale x           dry run time scale (default 0.01)
  *
  * Environment: BENCH_PROXY_URL (required for a live run), each bot's variables (bots/<id>.json "env"),
@@ -258,8 +257,8 @@ export async function main(argv: string[]) {
   };
   const outRoot = resolve(one(args, 'out') ?? join(ROOT, 'results'));
   const dir = resultsDir(outRoot, info);
-  const leaderboard = dryRun || args.flags.has('no-leaderboard') ? null : join(outRoot, 'leaderboard.json');
-  writeResults(dir, result.records, info, leaderboard);
+  // The leaderboard is built from published run folders (bun run leaderboard), never appended to by a run.
+  writeResults(dir, result.records, info, null);
   log(`\nreport: ${dir}/report.md`);
   log(`spend: $${info.spend.totalUsd.toFixed(4)} of $${info.capUsd}`);
   return 0;

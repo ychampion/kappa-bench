@@ -212,5 +212,11 @@ export type JobRecord = {
   finished_at: string;
   key_lines: string[];
   cleanup: string[];
+  /** The task's variables (names, codes, dates) for this attempt. */
+  vars?: Vars;
+  /** The live facts the checks read at grading time, so a later re-score can run the checks again. */
+  live?: Record<string, unknown>;
+  /** Set by `bun run rescore` when re-scoring changed this attempt. */
+  rescore?: { outcome_was: Outcome; claims_were: number; changes: string[]; usd_was?: number };
   transcript?: string;
 };

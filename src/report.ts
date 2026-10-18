@@ -38,6 +38,8 @@ export type RunInfo = {
   stopReason: string;
   /** Anything a reader must know before trusting a number (a bot whose calls skipped the proxy, a version override). */
   warnings: string[];
+  /** Set by `bun run rescore`: the run was re-scored from its stored answers. */
+  rescored?: { at: string; recheck: string[]; flips: string[]; notes: string[]; unchanged_note: string };
   startedAt: string;
   finishedAt: string;
 };
@@ -131,6 +133,12 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
   out.push(`Task set **${info.setVersion}**, model **${info.model}** for every bot, mode **${info.mode}**, k = ${k}, ${info.date}. Grader: ${info.grader} (blind).`);
   if (info.stoppedForSpend) out.push(`\n**The run stopped early:** ${info.stopReason}. Jobs not run are listed as stopped for spend and left out of every rate.`);
   for (const warning of info.warnings) out.push(`\n**Warning:** ${warning}`);
+  if (info.rescored) {
+    const rs = info.rescored;
+    out.push(`\n**Re-scored ${rs.at}** from the stored answers with the current checks and claim rules${rs.recheck.length ? ` (checks re-run for ${rs.recheck.join(', ')})` : ''}. ${rs.unchanged_note}`);
+    out.push(rs.flips.length ? `\nOutcomes that changed:\n\n${rs.flips.map((f) => `- ${f}`).join('\n')}` : '\nNo outcome changed.');
+    for (const note of rs.notes) out.push(`\n${note}`);
+  }
   out.push('');
 
   out.push('## Headline');

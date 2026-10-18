@@ -513,6 +513,8 @@ export async function finishJob(state: JobState, job: JobEnv): Promise<JobRecord
     cost_attribution: attribution,
     key_lines: keyLines,
     cleanup,
+    vars: ctx.vars,
+    live: evidence.live,
   };
   record.transcript = transcriptOf(state, evidence, [
     '## result',

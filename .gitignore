@@ -3,7 +3,7 @@ bun.lockb
 fixtures/
 results/*
 !results/README.md
-!results/leaderboard.json
+!results/2026-10-18/
 .env
 .env.*
 *.log
