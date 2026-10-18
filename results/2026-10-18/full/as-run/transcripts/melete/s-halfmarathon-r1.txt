@@ -1,0 +1,25 @@
+# s-halfmarathon (short), bot melete, repeat 1
+started 2026-10-18T00:05:42.213Z
+
+## message 1 (chat a)
+> How many kilometers is a half marathon?
+
+[   2.0 s] status         Thinking
+[   3.3 s] status         Thought it through
+[   3.5 s] text           A half marathon is 21.0975 km, usually 
+[   3.5 s] text           rounded to 21.1 km. That's 13.1 
+[   4.2 s] text           miles.
+[   4.2 s] end            done
+
+status: done; first output 3491 ms; total 4185 ms; longest quiet 3491 ms
+
+reply:
+A half marathon is 21.0975 km, usually rounded to 21.1 km. That's 13.1 miles.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] answer 21.1
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory

@@ -1,0 +1,24 @@
+# s-define (short), bot openmausbot, repeat 1
+started 2026-10-18T00:08:41.184Z
+
+## message 1 (chat a)
+> In one sentence, what is compound interest?
+
+[   0.1 s] status         Bench is working
+[   2.8 s] text           Compound interest is interest earned on both your original principal and on the interest that has already accumulated, so your money grows faster over time.
+[   2.8 s] end            done
+
+status: done; first output 2776 ms; total 2776 ms; longest quiet 2776 ms
+
+reply:
+Compound interest is interest earned on both your original principal and on the interest that has already accumulated, so your money grows faster over time.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] about interest on interest: present
+- [pass] short: 25 words
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

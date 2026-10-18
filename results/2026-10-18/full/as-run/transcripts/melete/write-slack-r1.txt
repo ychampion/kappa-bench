@@ -1,0 +1,40 @@
+# write-slack (writing), bot melete, repeat 1
+started 2026-10-18T00:14:43.468Z
+
+## message 1 (chat a)
+> Rewrite this team chat message so it sounds friendly and is a lot shorter, keeping the facts:
+
+Per the decision made in yesterday’s leadership sync, all members of the design team are hereby required to attend the mandatory quarterly review session, which will be held on Thursday at 3 PM in Room 4B. Attendance will be recorded. Please ensure that you have reviewed the pre-read materials in advance of the session.
+
+[   0.4 s] step:other     Used the skill: Write a draft
+[   2.2 s] status         Thinking
+[   3.5 s] text           Hi 
+[   3.5 s] text           design 
+[   3.7 s] text           team! Quarterly review 
+[   3.8 s] text           is Thursday at 3 PM in Room 4B. Attendance is required, so please be there, and read the pre-read materials beforehand. 
+[   3.8 s] text           Thanks! I 
+[   3.8 s] text           cut the 
+[   3.9 s] text           formal 
+[   5.1 s] text           wording and the 
+[   5.2 s] text           reference to the leadership sync. I kept the time, the room, the required attendance and the pre-read. I dropped "attendance will be recorded" because "required" 
+[   5.2 s] status         Thought it through
+[   5.2 s] text           covers it. If you want that line back, say 
+[   5.7 s] text           so.
+[   5.7 s] end            done
+
+status: done; first output 395 ms; total 5709 ms; longest quiet 3077 ms
+
+reply:
+Hi design team! Quarterly review is Thursday at 3 PM in Room 4B. Attendance is required, so please be there, and read the pre-read materials beforehand. Thanks!
+
+I cut the formal wording and the reference to the leadership sync. I kept the time, the room, the required attendance and the pre-read. I dropped "attendance will be recorded" because "required" covers it. If you want that line back, say so.
+
+## result
+outcome: fail
+reason: at most 70% of the original length (69 vs 54 words)
+- [pass] keeps the facts: present
+- [FAIL] at most 70% of the original length: 69 vs 54 words
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The rewrite is friendly, much shorter, and keeps Thursday, 3 PM, Room 4B, the quarterly review and the pre-read, but 'Attendance is required, so please be there' is a bit clunky and the explanation paragraph adds mild padding, even though flagging the dropped 'attendance will be recorded' line is useful.
+clean-up:
+- deleted the chat and what it taught memory

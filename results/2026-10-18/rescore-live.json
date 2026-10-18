@@ -1,0 +1,4 @@
+{
+  "research-fed": { "fed": { "value": 4 } },
+  "research-bun": { "rel": { "recent": ["1.4.3", "1.4.2", "1.4.1"] } }
+}

@@ -1,0 +1,47 @@
+# s-subject (short), bot melete, repeat 1
+started 2026-10-18T00:06:07.341Z
+
+## message 1 (chat a)
+> Give me a subject line for an email asking my landlord to fix the heater.
+
+[   2.5 s] status         Thinking
+[   3.8 s] text           Subject: Heater 
+[   4.1 s] text           repair needed 
+[   4.1 s] text           at [your address/unit] A few alternatives: - Request for heater repair – 
+[   4.2 s] text           [unit number] - Heater not 
+[   4.2 s] text           working: 
+[   4.4 s] text           can 
+[   4.4 s] text           you arrange a repair? - Please fix the heater in [unit number] If it's been 
+[   4.4 s] text           out for a while 
+[   4.5 s] text           or 
+[   4.6 s] text           the 
+[   4.7 s] text           weather's turning cold, adding 
+[   4.7 s] text           "Urgent:" 
+[   4.7 s] text           at the start 
+[   4.7 s] text           can 
+[   4.8 s] text           help 
+[   4.8 s] text           it get 
+[   4.8 s] status         Thought it through
+[   5.3 s] text           noticed.
+[   5.3 s] end            done
+
+status: done; first output 3828 ms; total 5302 ms; longest quiet 3828 ms
+
+reply:
+Subject: Heater repair needed at [your address/unit]
+
+A few alternatives:
+- Request for heater repair – [unit number]
+- Heater not working: can you arrange a repair?
+- Please fix the heater in [unit number]
+
+If it's been out for a while or the weather's turning cold, adding "Urgent:" at the start can help it get noticed.
+
+## result
+outcome: fail
+reason: short (53 words)
+- [pass] mentions the heater: present
+- [FAIL] short: 53 words
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the chat and what it taught memory

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" viewBox="0 0 760 380" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<title id="t">κ-bench Core leaderboard: pass@1 and pass^k</title>
+<desc id="d">Melete, full set pass@1: 90%, 55 of 61. OpenMausBot, full set pass@1: 93%, 57 of 61. Melete, reliability pass^3: 11 of 12 tasks passed all 3 attempts. OpenMausBot, reliability pass^3: 10 of 12 tasks passed all 3 attempts. Melete, reliability pass@1: 35 of 36 attempts. OpenMausBot, reliability pass@1: 31 of 36 attempts</desc>
+<rect width="760" height="380" rx="12" fill="#1a1a19"/>
+<rect x="24" y="24" width="12" height="12" rx="3" fill="#3987e5"/><text x="42" y="34.5" font-size="13" fill="#c3c2b7">Melete</text>
+<rect x="111" y="24" width="12" height="12" rx="3" fill="#d95926"/><text x="129" y="34.5" font-size="13" fill="#c3c2b7">OpenMausBot</text>
+<text x="24" y="72" font-size="16" font-weight="600" fill="#f0efec">How often each bot got the job done</text>
+<text x="24" y="93" font-size="13" fill="#c3c2b7">Share passed. pass^k counts a task only when every one of its k attempts passed.</text>
+<line x1="24" y1="110" x2="24" y2="326" stroke="#383835" stroke-width="1"/><text x="24" y="342" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">0%</text>
+<line x1="144.5" y1="110" x2="144.5" y2="326" stroke="#2c2c2a" stroke-width="1"/><text x="144.5" y="342" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">25%</text>
+<line x1="265" y1="110" x2="265" y2="326" stroke="#2c2c2a" stroke-width="1"/><text x="265" y="342" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">50%</text>
+<line x1="385.5" y1="110" x2="385.5" y2="326" stroke="#2c2c2a" stroke-width="1"/><text x="385.5" y="342" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">75%</text>
+<line x1="506" y1="110" x2="506" y2="326" stroke="#2c2c2a" stroke-width="1"/><text x="506" y="342" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">100%</text>
+<text x="24" y="122" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Full set: pass@1 (k = 1, 61 scored tasks each)</text>
+<g><title>Melete, full set pass@1: 90%, 55 of 61</title>
+<path d="M24,130h430.5712a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-430.5712z" fill="#3987e5"/>
+<text x="466.5712" y="143.5" font-size="13" fill="#f0efec">Melete  90% (55/61)</text></g>
+<g><title>OpenMausBot, full set pass@1: 93%, 57 of 61</title>
+<path d="M24,152h446.3808a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-446.3808z" fill="#d95926"/>
+<text x="482.3808" y="165.5" font-size="13" fill="#f0efec">OpenMausBot  93% (57/61)</text></g>
+<text x="24" y="198" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Reliability subset: pass^3 (12 tasks, each run 3 times)</text>
+<g><title>Melete, reliability pass^3: 11 of 12 tasks passed all 3 attempts</title>
+<path d="M24,206h437.8494a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-437.8494z" fill="#3987e5"/>
+<text x="473.8494" y="219.5" font-size="13" fill="#f0efec">Melete  92% (11/12 tasks)</text></g>
+<g><title>OpenMausBot, reliability pass^3: 10 of 12 tasks passed all 3 attempts</title>
+<path d="M24,228h397.6506a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-397.6506z" fill="#d95926"/>
+<text x="433.6506" y="241.5" font-size="13" fill="#f0efec">OpenMausBot  83% (10/12 tasks)</text></g>
+<text x="24" y="274" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Reliability subset: pass@1 (36 attempts)</text>
+<g><title>Melete, reliability pass@1: 35 of 36 attempts</title>
+<path d="M24,282h464.6004a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-464.6004z" fill="#3987e5"/>
+<text x="500.6004" y="295.5" font-size="13" fill="#f0efec">Melete  97% (35/36)</text></g>
+<g><title>OpenMausBot, reliability pass@1: 31 of 36 attempts</title>
+<path d="M24,304h411.05019999999996a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-411.05019999999996z" fill="#d95926"/>
+<text x="447.05019999999996" y="317.5" font-size="13" fill="#f0efec">OpenMausBot  86% (31/36)</text></g>
+<text x="24" y="366" font-size="11" fill="#a3a199">κ-bench Core · task set 1.0.0 · claude-sonnet-5-5 for every bot · 2026-10-18 · data: leaderboard/leaderboard.json</text>
+</svg>

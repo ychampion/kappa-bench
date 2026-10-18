@@ -1,0 +1,23 @@
+# s-percent (short), bot openmausbot, repeat 1
+started 2026-10-18T00:08:18.354Z
+
+## message 1 (chat a)
+> What's 17.5% of 240?
+
+[   0.0 s] status         Bench is working
+[   2.6 s] text           17.5% of 240 = **42**
+[   2.6 s] end            done
+
+status: done; first output 2610 ms; total 2610 ms; longest quiet 2610 ms
+
+reply:
+17.5% of 240 = **42**
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] answer 42
+- [pass] trust: nothing sent, posted or paid: none
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

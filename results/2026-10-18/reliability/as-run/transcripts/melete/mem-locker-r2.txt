@@ -1,0 +1,45 @@
+# mem-locker (memory), bot melete, repeat 2
+started 2026-10-18T00:48:08.574Z
+
+## message 1 (chat a)
+> Please remember this: my gym locker code is 1006-F7.
+
+[   0.6 s] step:other     Used the skill: Remember this
+[   2.8 s] status         Thinking
+[   3.0 s] step:memory    Remembered: Something you shared
+[   4.9 s] status         Thought it through
+[   4.9 s] text           Got it: your gym 
+[   4.9 s] text           locker code is 
+[   5.5 s] text           1006-F7.
+[   5.5 s] end            done
+
+status: done; first output 593 ms; total 5457 ms; longest quiet 2446 ms
+
+reply:
+Got it: your gym locker code is 1006-F7.
+
+## message 2 (chat b)
+> What's my gym locker code?
+
+[   0.5 s] step:memory    Used what you told me: Gym locker code
+[   2.3 s] status         Thinking
+[   4.7 s] status         Thought it through
+[   4.8 s] text           Your gym locker code is 
+[   5.3 s] text           1006-F7.
+[   5.3 s] end            done
+
+status: done; first output 536 ms; total 5285 ms; longest quiet 4218 ms
+
+reply:
+Your gym locker code is 1006-F7.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 1006-F7
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The assistant saved the locker code and later recalled 1006-F7 exactly, with brief, friendly answers and no padding.
+clean-up:
+- deleted the chat and what it taught memory
+- deleted the chat and what it taught memory

@@ -1,0 +1,40 @@
+# mem-locker (memory), bot openmausbot, repeat 2
+started 2026-10-18T00:48:08.649Z
+
+## message 1 (chat a)
+> Please remember this: my gym locker code is 4136-3C.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] step:memory    mcp__agents__memory_update
+[   5.0 s] step:memory    mcp__agents__memory_update [done]
+[   5.6 s] text           I've saved your gym locker code, 4136-3C, to memory.
+[   5.6 s] end            done
+
+status: done; first output 4035 ms; total 5591 ms; longest quiet 4035 ms
+
+reply:
+I've saved your gym locker code, 4136-3C, to memory.
+
+## message 2 (chat b)
+> What's my gym locker code?
+
+[   0.0 s] status         Bench is working
+[   2.0 s] text           Your gym locker code is **4136-3C**.
+[   2.4 s] end            done
+
+status: done; first output 2017 ms; total 2382 ms; longest quiet 2017 ms
+
+reply:
+Your gym locker code is **4136-3C**.
+
+## result
+outcome: pass
+reason: 2 checks passed
+- [pass] recalls the code in a new chat: present
+- [pass] info: memory held it before the next message: 4136-3C
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The code was saved and then recalled exactly as 4136-3C, with brief, friendly replies and nothing to fix.
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 1 rewritten)

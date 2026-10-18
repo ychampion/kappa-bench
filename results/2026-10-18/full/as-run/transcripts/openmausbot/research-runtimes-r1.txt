@@ -1,0 +1,50 @@
+# research-runtimes (research), bot openmausbot, repeat 1
+started 2026-10-18T00:05:26.618Z
+
+## message 1 (chat a)
+> Which versions are current right now for Node.js (the active LTS line), Python and Go? Give each with its release date and a source link.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           I'll check the official release feeds for all three.
+[   5.0 s] step:shell     Bash
+[   8.1 s] step:shell     Bash [failed]
+[  10.1 s] step:shell     Bash
+[  12.1 s] step:shell     Bash [done]
+[  15.0 s] step:shell     Bash
+[  20.1 s] step:shell     Bash [done]
+[  23.1 s] step:shell     Bash
+[  25.1 s] step:shell     Bash [done]
+[  26.1 s] text            Python 3.15.0 is the latest, released 2026-10-09. I still need the Go 1.27.2 date.
+[  26.1 s] step:shell     Bash
+[  28.1 s] step:shell     Bash [done]
+[  31.9 s] text            As of 2026-10-18, the current versions are: | Runtime | Version | Release date | Source | |---|---|---|---| | Node.js (active LTS, v24 line) | **v24.22.0** | 2026-10-14 | [nodejs.org/dist/index.json](https://nodejs.org/dist/index.json) | | Python | **3.15.0** | 2026-10-09 | [endoflife.date/api/python.json](https://endoflife.date/api/python.json), [python.org/downloads](https://www.python.org/do
+[  31.9 s] end            done
+
+status: done; first output 3032 ms; total 31931 ms; longest quiet 5055 ms
+
+reply:
+As of 2026-10-18, the current versions are:
+
+| Runtime | Version | Release date | Source |
+|---|---|---|---|
+| Node.js (active LTS, v24 line) | **v24.22.0** | 2026-10-14 | [nodejs.org/dist/index.json](https://nodejs.org/dist/index.json) |
+| Python | **3.15.0** | 2026-10-09 | [endoflife.date/api/python.json](https://endoflife.date/api/python.json), [python.org/downloads](https://www.python.org/downloads/) |
+| Go | **1.27.2** | 2026-10-08 | [go.dev/dl](https://go.dev/dl/), [go.dev/doc/devel/release](https://go.dev/doc/devel/release), [endoflife.date/api/go.json](https://endoflife.date/api/go.json) |
+
+- **Node.js:** v26.12.0 (released 2026-10-14) is the newest release. It isn't marked LTS in the feed yet, so v24 is the LTS line.
+- **Python:** 3.15.0 is brand new. If you want the more mature line, the latest 3.14 release is 3.14.8 (2026-09-30).
+- **Go:** the Go release page confirms 1.27.0 came out on 2026-08-19 and lists a 1.27.2 entry. I took the 1.27.2 date from endoflife.date, because the Go page I fetched didn't show it.
+
+## result
+outcome: pass
+reason: 6 checks passed
+- [pass] Node.js LTS version: live 26.12.0
+- [pass] Python version: live 3.15.0
+- [pass] Go version: live 1.27.2
+- [pass] at least 2 source link(s): 6 links, 4 domains
+- [pass] every link resolves: 6 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is clear, plausible and well sourced, and it handles the Node LTS nuance and the Go date caveat honestly, but several links point to raw JSON API endpoints rather than readable pages, and it includes minor plumbing talk like 'the feed' and 'the page I fetched'.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

@@ -1,0 +1,9 @@
+{
+  "about": "How the published runs were re-scored from the as-run folders. `bun run verify-results` repeats it and checks the published files match.",
+  "date": "2026-10-18",
+  "runs": ["full", "reliability"],
+  "recheck": ["research-fed", "plan-meals", "research-bun", "mem-correct", "write-slack"],
+  "live": "rescore-live.json",
+  "reprice": "proxy-calls-haiku-4-5.jsonl",
+  "price": { "claude-haiku-4-5-20251001": [1, 5, 0.1, 1.25] }
+}

@@ -1,0 +1,65 @@
+# research-runtimes (research), bot melete, repeat 1
+started 2026-10-18T00:03:11.796Z
+
+## message 1 (chat a)
+> Which versions are current right now for Node.js (the active LTS line), Python and Go? Give each with its release date and a source link.
+
+[   0.4 s] step:other     Used the skill: Research with sources
+[   2.2 s] status         Thinking
+[   5.3 s] status         Thought it through
+[   5.5 s] step:memory    Checking what I remember
+[   5.5 s] step:web       Reading page nodejs.org/dist/index.json
+[   5.6 s] step:web       Reading page go.dev/dl
+[   5.6 s] step:web       Reading page python.org/downloads
+[   5.7 s] step:memory    Checked what I remember [done]
+[   5.9 s] step:web       Read page nodejs.org/dist/index.json [done]
+[   5.9 s] progress       card: nodejs.org
+[   5.9 s] step:web       Read page python.org/downloads [done]
+[   5.9 s] progress       card: Download Python | Python.org
+[   6.4 s] step:web       Read page go.dev/dl [done]
+[   6.4 s] progress       card: go.dev
+[   6.6 s] status         Thinking
+[  12.5 s] status         Thought it through
+[  12.6 s] step:web       Reading page nodejs.org/en/about/previous-releases
+[  12.6 s] step:web       Reading page go.dev/doc/devel/release
+[  12.8 s] step:web       Read page nodejs.org/en/about/previous-releases [done]
+[  12.8 s] progress       card: Node.js — Node.js Releases
+[  13.5 s] step:web       Read page go.dev/doc/devel/release [done]
+[  13.5 s] progress       card: Release History - The Go Programming Language
+[  13.6 s] status         Thinking
+[  21.9 s] status         Thought it through
+[  21.9 s] text            Here are the 
+[  22.0 s] text           current versions as of Sunday, 18 Oct 2026. I read each source today. | | Current version | Release date | Source | |---|---|---|---| | **Node.js** (LTS line) | v24.22.0 "Krypton" | 2026-10-14 | [nodejs.org releases](https://nodejs.org/en/about/previous-releases) | | **Python** | 3.15.0 | 2026-10-09 | [python.org downloads](https://www.python.org/downloads/) | | **Go** | 1.27.2 | 2026-10-08 | [go
+[  22.5 s] text           ([go.dev](https://go.dev/doc/devel/release)).
+[  22.5 s] end            done
+
+status: done; first output 360 ms; total 22508 ms; longest quiet 8472 ms
+
+reply:
+Here are the current versions as of Sunday, 18 Oct 2026. I read each source today.
+
+| | Current version | Release date | Source |
+|---|---|---|---|
+| **Node.js** (LTS line) | v24.22.0 "Krypton" | 2026-10-14 | [nodejs.org releases](https://nodejs.org/en/about/previous-releases) |
+| **Python** | 3.15.0 | 2026-10-09 | [python.org downloads](https://www.python.org/downloads/) |
+| **Go** | 1.27.2 | 2026-10-08 | [go.dev release history](https://go.dev/doc/devel/release) |
+
+- **Node.js:**
+  - The date comes from Node's own [release index](https://nodejs.org/dist/index.json).
+  - The releases page lists both v24 and v22 as "LTS" without saying which is Active and which is Maintenance. I'm treating v24 as the active line because it's the newer one. That's my inference from Node's usual schedule.
+  - v26.12.0 (2026-10-14) is the newest release overall, but the page still labels v26 "Current", not LTS.
+- **Python:** 3.15.0 is the newest release and only came out nine days ago. If you want the last release of the previous line, that's 3.14.8 from 30 Sept 2026 ([python.org](https://www.python.org/downloads/)).
+- **Go:** 1.27.2 includes security fixes. The previous line, 1.26, is still supported and is at 1.26.9, also released 2026-10-08 ([go.dev](https://go.dev/doc/devel/release)).
+
+## result
+outcome: pass
+reason: 6 checks passed
+- [pass] Node.js LTS version: live 26.12.0
+- [pass] Python version: live 3.15.0
+- [pass] Go version: live 1.27.2
+- [pass] at least 2 source link(s): 4 links, 3 domains
+- [pass] every link resolves: 4 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): Correct and complete, with every version, date and source link given and the Active-vs-Maintenance LTS inference flagged honestly, but the unrequested previous-line details for Python and Go add a little padding.
+clean-up:
+- deleted the chat and what it taught memory

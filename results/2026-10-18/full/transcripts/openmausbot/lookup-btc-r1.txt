@@ -1,0 +1,28 @@
+# lookup-btc (lookup), bot openmausbot, repeat 1
+started 2026-10-17T23:45:47.089Z
+
+## message 1 (chat a)
+> What's the price of Bitcoin in US dollars right now?
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:browser   mcp__browser__agent_browser_open
+[   4.0 s] step:browser   mcp__browser__agent_browser_open [done]
+[   5.0 s] step:browser   mcp__browser__agent_browser_get_text
+[   6.5 s] text           Bitcoin is about **$81,257** USD right now. That's the spot price from Coinbase's public API, checked at roughly 23:45 UTC on Oct 17, 2026. Other exchanges may differ by a small amount.
+[   6.5 s] end            done
+
+status: done; first output 3038 ms; total 6537 ms; longest quiet 3038 ms
+
+reply:
+Bitcoin is about **$81,257** USD right now. That's the spot price from Coinbase's public API, checked at roughly 23:45 UTC on Oct 17, 2026. Other exchanges may differ by a small amount.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] price matches a live source (±3%): live $81253
+- [pass] looked it up live: browser: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It gives a clear, sourced, timestamped Bitcoin price with a helpful caveat, but mentioning Coinbase's 'public API' is a small bit of unnecessary plumbing detail.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (0 file(s) removed, 1 rewritten)

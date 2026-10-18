@@ -1,0 +1,53 @@
+# research-bun (research), bot melete, repeat 1
+started 2026-10-18T00:04:18.763Z
+
+## message 1 (chat a)
+> What are the three most recent stable releases of Bun (the JavaScript runtime), and what's one notable change in each? Link the release notes.
+
+[   2.3 s] status         Thinking
+[   4.6 s] status         Thought it through
+[   4.7 s] step:web       Reading page api.github.com/repos/oven-sh/bun/releases
+[   4.7 s] step:web       Reading page bun.com/blog
+[   5.0 s] step:web       Read page bun.com/blog [done]
+[   5.0 s] progress       card: Blog | Bun
+[   5.5 s] step:web       Read page api.github.com/repos/oven-sh/bun/releases [done]
+[   5.5 s] progress       card: api.github.com
+[   5.7 s] status         Thinking
+[  10.8 s] status         Thought it through
+[  10.9 s] step:web       Reading page bun.com/blog/bun-v1.4.3
+[  11.0 s] step:web       Reading page bun.com/blog/bun-v1.4.2
+[  11.0 s] step:web       Reading page bun.com/blog/bun-v1.4.1
+[  11.3 s] step:web       Read page bun.com/blog/bun-v1.4.3 [done]
+[  11.3 s] progress       card: Bun v1.4.3 | Bun Blog
+[  11.5 s] step:web       Read page bun.com/blog/bun-v1.4.2 [done]
+[  11.5 s] progress       card: Bun v1.4.2 | Bun Blog
+[  11.9 s] step:web       Read page bun.com/blog/bun-v1.4.1 [done]
+[  11.9 s] progress       card: Bun v1.4.1 | Bun Blog
+[  12.1 s] status         Thinking
+[  18.5 s] status         Thought it through
+[  18.5 s] text            The three most recent stable Bun releases are 
+[  18.5 s] text           v1.4.3, v1.4.2 and v1.4.1. I read each release post on bun.com. The GitHub releases list shows v1.4.3 as the latest, and it isn't marked as a prerelease. 1. **[Bun v1.4.3](https://bun.com/blog/bun-v1.4.3)** (Oct 10, 2026): It adds `bun check`, a TypeScript type checker built into Bun. The post says it passes TypeScript 7.0.2's conformance suite and runs about 3x to 6.4x faster than `tsc` 7. It al
+[  19.1 s] text           Rust.
+[  19.1 s] end            done
+
+status: done; first output 4675 ms; total 19077 ms; longest quiet 6607 ms
+
+reply:
+The three most recent stable Bun releases are v1.4.3, v1.4.2 and v1.4.1. I read each release post on bun.com. The GitHub releases list shows v1.4.3 as the latest, and it isn't marked as a prerelease.
+
+1. **[Bun v1.4.3](https://bun.com/blog/bun-v1.4.3)** (Oct 10, 2026): It adds `bun check`, a TypeScript type checker built into Bun. The post says it passes TypeScript 7.0.2's conformance suite and runs about 3x to 6.4x faster than `tsc` 7. It also adds `--check` for `bun run`, `bun build` and `bun test`.
+2. **[Bun v1.4.2](https://bun.com/blog/bun-v1.4.2)** (Sep 5, 2026): This is a small fix release. It fixes a `bun build` regression from v1.4.1 that broke builds importing Elysia. The bug renamed a nested `var` to collide with a `let` in the same block, which caused a SyntaxError at load.
+3. **[Bun v1.4.1](https://bun.com/blog/bun-v1.4.1)** (Sep 4, 2026): `Bun.serve` now supports HTTP/2 on the same port as HTTP/1.1, using the same routes and fetch handler. The post reports roughly 6.8x faster hello-world requests than `node:http2` in Node.js v26.
+
+All three are patch releases of the Bun 1.4 line, which was announced on Aug 20, 2026 as a rewrite of Bun in Rust.
+
+## result
+outcome: fail
+reason: names the recent releases (named none of 1.4.3, 1.4.2, 1.4.1)
+- [FAIL] names the recent releases: named none of 1.4.3, 1.4.2, 1.4.1
+- [pass] at least 1 source link(s): 3 links, 1 domains
+- [pass] every link resolves: 3 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It names three releases, gives one notable change for each, and links every release note, but the opening line about which pages it read and how GitHub marks prereleases is process talk the person didn't need.
+clean-up:
+- deleted the chat and what it taught memory

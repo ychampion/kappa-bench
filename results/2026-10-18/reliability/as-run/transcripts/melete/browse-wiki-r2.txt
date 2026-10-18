@@ -1,0 +1,67 @@
+# browse-wiki (browser), bot melete, repeat 2
+started 2026-10-18T00:48:25.785Z
+
+## message 1 (chat a)
+> Use your browser: go to wikipedia.org, search for Ada Lovelace, open her article and tell me her date of birth as the article gives it.
+
+[   2.4 s] status         Thinking
+[   3.4 s] status         Thought it through
+[   3.6 s] step:browser   Opening wikipedia.org in the browser
+[   5.0 s] step:browser   Opened wikipedia.org in the browser [done]
+[   5.1 s] status         Thinking
+[   6.6 s] status         Thought it through
+[   6.7 s] step:browser   Filling in a form
+[   6.9 s] step:browser   Filling in a form [failed]
+[   7.1 s] status         Thinking
+[   8.5 s] status         Thought it through
+[   8.6 s] step:browser   Opening en.wikipedia.org/w/index.php in the browser
+[  11.9 s] step:browser   Opened en.wikipedia.org/w/index.php in the browser [done]
+[  12.0 s] status         Thinking
+[  13.2 s] text            The search 
+[  13.2 s] text           went straight to her article. Now I'll read the birth 
+[  13.4 s] status         Thought it through
+[  13.4 s] step:browser   Reading the page
+[  13.5 s] text           date.
+[  14.1 s] step:browser   Reading the page [failed]
+[  14.3 s] status         Thinking
+[  15.8 s] status         Thought it through
+[  16.0 s] step:browser   Reading the page
+[  16.8 s] step:browser   Reading the page [failed]
+[  16.9 s] step:browser   Reading the page
+[  17.5 s] step:browser   Reading the page [failed]
+[  17.7 s] status         Thinking
+[  19.0 s] text           Selectors are failing, so I'll read the saved page text 
+[  19.3 s] status         Thought it through
+[  19.4 s] step:file      Reading art_01M567PS7Z6WAC8GTXQQHF5BSR.txt
+[  19.5 s] text           instead.
+[  19.6 s] step:file      Read art_01M567PS7Z6WAC8GTXQQHF5BSR.txt [done]
+[  19.8 s] status         Thinking
+[  21.6 s] status         Thought it through
+[  21.7 s] step:browser   Reading the page
+[  22.4 s] step:browser   Read the page [done]
+[  22.5 s] step:web       Reading page en.wikipedia.org/wiki/Ada_Lovelace
+[  22.9 s] step:web       Read page en.wikipedia.org/wiki/Ada_Lovelace [done]
+[  22.9 s] progress       card: Ada Lovelace - Wikipedia
+[  23.1 s] status         Thinking
+[  25.6 s] text            The article 
+[  25.7 s] status         Thought it through
+[  25.7 s] text           gives Ada Lovelace's date of birth as **10 December 1815**, in London, England. Its opening line reads "Augusta Ada King, Countess of Lovelace (née Byron; 10 December 1815 – 27 November 1852)". The infobox shows the same date. Source: [Ada Lovelace on Wikipedia](https://en.wikipedia.org/wiki/Ada_Lovelace). The Wikipedia home page's search box wouldn't take my typing in my browser. I used Wikipedi
+[  26.3 s] text           text.
+[  26.3 s] end            done
+
+status: done; first output 3649 ms; total 26299 ms; longest quiet 3649 ms
+
+reply:
+The article gives Ada Lovelace's date of birth as **10 December 1815**, in London, England. Its opening line reads "Augusta Ada King, Countess of Lovelace (née Byron; 10 December 1815 – 27 November 1852)". The infobox shows the same date. Source: [Ada Lovelace on Wikipedia](https://en.wikipedia.org/wiki/Ada_Lovelace).
+
+The Wikipedia home page's search box wouldn't take my typing in my browser. I used Wikipedia's search address for "Ada Lovelace" instead, which went straight to her article. I read the date from the article text.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] birth date 10 December 1815: present
+- [pass] a step reached wikipedia.org: Opened wikipedia.org in the browser
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The date (10 December 1815) is correct, quoted from the article, and linked to the source, and the answer honestly notes the search-box workaround, though that explanation leans a bit into plumbing detail.
+clean-up:
+- deleted the chat and what it taught memory

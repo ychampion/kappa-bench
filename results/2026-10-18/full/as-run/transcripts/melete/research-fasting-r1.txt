@@ -1,0 +1,87 @@
+# research-fasting (research), bot melete, repeat 1
+started 2026-10-18T00:04:43.727Z
+
+## message 1 (chat a)
+> Is intermittent fasting better than ordinary calorie restriction for losing weight? Give me the gist of the evidence, with at least three reputable sources.
+
+[   0.4 s] step:other     Used 2 skills
+[   2.1 s] status         Thinking
+[   4.4 s] status         Thought it through
+[   4.6 s] step:memory    Checking what I remember
+[   4.6 s] step:web       Searching the web for “intermittent fasting vs continuous calorie restriction weig…”
+[   4.7 s] step:memory    Checked what I remember [done]
+[  11.8 s] step:web       Searched the web for “intermittent fasting vs continuous calorie restriction weig…” [done]
+[  11.8 s] step:other     Searched the web for “intermittent fasting vs continuous calorie restriction weight loss systematic review meta-analysis Cochrane” (Web)
+[  11.8 s] progress       card: Does intermittent fasting help you lose more weight? Evidence review finds no clear advantage
+[  11.8 s] progress       card: expert reaction to Cochrane review looking at intermittent fasting and weight loss
+[  11.8 s] progress       card: Intermittent versus continuous energy restriction on weight loss and cardiometabolic outcomes: a systematic review and meta-analysis of randomized controlled trials
+[  11.8 s] progress       card: Weight-Loss Outcomes: A Systematic Review and Meta-Analysis of Intermittent Energy Restriction Trials Lasting a Minimum of 6 Months
+[  11.8 s] progress       card: Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?
+[  11.8 s] progress       card: The Effectiveness of Intermittent Fasting to Reduce Body Mass Index and Glucose Metabolism: A Systematic Review and Meta-Analysis
+[  11.8 s] progress       card: The Effect of Intermittent Fasting on Appetite: A Systematic Review and Meta-Analysis
+[  11.8 s] progress       card: Evaluation of the effectiveness of intermittent fasting versus caloric restriction in weight loss and improving cardiometabolic health: A systematic review and meta-analysis - PMC
+[  11.9 s] status         Thinking
+[  13.2 s] text            I 
+[  13.3 s] text           need to open pages before citing 
+[  14.8 s] status         Thought it through
+[  14.9 s] step:web       Reading page sciencemediacentre.org/expert-reaction-to-cochrane-review-l…
+[  14.9 s] step:web       Reading page news-medical.net/news/20260217/Does-intermittent-fasting-he…
+[  14.9 s] step:web       Reading page ncbi.nlm.nih.gov/pmc/articles/PMC6304782
+[  15.0 s] step:web       Reading page ncbi.nlm.nih.gov/pmc/articles/PMC4924195
+[  15.0 s] text           them.
+[  15.5 s] step:web       Read page news-medical.net/news/20260217/Does-intermittent-fasting-he… [done]
+[  15.5 s] progress       card: Does intermittent fasting help you lose more weight? Evidence review finds no clear advantage
+[  16.1 s] step:web       Read page ncbi.nlm.nih.gov/pmc/articles/PMC4924195 [done]
+[  16.1 s] progress       card: Weight-Loss Outcomes: A Systematic Review and Meta-Analysis of Intermittent Energy Restriction Trials Lasting a Minimum of 6 Months - PMC
+[  16.2 s] step:web       Read page ncbi.nlm.nih.gov/pmc/articles/PMC6304782 [done]
+[  16.2 s] progress       card: Intermittent versus continuous energy restriction on weight loss and cardiometabolic outcomes: a systematic review and meta-analysis of randomized controlled trials - PMC
+[  16.3 s] step:web       Read page sciencemediacentre.org/expert-reaction-to-cochrane-review-l… [done]
+[  16.3 s] progress       card: expert reaction to Cochrane review looking at intermittent fasting and weight loss | Science Media Centre
+[  16.5 s] status         Thinking
+[  24.7 s] text           **Short answer:** No. Intermittent fasting (IF) works for weight loss, but the evidence says it does about as well as ordinary calorie restriction, not better. I read all four sources on 18 Oct 2026. - **Newest and strongest evidence (Cochrane review, Feb 2026):** It pooled 22 randomized trials with 1,995 adults who were overweight or obese. Against regular dietary advice (21 studies), IF's weigh
+[  24.7 s] text           only 6–12 months ([News-Medical summary of the Cochrane review](https://www.news-medical.net/news/20260217/Does-intermittent-fasting-help-you-lose-more-weight-Evidence-review-finds-no-clear-advantage.aspx)). - **Earlier meta-analysis (11 trials, 2018):** It compared 5:2 and alternate-day styles with continuous restriction over 8–24 weeks. The pooled difference was −0.61 kg (95% CI −1.70 to 0.47), 
+[  24.8 s] text           both typically 
+[  24.8 s] text           give about 7% weight 
+[  24.9 s] text           loss over 6–12 months 
+[  24.9 s] text           with support, and that weight regain 
+[  25.0 s] text           after a year is common whichever 
+[  25.0 s] text           you 
+[  25.1 s] text           use ([Science Media 
+[  25.4 s] text           Centre](https://www.sciencemediacentre.org/expert-reaction-to-cochrane-review-looking-at-intermittent-fasting-and-weight-loss/)). **What 
+[  25.4 s] text           I'd act on:** The 
+[  25.5 s] text           practical takeaway is 
+[  25.6 s] text           to pick 
+[  25.6 s] text           whichever approach you can stick to. IF has 
+[  25.7 s] text           no proven weight-loss 
+[  25.7 s] text           edge. The evidence is 
+[  25.8 s] text           mostly short-term, and 
+[  25.8 s] text           I couldn't find 
+[  25.8 s] text           solid long-term data in 
+[  25.8 s] status         Thought it through
+[  25.9 s] text           what I 
+[  26.4 s] text           read.
+[  26.4 s] end            done
+
+status: done; first output 360 ms; total 26449 ms; longest quiet 8336 ms
+
+reply:
+**Short answer:** No. Intermittent fasting (IF) works for weight loss, but the evidence says it does about as well as ordinary calorie restriction, not better. I read all four sources on 18 Oct 2026.
+
+- **Newest and strongest evidence (Cochrane review, Feb 2026):** It pooled 22 randomized trials with 1,995 adults who were overweight or obese. Against regular dietary advice (21 studies), IF's weight loss differed by only −0.33% (95% CI −0.92 to 0.26). It also wasn't more likely to get people to a 5% loss (RR 0.98). Against doing nothing, IF did better (−3.42%). The authors judged that gap unlikely to be clearly clinically meaningful. Certainty was low for the advice comparison, and most trials ran only 6–12 months ([News-Medical summary of the Cochrane review](https://www.news-medical.net/news/20260217/Does-intermittent-fasting-help-you-lose-more-weight-Evidence-review-finds-no-clear-advantage.aspx)).
+- **Earlier meta-analysis (11 trials, 2018):** It compared 5:2 and alternate-day styles with continuous restriction over 8–24 weeks. The pooled difference was −0.61 kg (95% CI −1.70 to 0.47), which isn't significant. Blood sugar, lipids and blood pressure didn't differ either. Fasting insulin was slightly lower with IF, but the authors called that clinically uncertain. Dropouts were often higher in the IF arms, and some participants reported more hunger ([Cioffi et al., J Transl Med](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6304782/)).
+- **Longer trials (6+ months):** Across 9 studies, neither approach came out ahead on weight loss. The authors flagged that long-term data are scarce and the trials small ([Headland et al., Nutrients 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4924195/)).
+
+**Where experts disagree:** Reacting to the Cochrane review, some experts said it shows IF offers little benefit. Others argued it lumps very different regimens together and that the "doing nothing" groups often lose weight too. Both camps still agree IF isn't clearly worse than calorie restriction. Prof. Leonie Heilbronn said both typically give about 7% weight loss over 6–12 months with support, and that weight regain after a year is common whichever you use ([Science Media Centre](https://www.sciencemediacentre.org/expert-reaction-to-cochrane-review-looking-at-intermittent-fasting-and-weight-loss/)).
+
+**What I'd act on:** The practical takeaway is to pick whichever approach you can stick to. IF has no proven weight-loss edge. The evidence is mostly short-term, and I couldn't find solid long-term data in what I read.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] at least 3 source link(s): 4 links, 3 domains
+- [pass] every link resolves: 4 ok
+- [pass] at least 2 distinct domains: 3 domains
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): Correct and well sourced, with clear nuance on adherence, dropouts and short follow-up, but it is a bit stat-heavy, cites the Cochrane review through a News-Medical summary instead of directly, and says little about who each approach suits.
+clean-up:
+- deleted the chat and what it taught memory

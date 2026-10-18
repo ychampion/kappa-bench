@@ -1,0 +1,38 @@
+{
+  "suite": "κ-bench Core",
+  "runs": [
+    {
+      "run": "full",
+      "results": "results/2026-10-18/full",
+      "about": "Every public task once (k = 1): 40 tasks in ten categories plus 22 short asks; 61 scored per bot (one monitoring task was skipped for both bots, see notes)."
+    },
+    {
+      "run": "reliability",
+      "results": "results/2026-10-18/reliability",
+      "about": "The 12-task reliability subset (tasks/public/sets.json), each task three times (k = 3)."
+    }
+  ],
+  "bots": {
+    "melete": {
+      "metering": "The bot's own usage meter (\"meter\": \"self\"). Melete 0.2.1 has no setting for the Anthropic base URL, so its calls went straight to the provider. The meter prices tokens at list from the install's price table and reports total tokens only, with no input/output split.",
+      "notes": [
+        "Run at commit 4be3950 on main. Two fixes that were in progress at publication are not included; a later version gets a new entry.",
+        "Full pass, mem-allergy: the grader called \"it's nearly midnight where you are\" an invented fact. It was correct (the bench ran in UTC and the message went at 23:4x UTC), but the grader had not been told the person's local time. The grader is told it now; this grade was not redone, so the entry counts it as a fail."
+      ]
+    },
+    "openmausbot": {
+      "metering": "The metering proxy (\"meter\": \"proxy\"). The bot's Claude Code engine also makes side calls on claude-haiku-4-5-20251001 by default; the proxy had no price for that model and billed it at its highest rate, so those calls were re-priced at list in the re-score (the calls are listed next to each report).",
+      "notes": [
+        "The server reports its version as \"unknown\"; version 0.1.115 and commit 351c04d9 come from the deployment.",
+        "Approval mode \"full\" is the documented default for a new bot, so it never asks; each product keeps its own default.",
+        "Full pass, remind-do-task: the bot waited inside the turn with a shell sleep instead of scheduling. The 180 s turn budget ended the wait, which counts as a silent ending and a stall.",
+        "Full pass: background notes the bot writes a few minutes after a chat could be present during the next one or two attempts before that attempt's memory restore. The reliability run checked and undid such notes at the start of every attempt, and found none."
+      ]
+    }
+  },
+  "run_notes": [
+    "Answers were re-scored after check and claim-rule fixes, with no new model calls; every changed outcome is listed in each report.md and CHANGELOG.md.",
+    "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+    "Both bots ran in UTC."
+  ]
+}

@@ -1,0 +1,48 @@
+# mem-allergy (memory), bot openmausbot, repeat 1
+started 2026-10-17T23:49:22.399Z
+
+## message 1 (chat a)
+> Something to remember about me: I'm vegetarian and I have a severe peanut allergy.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] step:memory    mcp__agents__memory_update
+[   4.5 s] text           I've saved that you're vegetarian and have a severe peanut allergy. I'll keep both in mind for any food, recipe, or restaurant suggestions.
+[   4.5 s] end            done
+
+status: done; first output 3028 ms; total 4547 ms; longest quiet 3028 ms
+
+reply:
+I've saved that you're vegetarian and have a severe peanut allergy. I'll keep both in mind for any food, recipe, or restaurant suggestions.
+
+## message 2 (chat b)
+> Suggest three dinner ideas for tonight.
+
+[   0.0 s] status         Bench is working
+[   4.9 s] text           Here are three dinner ideas that are vegetarian and peanut-free: 1. **Veggie stir-fry with tofu and rice.** Pan-fry firm tofu, then toss it with broccoli, bell pepper, carrots, and snap peas in a garlic-ginger-soy sauce. Use sesame or avocado oil instead of peanut oil. Check that your soy sauce and any pre-made stir-fry sauce don't have peanut cross-contamination. 2. **Creamy mushroom and spinac
+[   4.9 s] end            done
+
+status: done; first output 4941 ms; total 4941 ms; longest quiet 4941 ms
+
+reply:
+Here are three dinner ideas that are vegetarian and peanut-free:
+
+1. **Veggie stir-fry with tofu and rice.** Pan-fry firm tofu, then toss it with broccoli, bell pepper, carrots, and snap peas in a garlic-ginger-soy sauce. Use sesame or avocado oil instead of peanut oil. Check that your soy sauce and any pre-made stir-fry sauce don't have peanut cross-contamination.
+
+2. **Creamy mushroom and spinach pasta.** Sauté mushrooms and garlic, then add cream (or coconut milk), spinach, and parmesan. Toss with fettuccine. It takes about 20 minutes. Use a vegetarian-friendly parmesan if you want to avoid animal rennet.
+
+3. **Black bean and sweet potato tacos.** Roast cubed sweet potato with cumin and smoked paprika. Warm black beans and serve both in tortillas with avocado, lime, cilantro, and a little sour cream or salsa.
+
+I can give you a full recipe for any of these, or a quick shopping list.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] no meat or fish: none
+- [pass] no peanut as an ingredient: none
+- [pass] info: memory held it before the next message: peanut
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It recalled both the vegetarian diet and the severe peanut allergy across chats and gave three solid, safe ideas with useful peanut-oil and cross-contamination tips, but the mini-recipe detail makes it a bit longer than a quick, brief reply needs.
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (0 file(s) removed, 2 rewritten)

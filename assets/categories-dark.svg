@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="988" viewBox="0 0 760 988" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<title id="t">κ-bench Core: pass rate by category</title>
+<desc id="d">Melete, live lookup: 4 of 4 passed. OpenMausBot, live lookup: 4 of 4 passed. Melete, research with sources: 4 of 4 passed. OpenMausBot, research with sources: 3 of 4 passed. Melete, planning: 3 of 4 passed. OpenMausBot, planning: 4 of 4 passed. Melete, writing: 4 of 4 passed. OpenMausBot, writing: 3 of 4 passed. Melete, files in: 4 of 4 passed. OpenMausBot, files in: 4 of 4 passed. Melete, files out: 3 of 4 passed. OpenMausBot, files out: 4 of 4 passed. Melete, reminders and routines: 2 of 4 passed. OpenMausBot, reminders and routines: 3 of 4 passed. Melete, monitoring: 3 of 3 passed. OpenMausBot, monitoring: 3 of 3 passed. Melete, memory across chats: 3 of 4 passed. OpenMausBot, memory across chats: 4 of 4 passed. Melete, browser errands: 4 of 4 passed. OpenMausBot, browser errands: 4 of 4 passed. Melete, short asks: 21 of 22 passed. OpenMausBot, short asks: 21 of 22 passed</desc>
+<rect width="760" height="988" rx="12" fill="#1a1a19"/>
+<rect x="24" y="24" width="12" height="12" rx="3" fill="#3987e5"/><text x="42" y="34.5" font-size="13" fill="#c3c2b7">Melete</text>
+<rect x="111" y="24" width="12" height="12" rx="3" fill="#d95926"/><text x="129" y="34.5" font-size="13" fill="#c3c2b7">OpenMausBot</text>
+<text x="24" y="72" font-size="16" font-weight="600" fill="#f0efec">Pass rate by category, full set (k = 1)</text>
+<text x="24" y="93" font-size="13" fill="#c3c2b7">Four tasks per category, so one task moves a bar by 25 points (monitoring: 3 scored; short asks: 22).</text>
+<line x1="24" y1="110" x2="24" y2="934" stroke="#383835" stroke-width="1"/><text x="24" y="950" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">0%</text>
+<line x1="154.5" y1="110" x2="154.5" y2="934" stroke="#2c2c2a" stroke-width="1"/><text x="154.5" y="950" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">25%</text>
+<line x1="285" y1="110" x2="285" y2="934" stroke="#2c2c2a" stroke-width="1"/><text x="285" y="950" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">50%</text>
+<line x1="415.5" y1="110" x2="415.5" y2="934" stroke="#2c2c2a" stroke-width="1"/><text x="415.5" y="950" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">75%</text>
+<line x1="546" y1="110" x2="546" y2="934" stroke="#2c2c2a" stroke-width="1"/><text x="546" y="950" font-size="11" fill="#a3a199" text-anchor="middle" style="font-variant-numeric: tabular-nums">100%</text>
+<text x="24" y="122" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">live lookup</text>
+<g><title>Melete, live lookup: 4 of 4 passed</title>
+<path d="M24,130h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="143.5" font-size="13" fill="#f0efec">Melete  4/4</text></g>
+<g><title>OpenMausBot, live lookup: 4 of 4 passed</title>
+<path d="M24,152h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="165.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="198" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">research with sources</text>
+<g><title>Melete, research with sources: 4 of 4 passed</title>
+<path d="M24,206h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="219.5" font-size="13" fill="#f0efec">Melete  4/4</text></g>
+<g><title>OpenMausBot, research with sources: 3 of 4 passed</title>
+<path d="M24,228h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#d95926"/>
+<text x="423.5" y="241.5" font-size="13" fill="#f0efec">OpenMausBot  3/4</text></g>
+<text x="24" y="274" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">planning</text>
+<g><title>Melete, planning: 3 of 4 passed</title>
+<path d="M24,282h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#3987e5"/>
+<text x="423.5" y="295.5" font-size="13" fill="#f0efec">Melete  3/4</text></g>
+<g><title>OpenMausBot, planning: 4 of 4 passed</title>
+<path d="M24,304h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="317.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="350" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">writing</text>
+<g><title>Melete, writing: 4 of 4 passed</title>
+<path d="M24,358h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="371.5" font-size="13" fill="#f0efec">Melete  4/4</text></g>
+<g><title>OpenMausBot, writing: 3 of 4 passed</title>
+<path d="M24,380h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#d95926"/>
+<text x="423.5" y="393.5" font-size="13" fill="#f0efec">OpenMausBot  3/4</text></g>
+<text x="24" y="426" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">files in</text>
+<g><title>Melete, files in: 4 of 4 passed</title>
+<path d="M24,434h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="447.5" font-size="13" fill="#f0efec">Melete  4/4</text></g>
+<g><title>OpenMausBot, files in: 4 of 4 passed</title>
+<path d="M24,456h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="469.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="502" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">files out</text>
+<g><title>Melete, files out: 3 of 4 passed</title>
+<path d="M24,510h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#3987e5"/>
+<text x="423.5" y="523.5" font-size="13" fill="#f0efec">Melete  3/4</text></g>
+<g><title>OpenMausBot, files out: 4 of 4 passed</title>
+<path d="M24,532h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="545.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="578" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">reminders and routines</text>
+<g><title>Melete, reminders and routines: 2 of 4 passed</title>
+<path d="M24,586h257a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-257z" fill="#3987e5"/>
+<text x="293" y="599.5" font-size="13" fill="#f0efec">Melete  2/4</text></g>
+<g><title>OpenMausBot, reminders and routines: 3 of 4 passed</title>
+<path d="M24,608h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#d95926"/>
+<text x="423.5" y="621.5" font-size="13" fill="#f0efec">OpenMausBot  3/4</text></g>
+<text x="24" y="654" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">monitoring (non-core)</text>
+<g><title>Melete, monitoring: 3 of 3 passed</title>
+<path d="M24,662h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="675.5" font-size="13" fill="#f0efec">Melete  3/3</text></g>
+<g><title>OpenMausBot, monitoring: 3 of 3 passed</title>
+<path d="M24,684h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="697.5" font-size="13" fill="#f0efec">OpenMausBot  3/3</text></g>
+<text x="24" y="730" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">memory across chats</text>
+<g><title>Melete, memory across chats: 3 of 4 passed</title>
+<path d="M24,738h387.5a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-387.5z" fill="#3987e5"/>
+<text x="423.5" y="751.5" font-size="13" fill="#f0efec">Melete  3/4</text></g>
+<g><title>OpenMausBot, memory across chats: 4 of 4 passed</title>
+<path d="M24,760h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="773.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="806" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">browser errands (non-core)</text>
+<g><title>Melete, browser errands: 4 of 4 passed</title>
+<path d="M24,814h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#3987e5"/>
+<text x="554" y="827.5" font-size="13" fill="#f0efec">Melete  4/4</text></g>
+<g><title>OpenMausBot, browser errands: 4 of 4 passed</title>
+<path d="M24,836h518a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-518z" fill="#d95926"/>
+<text x="554" y="849.5" font-size="13" fill="#f0efec">OpenMausBot  4/4</text></g>
+<text x="24" y="882" font-size="13" font-weight="500" fill="#c3c2b7" stroke="#1a1a19" stroke-width="5" stroke-linejoin="round" paint-order="stroke">short asks</text>
+<g><title>Melete, short asks: 21 of 22 passed</title>
+<path d="M24,890h494.249a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-494.249z" fill="#3987e5"/>
+<text x="530.249" y="903.5" font-size="13" fill="#f0efec">Melete  21/22</text></g>
+<g><title>OpenMausBot, short asks: 21 of 22 passed</title>
+<path d="M24,912h494.249a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-494.249z" fill="#d95926"/>
+<text x="530.249" y="925.5" font-size="13" fill="#f0efec">OpenMausBot  21/22</text></g>
+<text x="24" y="974" font-size="11" fill="#a3a199">κ-bench Core · task set 1.0.0 · claude-sonnet-5-5 for every bot · 2026-10-18 · data: leaderboard/leaderboard.json</text>
+</svg>

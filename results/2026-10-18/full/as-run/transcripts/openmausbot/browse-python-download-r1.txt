@@ -1,0 +1,30 @@
+# browse-python-download (browser), bot openmausbot, repeat 1
+started 2026-10-17T23:41:24.336Z
+
+## message 1 (chat a)
+> In your browser, go to python.org/downloads and tell me which Python version the big yellow download button offers.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           I'm working in the built-in browser tab, opening python.org/downloads.
+[   3.0 s] step:browser   mcp__browser__agent_browser_open
+[   5.0 s] step:browser   mcp__browser__agent_browser_open [done]
+[   6.8 s] text            The big yellow download button on python.org/downloads reads **"Download Python 3.15.0"**. I read this from the page's accessibility tree, not from a screenshot, so I haven't checked that the button is yellow. It is the main download link under the heading "Download the latest source release".
+[   6.8 s] end            done
+
+status: done; first output 3028 ms; total 6830 ms; longest quiet 3028 ms
+
+reply:
+The big yellow download button on python.org/downloads reads **"Download Python 3.15.0"**.
+
+I read this from the page's accessibility tree, not from a screenshot, so I haven't checked that the button is yellow. It is the main download link under the heading "Download the latest source release".
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] names the offered version: live latest 3.15.0
+- [pass] a step reached python.org: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): It gives a clear, plausible answer (Python 3.15.0, consistent with an October 2026 release) and is honest that it couldn't confirm the button's color, but the note about reading the accessibility tree is plumbing detail the person didn't need.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (0 file(s) removed, 1 rewritten)

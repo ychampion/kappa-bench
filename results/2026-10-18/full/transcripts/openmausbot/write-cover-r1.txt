@@ -1,0 +1,44 @@
+# write-cover (writing), bot openmausbot, repeat 1
+started 2026-10-18T00:13:50.635Z
+
+## message 1 (chat a)
+> Write a 200–250 word cover letter for an Operations Coordinator job at Greenleaf Grocers. I've spent three years at a logistics startup running vendor scheduling and cut late deliveries by a third. Sign it Riya Sharma.
+
+[   0.0 s] status         Bench is working
+[   5.7 s] text           Dear Hiring Manager, I'm writing to apply for the Operations Coordinator position at Greenleaf Grocers. Your commitment to fresh, reliable food depends on precise logistics, and that is exactly where I have spent the last three years. At a logistics startup, I ran vendor scheduling across a growing network of suppliers. I built and maintained delivery calendars, confirmed time windows with vendo
+[   5.7 s] end            done
+
+status: done; first output 5732 ms; total 5732 ms; longest quiet 5732 ms
+
+reply:
+Dear Hiring Manager,
+
+I'm writing to apply for the Operations Coordinator position at Greenleaf Grocers. Your commitment to fresh, reliable food depends on precise logistics, and that is exactly where I have spent the last three years.
+
+At a logistics startup, I ran vendor scheduling across a growing network of suppliers. I built and maintained delivery calendars, confirmed time windows with vendors, and acted as the first point of contact when plans changed. By tightening communication, standardizing how we booked slots, and following up proactively on at-risk orders, I helped cut late deliveries by a third. That improvement meant fewer disruptions for our team and more dependable service for our customers.
+
+In a grocery setting, I know timing matters even more. Produce, dairy, and other perishables leave little room for delay, and a missed delivery affects shelves, staff, and shoppers alike. I bring a calm approach under pressure, close attention to detail, and the habit of solving small problems before they become big ones.
+
+I enjoy working with people on both sides of the supply chain, from vendors to warehouse and store teams, and I'm comfortable balancing competing priorities while keeping everyone informed. I'd welcome the chance to bring that same reliability to Greenleaf Grocers.
+
+Thank you for your time and consideration. I would be glad to discuss how my experience could support your operations team.
+
+Sincerely,
+Riya Sharma
+
+## result
+outcome: fail
+reason: false claim: "booked"
+- [pass] roughly 200–250 words: 229 words
+- [pass] names the company and signs: present
+- [pass] no placeholders: absent
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 3/5 (claude-opus-5-5): The letter is warm, on-length (about 225 words), correctly signed and uses all three facts, but it invents specifics Riya never gave (building delivery calendars, standardizing slot booking, a 'growing network') and leans on stock phrases like 'calm approach under pressure' and 'close attention to detail.'
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)
+
+## re-scored 2026-10-18
+outcome: fail -> pass
+- claim "booked" no longer a claim under the current rules
+reason now: 4 checks passed

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<title id="t">κ-bench</title>
+<desc id="d">κ-bench: how reliably can you hand everyday work to a personal agent?</desc>
+<rect width="760" height="200" rx="12" fill="#1a1a19"/>
+<text x="40" y="104" font-size="72" font-weight="700" letter-spacing="-1.5" fill="#f0efec">κ-bench</text>
+<text x="42" y="146" font-size="20" fill="#c3c2b7">How reliably can you hand everyday work to a personal agent?</text>
+<g transform="translate(560 52)">
+<rect x="0" y="0" width="40" height="40" rx="8" fill="#3987e5"/>
+<rect x="52" y="0" width="40" height="40" rx="8" fill="#3987e5"/>
+<rect x="104" y="0" width="40" height="40" rx="8" fill="#3987e5"/>
+<path d="M10 21l7 7 13-15M62 21l7 7 13-15M114 21l7 7 13-15" fill="none" stroke="#1a1a19" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="72" y="62" font-size="13" fill="#c3c2b7" text-anchor="middle">pass^k: right every time</text>
+</g>
+<line x1="40" y1="172" x2="720" y2="172" stroke="#2c2c2a" stroke-width="1"/>
+</svg>

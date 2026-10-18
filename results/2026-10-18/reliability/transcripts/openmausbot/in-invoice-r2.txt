@@ -1,0 +1,32 @@
+# in-invoice (files_in), bot openmausbot, repeat 2
+started 2026-10-18T00:44:09.417Z
+
+## message 1 (chat a)
+> Who is this invoice from, what do I owe in total, and when is it due?
+
+[   0.1 s] status         Bench is working
+[   3.0 s] step:shell     Bash
+[   5.0 s] step:other     Read
+[   6.9 s] text           - **From:** Northwind Design Studio, 88 Mission Street, San Francisco, CA 94105. The invoice number is INV-20417. - **Total due:** $2,340.00. That is $1,200 for logo concepts, $800 for hero illustrations and $340 for revisions, which adds up correctly. - **Due date:** November 14, 2026. The invoice was issued October 15, so that is 30 days. Payment is by bank transfer. A late fee of 1.5% per mont
+[   6.9 s] end            done
+
+status: done; first output 3042 ms; total 6859 ms; longest quiet 3042 ms
+
+reply:
+- **From:** Northwind Design Studio, 88 Mission Street, San Francisco, CA 94105. The invoice number is INV-20417.
+- **Total due:** $2,340.00. That is $1,200 for logo concepts, $800 for hero illustrations and $340 for revisions, which adds up correctly.
+- **Due date:** November 14, 2026. The invoice was issued October 15, so that is 30 days.
+
+Payment is by bank transfer. A late fee of 1.5% per month applies after the due date.
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] names the sender: present
+- [pass] total $2,340
+- [pass] due date: November 14, 2026
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It answers all three questions clearly: sender, a total whose line items check out, and a due date consistent with 30 days from issue, with brief useful payment notes and no padding.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

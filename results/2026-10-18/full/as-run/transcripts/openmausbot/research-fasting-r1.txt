@@ -1,0 +1,48 @@
+# research-fasting (research), bot openmausbot, repeat 1
+started 2026-10-18T00:07:55.934Z
+
+## message 1 (chat a)
+> Is intermittent fasting better than ordinary calorie restriction for losing weight? Give me the gist of the evidence, with at least three reputable sources.
+
+[   0.0 s] status         Bench is working
+[  13.8 s] text           **Short answer:** No. When total calories are matched, intermittent fasting (IF) works about as well as ordinary calorie restriction. It isn't clearly better. It helps mainly if the schedule makes it easier for you to eat less and stick with it. **What the evidence shows** - **Head-to-head trials find no real difference in weight loss.** A 1-year RCT compared alternate-day fasting with daily cal
+[  13.8 s] end            done
+
+status: done; first output 13790 ms; total 13790 ms; longest quiet 13790 ms
+
+reply:
+**Short answer:** No. When total calories are matched, intermittent fasting (IF) works about as well as ordinary calorie restriction. It isn't clearly better. It helps mainly if the schedule makes it easier for you to eat less and stick with it.
+
+**What the evidence shows**
+
+- **Head-to-head trials find no real difference in weight loss.** A 1-year RCT compared alternate-day fasting with daily calorie restriction. Weight loss was similar, and the fasting group had more dropouts and no better cardiometabolic markers (Trepanowski et al., *JAMA Internal Medicine*, 2017).
+- **Time-restricted eating (for example 16:8) adds little beyond cutting calories.**
+  - A 12-week RCT of 16:8 found no significant weight-loss advantage over regular meal timing. Some of the weight lost was lean mass (Lowe et al., *JAMA Internal Medicine*, 2020).
+  - A 12-month RCT in people with obesity compared an 8-hour eating window plus calorie restriction against calorie restriction alone. It found no added benefit from the window (Liu et al., *New England Journal of Medicine*, 2022).
+- **Pooled analyses agree.** Reviews of many trials find IF produces modest weight loss, typically a few percent of body weight. That is similar to continuous restriction, with comparable effects on blood pressure, glucose and lipids (for example, Patikorn et al., *JAMA Network Open*, 2021, an umbrella review of meta-analyses).
+
+**Caveats**
+- Most trials are short (months) and fairly small, and long-term data are limited.
+- Adherence matters more than the pattern. Some people find IF simpler, and others find it harder.
+- IF is not suitable for everyone, including pregnancy, a history of eating disorders, and people on insulin or sulfonylureas. They should check with a clinician first.
+- Some earlier hints of metabolic benefits independent of weight loss haven't held up consistently in the larger trials.
+
+**Sources**
+1. Trepanowski JF et al. *JAMA Intern Med.* 2017;177(7):930–938.
+2. Lowe DA et al. *JAMA Intern Med.* 2020;180(11):1491–1499.
+3. Liu D et al. *N Engl J Med.* 2022;386:1495–1504.
+4. Patikorn C et al. *JAMA Netw Open.* 2021;4(12):e2139558.
+
+I wrote these citations from memory and didn't check them against the journals just now. I'm confident in the studies and their findings, but verify the volume and page details before quoting them formally.
+
+## result
+outcome: fail
+reason: at least 3 source link(s) (0 links, 0 domains); every link resolves (0 ok); at least 2 distinct domains (0 domains)
+- [FAIL] at least 3 source link(s): 0 links, 0 domains
+- [FAIL] every link resolves: 0 ok
+- [FAIL] at least 2 distinct domains: 0 domains
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It accurately says intermittent fasting and calorie restriction give similar weight loss, backs this with four correctly cited landmark trials and reviews, adds sensible nuance on adherence and who should avoid IF, and is honest that the citations weren't re-checked, all concisely and without overreach.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

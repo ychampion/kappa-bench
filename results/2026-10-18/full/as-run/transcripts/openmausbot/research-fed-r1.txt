@@ -1,0 +1,40 @@
+# research-fed (research), bot openmausbot, repeat 1
+started 2026-10-18T00:06:08.054Z
+
+## message 1 (chat a)
+> What is the Federal Reserve's current target range for the federal funds rate, and when did it last change? Cite your sources.
+
+[   0.0 s] status         Bench is working
+[   3.0 s] text           I'm using the built-in browser to check the Federal Reserve's site.
+[   4.0 s] step:browser   mcp__browser__agent_browser_open
+[  24.1 s] step:browser   mcp__browser__agent_browser_open [done]
+[  28.1 s] step:browser   mcp__browser__agent_browser_read
+[  30.1 s] step:browser   mcp__browser__agent_browser_open
+[  31.1 s] step:browser   mcp__browser__agent_browser_open [done]
+[  34.1 s] text            **The target range is 3.75%–4.00%. It last changed on September 17, 2026, when the Fed raised it by 25 basis points from 3.50%–3.75%.** - The Fed's table of target-rate changes lists one 2026 entry: September 17, an increase of 25 basis points, with a resulting level of 3.75–4.00%. - The same table shows the prior level was 3.50–3.75%, set by a 25 bp cut on December 11, 2025. Nothing is listed 
+[  34.5 s] end            done
+
+status: done; first output 3030 ms; total 34469 ms; longest quiet 20070 ms
+
+reply:
+**The target range is 3.75%–4.00%. It last changed on September 17, 2026, when the Fed raised it by 25 basis points from 3.50%–3.75%.**
+
+- The Fed's table of target-rate changes lists one 2026 entry: September 17, an increase of 25 basis points, with a resulting level of 3.75–4.00%.
+- The same table shows the prior level was 3.50–3.75%, set by a 25 bp cut on December 11, 2025. Nothing is listed between that cut and September 17, 2026.
+
+I couldn't corroborate this with the FOMC statement itself. The press-release page didn't load in my browser. The table's September 17 date may be the effective date rather than the meeting date, and I didn't confirm which. A rate hike after a run of cuts is also unusual. Before relying on this, check the latest FOMC statement at the Fed's monetary policy page.
+
+Sources:
+- [Federal Reserve Board – Open Market Operations: FOMC's target federal funds rate or range, change and level](https://www.federalreserve.gov/monetarypolicy/openmarket.htm)
+
+## result
+outcome: pass
+reason: 4 checks passed
+- [pass] names the current range: live 3.75%–4.00%
+- [pass] at least 1 source link(s): 1 links, 1 domains
+- [pass] every link resolves: 1 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): The answer is direct, cites the Fed's own rate table, and honestly flags that it couldn't confirm the change against the FOMC statement, though the closing caveats add some hedging and browser talk that a busy reader doesn't need.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

@@ -1,0 +1,35 @@
+# lookup-btc (lookup), bot melete, repeat 1
+started 2026-10-17T23:47:48.635Z
+
+## message 1 (chat a)
+> What's the price of Bitcoin in US dollars right now?
+
+[   2.3 s] status         Thinking
+[   4.0 s] status         Thought it through
+[   4.1 s] step:web       Reading page api.coingecko.com/api/v3/simple/price
+[   4.1 s] step:web       Reading page api.coinbase.com/v2/prices/BTC-USD/spot
+[   4.4 s] step:web       Read page api.coingecko.com/api/v3/simple/price [done]
+[   4.4 s] progress       card: api.coingecko.com
+[   4.5 s] step:web       Read page api.coinbase.com/v2/prices/BTC-USD/spot [done]
+[   4.5 s] progress       card: api.coinbase.com
+[   4.6 s] status         Thinking
+[   6.6 s] status         Thought it through
+[   6.7 s] text            Bitcoin is about **$81,265** right now, according to [Coinbase's spot 
+[   6.7 s] text           price](https://api.coinbase.com/v2/prices/BTC-USD/spot). [CoinGecko](https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd) shows $81,284, which is 
+[   7.1 s] text           close.
+[   7.1 s] end            done
+
+status: done; first output 4148 ms; total 7148 ms; longest quiet 4148 ms
+
+reply:
+Bitcoin is about **$81,265** right now, according to [Coinbase's spot price](https://api.coinbase.com/v2/prices/BTC-USD/spot). [CoinGecko](https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd) shows $81,284, which is close.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] price matches a live source (±3%): live $81265
+- [pass] looked it up live: web: Read page api.coingecko.com/api/v3/simple/price
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It gives a clear, current Bitcoin price with a second source that confirms it, briefly and without padding.
+clean-up:
+- deleted the chat and what it taught memory

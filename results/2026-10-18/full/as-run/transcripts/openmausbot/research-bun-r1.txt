@@ -1,0 +1,50 @@
+# research-bun (research), bot openmausbot, repeat 1
+started 2026-10-18T00:06:47.718Z
+
+## message 1 (chat a)
+> What are the three most recent stable releases of Bun (the JavaScript runtime), and what's one notable change in each? Link the release notes.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] text           I'll check Bun's GitHub releases page in the built-in browser.
+[   4.0 s] step:browser   mcp__browser__agent_browser_read
+[   5.0 s] step:browser   mcp__browser__agent_browser_read [failed]
+[   6.0 s] step:browser   mcp__browser__agent_browser_open
+[  13.1 s] step:browser   mcp__browser__agent_browser_open [done]
+[  16.1 s] step:browser   mcp__browser__agent_browser_eval
+[  50.2 s] step:browser   mcp__browser__agent_browser_eval [done]
+[  52.2 s] text            Notes are on the blog; fetching the three.
+[  53.2 s] step:web       WebFetch
+[  53.2 s] step:web       WebFetch
+[  53.2 s] step:web       WebFetch
+[  57.2 s] step:web       WebFetch [done]
+[  57.2 s] step:web       WebFetch [done]
+[  57.2 s] step:web       WebFetch [done]
+[  62.2 s] text            The three most recent stable Bun releases, as of Oct 18, 2026, are v1.4.3, v1.4.2 and v1.4.1. I read the release dates and notes from Bun's GitHub releases and blog. | Release | Date | One notable change | Release notes | |---|---|---|---| | **v1.4.3** | Oct 10, 2026 | `bun check` is a new built-in TypeScript type checker, ported from typescript-go. Bun says it runs 3–6.4x faster than `tsc` 7.0
+[  62.3 s] end            done
+
+status: done; first output 4029 ms; total 62338 ms; longest quiet 34103 ms
+
+reply:
+The three most recent stable Bun releases, as of Oct 18, 2026, are v1.4.3, v1.4.2 and v1.4.1. I read the release dates and notes from Bun's GitHub releases and blog.
+
+| Release | Date | One notable change | Release notes |
+|---|---|---|---|
+| **v1.4.3** | Oct 10, 2026 | `bun check` is a new built-in TypeScript type checker, ported from typescript-go. Bun says it runs 3–6.4x faster than `tsc` 7.0.2 and uses 2.2–4.9x less memory. | [Blog](https://bun.com/blog/bun-v1.4.3) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.3) |
+| **v1.4.2** | Sep 5, 2026 | Fixes two v1.4.1 regressions: a `bun build` bug that broke Elysia builds, and an `AsyncLocalStorage` memory leak. | [Blog](https://bun.sh/blog/bun-v1.4.2) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.2) |
+| **v1.4.1** | Sep 4, 2026 | `Bun.serve` now supports HTTP/2 on the same port as HTTP/1.1. Bun reports up to 6.8x faster than `node:http2` on a hello-world GET. | [Blog](https://bun.com/blog/bun-v1.4.1) · [GitHub](https://github.com/oven-sh/bun/releases/tag/bun-v1.4.1) |
+
+v1.4.0 (Aug 20) came just before these.
+
+The v1.4.3 blog post was slightly too long to read in full. I read its first 100,000 of about 104,000 characters, so the headline is from the part I read.
+
+## result
+outcome: fail
+reason: names the recent releases (named none of 1.4.3, 1.4.2, 1.4.1)
+- [FAIL] names the recent releases: named none of 1.4.3, 1.4.2, 1.4.1
+- [pass] at least 1 source link(s): 6 links, 3 domains
+- [pass] every link resolves: 6 ok
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): Correct and complete, with three releases, a notable change for each, and linked notes, but the closing note about reading 100,000 of 104,000 characters is plumbing the person doesn't need, and the blog links mix bun.sh and bun.com domains inconsistently.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (1 file(s) removed, 0 rewritten)

@@ -1,0 +1,58 @@
+# mem-correct (memory), bot openmausbot, repeat 1
+started 2026-10-17T23:49:39.290Z
+
+## message 1 (chat a)
+> My sister Ottilie's birthday is March 3.
+
+[   0.0 s] status         Bench is working
+[   5.0 s] step:memory    mcp__agents__memory_update
+[   5.9 s] text           I've saved that your sister Ottilie's birthday is March 3. Do you want a yearly reminder before it?
+[   5.9 s] end            done
+
+status: done; first output 5039 ms; total 5884 ms; longest quiet 5039 ms
+
+reply:
+I've saved that your sister Ottilie's birthday is March 3. Do you want a yearly reminder before it?
+
+## message 2 (chat a)
+> Sorry, I got that wrong: Ottilie's birthday is March 13.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] step:memory    mcp__agents__memory_update
+[   4.9 s] text           No problem. I've changed Ottilie's birthday to March 13 in my memory.
+[   4.9 s] end            done
+
+status: done; first output 4031 ms; total 4925 ms; longest quiet 4031 ms
+
+reply:
+No problem. I've changed Ottilie's birthday to March 13 in my memory.
+
+## message 3 (chat b)
+> When is my sister Ottilie's birthday?
+
+[   0.0 s] status         Bench is working
+[   2.4 s] text           Your sister Ottilie's birthday is March 13. You first told me March 3, then corrected it to March 13.
+[   2.4 s] end            done
+
+status: done; first output 2423 ms; total 2423 ms; longest quiet 2423 ms
+
+reply:
+Your sister Ottilie's birthday is March 13. You first told me March 3, then corrected it to March 13.
+
+## result
+outcome: fail
+reason: does not give March 3 as the date
+- [pass] says March 13: present
+- [FAIL] does not give March 3 as the date
+- [pass] info: memory held it before the next message: Ottilie
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 4/5 (claude-opus-5-5): All three answers are correct and the correction carried over properly to the new chat, but the last answer adds an unneeded recap of the earlier mistake when a plain 'March 13' would do.
+clean-up:
+- deleted the conversation
+- deleted the conversation
+- restored the bot's memory to before the attempt (0 file(s) removed, 2 rewritten)
+
+## re-scored 2026-10-18
+outcome: fail -> pass
+- check "does not give March 3 as the date": fail -> pass
+reason now: 3 checks passed

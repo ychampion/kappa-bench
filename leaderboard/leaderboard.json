@@ -1,0 +1,521 @@
+{
+  "schema": 1,
+  "name": "κ-bench Core",
+  "updated": "2026-10-18",
+  "model": "claude-sonnet-5-5",
+  "category_labels": {
+    "lookup": "live lookup",
+    "research": "research with sources",
+    "planning": "planning",
+    "writing": "writing",
+    "files_in": "files in",
+    "files_out": "files out",
+    "reminders": "reminders and routines",
+    "monitoring": "monitoring",
+    "memory": "memory across chats",
+    "browser": "browser errands",
+    "short": "short asks"
+  },
+  "runs": [
+    {
+      "run": "full",
+      "results": "results/2026-10-18/full",
+      "about": "Every public task once (k = 1): 40 tasks in ten categories plus 22 short asks; 61 scored per bot (one monitoring task was skipped for both bots, see notes)."
+    },
+    {
+      "run": "reliability",
+      "results": "results/2026-10-18/reliability",
+      "about": "The 12-task reliability subset (tasks/public/sets.json), each task three times (k = 3)."
+    }
+  ],
+  "entries": [
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "run": "full",
+      "date": "2026-10-18",
+      "k": 1,
+      "bot": "melete",
+      "product": "Melete",
+      "homepage": "https://github.com/ychampion/melete",
+      "version": "0.2.1",
+      "commit": "4be3950",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {},
+      "settings": {
+        "commit": "4be3950",
+        "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
+        "browser": true,
+        "model_calls": "straight to the Anthropic API: 0.2.1 has no setting for the Anthropic base URL, so spend is read from the install's own usage meter (meter: self) with true list prices set in MELETE_MODEL_PRICES; on a build with that setting, point it at <proxy>/b/melete and set meter to proxy",
+        "approvals": "product defaults; the bench answers every card with the uniform policy",
+        "connections": "none (no mail, calendar or messaging accounts)"
+      },
+      "spend_meter": "self",
+      "metering": "The bot's own usage meter (\"meter\": \"self\"). Melete 0.2.1 has no setting for the Anthropic base URL, so its calls went straight to the provider. The meter prices tokens at list from the install's price table and reports total tokens only, with no input/output split.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18/full",
+      "rescored": true,
+      "attempts": 62,
+      "scored": 61,
+      "passed": 55,
+      "pass_at_1": 0.9016,
+      "tasks_k": 61,
+      "tasks_passed_every_attempt": 55,
+      "pass_hat_k": null,
+      "honest": 1,
+      "honest_attempts": 61,
+      "ran": 61,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 3582,
+      "first_output_p95_ms": 5682,
+      "first_text_p50_ms": 6660,
+      "first_text_p95_ms": 21501,
+      "total_p50_ms": 12707,
+      "total_p95_ms": 41576,
+      "usd_per_attempt": 0.0629,
+      "usd_total": 3.834,
+      "categories": {
+        "lookup": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "planning": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "writing": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_in": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "reminders": {
+          "passed": 2,
+          "scored": 4,
+          "pass_at_1": 0.5,
+          "core": true
+        },
+        "monitoring": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "memory": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "browser": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "short": {
+          "passed": 21,
+          "scored": 22,
+          "pass_at_1": 0.9545,
+          "core": true
+        }
+      },
+      "notes": [
+        "Run at commit 4be3950 on main. Two fixes that were in progress at publication are not included; a later version gets a new entry.",
+        "Full pass, mem-allergy: the grader called \"it's nearly midnight where you are\" an invented fact. It was correct (the bench ran in UTC and the message went at 23:4x UTC), but the grader had not been told the person's local time. The grader is told it now; this grade was not redone, so the entry counts it as a fail.",
+        "Answers were re-scored after check and claim-rule fixes, with no new model calls; every changed outcome is listed in each report.md and CHANGELOG.md.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "run": "full",
+      "date": "2026-10-18",
+      "k": 1,
+      "bot": "openmausbot",
+      "product": "OpenMausBot",
+      "homepage": "https://github.com/milind-soni/OpenMausBot",
+      "version": "0.1.115 (unverified)",
+      "commit": "351c04d9",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {
+        "claude-haiku-4-5-20251001": 31
+      },
+      "settings": {
+        "commit": "351c04d9",
+        "install": "documented docker compose (deploy/local) at v0.1.115",
+        "engine": "claude (Claude Code 2.1.302), base URL set to <proxy>/b/openmausbot",
+        "bot": "Bench",
+        "approval": "full",
+        "computer": "auto (default)",
+        "browser": "agent-browser engine as installed by the image",
+        "connections": "none"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"). The bot's Claude Code engine also makes side calls on claude-haiku-4-5-20251001 by default; the proxy had no price for that model and billed it at its highest rate, so those calls were re-priced at list in the re-score (the calls are listed next to each report).",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18/full",
+      "rescored": true,
+      "attempts": 62,
+      "scored": 61,
+      "passed": 57,
+      "pass_at_1": 0.9344,
+      "tasks_k": 61,
+      "tasks_passed_every_attempt": 57,
+      "pass_hat_k": null,
+      "honest": 0.9836,
+      "honest_attempts": 60,
+      "ran": 61,
+      "false_claims": 0,
+      "silent_endings": 1,
+      "long_silences": 1,
+      "stalls": 1,
+      "crashes": 0,
+      "first_output_p50_ms": 3035,
+      "first_output_p95_ms": 8043,
+      "first_text_p50_ms": 4546,
+      "first_text_p95_ms": 14059,
+      "total_p50_ms": 8041,
+      "total_p95_ms": 32659,
+      "usd_per_attempt": 0.059,
+      "usd_total": 3.5978,
+      "categories": {
+        "lookup": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "planning": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "writing": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "files_in": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 3,
+          "scored": 4,
+          "pass_at_1": 0.75,
+          "core": true
+        },
+        "monitoring": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "memory": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 4,
+          "scored": 4,
+          "pass_at_1": 1,
+          "core": false
+        },
+        "short": {
+          "passed": 21,
+          "scored": 22,
+          "pass_at_1": 0.9545,
+          "core": true
+        }
+      },
+      "notes": [
+        "The server reports its version as \"unknown\"; version 0.1.115 and commit 351c04d9 come from the deployment.",
+        "Approval mode \"full\" is the documented default for a new bot, so it never asks; each product keeps its own default.",
+        "Full pass, remind-do-task: the bot waited inside the turn with a shell sleep instead of scheduling. The 180 s turn budget ended the wait, which counts as a silent ending and a stall.",
+        "Full pass: background notes the bot writes a few minutes after a chat could be present during the next one or two attempts before that attempt's memory restore. The reliability run checked and undid such notes at the start of every attempt, and found none.",
+        "Answers were re-scored after check and claim-rule fixes, with no new model calls; every changed outcome is listed in each report.md and CHANGELOG.md.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "run": "reliability",
+      "date": "2026-10-18",
+      "k": 3,
+      "bot": "melete",
+      "product": "Melete",
+      "homepage": "https://github.com/ychampion/melete",
+      "version": "0.2.1",
+      "commit": "4be3950",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {},
+      "settings": {
+        "commit": "4be3950",
+        "install": "documented self-hosted docker compose defaults, configured for provider anthropic and model claude-sonnet-5-5",
+        "browser": true,
+        "model_calls": "straight to the Anthropic API: 0.2.1 has no setting for the Anthropic base URL, so spend is read from the install's own usage meter (meter: self) with true list prices set in MELETE_MODEL_PRICES; on a build with that setting, point it at <proxy>/b/melete and set meter to proxy",
+        "approvals": "product defaults; the bench answers every card with the uniform policy",
+        "connections": "none (no mail, calendar or messaging accounts)"
+      },
+      "spend_meter": "self",
+      "metering": "The bot's own usage meter (\"meter\": \"self\"). Melete 0.2.1 has no setting for the Anthropic base URL, so its calls went straight to the provider. The meter prices tokens at list from the install's price table and reports total tokens only, with no input/output split.",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18/reliability",
+      "rescored": true,
+      "attempts": 36,
+      "scored": 36,
+      "passed": 35,
+      "pass_at_1": 0.9722,
+      "tasks_k": 12,
+      "tasks_passed_every_attempt": 11,
+      "pass_hat_k": 0.9167,
+      "honest": 1,
+      "honest_attempts": 36,
+      "ran": 36,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 593,
+      "first_output_p95_ms": 10292,
+      "first_text_p50_ms": 5984,
+      "first_text_p95_ms": 34564,
+      "total_p50_ms": 9735,
+      "total_p95_ms": 41163,
+      "usd_per_attempt": 0.0813,
+      "usd_total": 2.9275,
+      "categories": {
+        "lookup": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "planning": {
+          "passed": 5,
+          "scored": 6,
+          "pass_at_1": 0.8333,
+          "core": true
+        },
+        "writing": {
+          "passed": 6,
+          "scored": 6,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_in": {
+          "passed": 6,
+          "scored": 6,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "memory": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        }
+      },
+      "notes": [
+        "Run at commit 4be3950 on main. Two fixes that were in progress at publication are not included; a later version gets a new entry.",
+        "Full pass, mem-allergy: the grader called \"it's nearly midnight where you are\" an invented fact. It was correct (the bench ran in UTC and the message went at 23:4x UTC), but the grader had not been told the person's local time. The grader is told it now; this grade was not redone, so the entry counts it as a fail.",
+        "Answers were re-scored after check and claim-rule fixes, with no new model calls; every changed outcome is listed in each report.md and CHANGELOG.md.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    },
+    {
+      "suite": "κ-bench Core",
+      "task_set": "1.0.0",
+      "run": "reliability",
+      "date": "2026-10-18",
+      "k": 3,
+      "bot": "openmausbot",
+      "product": "OpenMausBot",
+      "homepage": "https://github.com/milind-soni/OpenMausBot",
+      "version": "0.1.115 (unverified)",
+      "commit": "351c04d9",
+      "model": "claude-sonnet-5-5",
+      "other_models_called": {
+        "claude-haiku-4-5-20251001": 19
+      },
+      "settings": {
+        "commit": "351c04d9",
+        "install": "documented docker compose (deploy/local) at v0.1.115",
+        "engine": "claude (Claude Code 2.1.302), base URL set to <proxy>/b/openmausbot",
+        "bot": "Bench",
+        "approval": "full",
+        "computer": "auto (default)",
+        "browser": "agent-browser engine as installed by the image",
+        "connections": "none"
+      },
+      "spend_meter": "proxy",
+      "metering": "The metering proxy (\"meter\": \"proxy\"). The bot's Claude Code engine also makes side calls on claude-haiku-4-5-20251001 by default; the proxy had no price for that model and billed it at its highest rate, so those calls were re-priced at list in the re-score (the calls are listed next to each report).",
+      "grader": "claude-opus-5-5 via the metering proxy",
+      "results": "results/2026-10-18/reliability",
+      "rescored": true,
+      "attempts": 36,
+      "scored": 36,
+      "passed": 31,
+      "pass_at_1": 0.8611,
+      "tasks_k": 12,
+      "tasks_passed_every_attempt": 10,
+      "pass_hat_k": 0.8333,
+      "honest": 1,
+      "honest_attempts": 36,
+      "ran": 36,
+      "false_claims": 0,
+      "silent_endings": 0,
+      "long_silences": 0,
+      "stalls": 0,
+      "crashes": 0,
+      "first_output_p50_ms": 3026,
+      "first_output_p95_ms": 12617,
+      "first_text_p50_ms": 4024,
+      "first_text_p95_ms": 25040,
+      "total_p50_ms": 6859,
+      "total_p95_ms": 26841,
+      "usd_per_attempt": 0.0871,
+      "usd_total": 3.1359,
+      "categories": {
+        "lookup": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "research": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "planning": {
+          "passed": 4,
+          "scored": 6,
+          "pass_at_1": 0.6667,
+          "core": true
+        },
+        "writing": {
+          "passed": 3,
+          "scored": 6,
+          "pass_at_1": 0.5,
+          "core": true
+        },
+        "files_in": {
+          "passed": 6,
+          "scored": 6,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "files_out": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "reminders": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "memory": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": true
+        },
+        "browser": {
+          "passed": 3,
+          "scored": 3,
+          "pass_at_1": 1,
+          "core": false
+        }
+      },
+      "notes": [
+        "The server reports its version as \"unknown\"; version 0.1.115 and commit 351c04d9 come from the deployment.",
+        "Approval mode \"full\" is the documented default for a new bot, so it never asks; each product keeps its own default.",
+        "Full pass, remind-do-task: the bot waited inside the turn with a shell sleep instead of scheduling. The 180 s turn budget ended the wait, which counts as a silent ending and a stall.",
+        "Full pass: background notes the bot writes a few minutes after a chat could be present during the next one or two attempts before that attempt's memory restore. The reliability run checked and undid such notes at the start of every attempt, and found none.",
+        "Answers were re-scored after check and claim-rule fixes, with no new model calls; every changed outcome is listed in each report.md and CHANGELOG.md.",
+        "watch-github-issue needs a throwaway GitHub repo and token, which were not set, so it was skipped for both bots and is not scored.",
+        "Both bots ran in UTC."
+      ]
+    }
+  ]
+}

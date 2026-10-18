@@ -1,0 +1,35 @@
+# browse-wiki (browser), bot openmausbot, repeat 1
+started 2026-10-17T23:41:07.572Z
+
+## message 1 (chat a)
+> Use your browser: go to wikipedia.org, search for Ada Lovelace, open her article and tell me her date of birth as the article gives it.
+
+[   0.0 s] status         Bench is working
+[   4.0 s] text           I'm working in the built-in browser tab, starting at wikipedia.org.
+[   4.0 s] step:browser   mcp__browser__agent_browser_open
+[   5.0 s] step:browser   mcp__browser__agent_browser_open [done]
+[   6.1 s] step:browser   mcp__browser__agent_browser_fill
+[   7.1 s] step:browser   mcp__browser__agent_browser_fill [done]
+[   7.1 s] step:browser   mcp__browser__agent_browser_press
+[   8.1 s] step:browser   mcp__browser__agent_browser_press [done]
+[  10.1 s] step:browser   mcp__browser__agent_browser_eval
+[  11.6 s] text            I searched for Ada Lovelace on wikipedia.org and opened her article at en.wikipedia.org/wiki/Ada_Lovelace. The article gives her date of birth as **10 December 1815**, in London, England. It lists her birth name as Augusta Ada Byron. I took this from the "Born" line of the article's infobox.
+[  11.6 s] end            done
+
+status: done; first output 4045 ms; total 11635 ms; longest quiet 4045 ms
+
+reply:
+I searched for Ada Lovelace on wikipedia.org and opened her article at en.wikipedia.org/wiki/Ada_Lovelace. The article gives her date of birth as **10 December 1815**, in London, England. It lists her birth name as Augusta Ada Byron.
+
+I took this from the "Born" line of the article's infobox.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] birth date 10 December 1815: present
+- [pass] a step reached wikipedia.org: mcp__browser__agent_browser_open
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): It correctly gives Ada Lovelace's date of birth as 10 December 1815, the date her Wikipedia article states, and its steps plausibly match the browsing the person asked for, all concise and clearly sourced.
+clean-up:
+- deleted the conversation
+- restored the bot's memory to before the attempt (0 file(s) removed, 1 rewritten)

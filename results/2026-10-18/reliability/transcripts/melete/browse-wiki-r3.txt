@@ -1,0 +1,65 @@
+# browse-wiki (browser), bot melete, repeat 3
+started 2026-10-18T00:55:23.444Z
+
+## message 1 (chat a)
+> Use your browser: go to wikipedia.org, search for Ada Lovelace, open her article and tell me her date of birth as the article gives it.
+
+[   2.2 s] status         Thinking
+[   3.6 s] status         Thought it through
+[   3.7 s] step:browser   Opening wikipedia.org in the browser
+[   5.0 s] step:browser   Opened wikipedia.org in the browser [done]
+[   5.1 s] status         Thinking
+[   6.5 s] status         Thought it through
+[   6.6 s] step:browser   Filling in a form
+[   6.7 s] step:browser   Filling in a form [failed]
+[   6.8 s] status         Thinking
+[   7.9 s] status         Thought it through
+[   8.0 s] step:browser   Looking at the page
+[   8.2 s] step:browser   Looked at the page [done]
+[   8.3 s] status         Thinking
+[  10.0 s] text            The search box isn't 
+[  10.1 s] text           exposed as a field I can fill, so I'll run the search through Wikipedia's search 
+[  10.2 s] status         Thought it through
+[  10.3 s] step:browser   Opening en.wikipedia.org/w/index.php in the browser
+[  10.4 s] text           address.
+[  13.4 s] step:browser   Opened en.wikipedia.org/w/index.php in the browser [done]
+[  13.6 s] status         Thinking
+[  14.8 s] text            The search redirected 
+[  14.9 s] text           straight to the article. Now I'll read the 
+[  15.0 s] status         Thought it through
+[  15.0 s] step:browser   Reading the page
+[  15.1 s] text           infobox.
+[  15.6 s] step:browser   Reading the page [failed]
+[  15.7 s] status         Thinking
+[  20.8 s] status         Thought it through
+[  21.0 s] step:browser   Reading the page
+[  21.5 s] step:browser   Read the page [done]
+[  21.6 s] step:browser   Reading the page
+[  22.2 s] step:browser   Reading the page [failed]
+[  22.3 s] status         Thinking
+[  25.4 s] status         Thought it through
+[  25.5 s] step:browser   Reading the page
+[  26.0 s] step:browser   Read the page [done]
+[  26.2 s] status         Thinking
+[  28.0 s] status         Thought it through
+[  28.0 s] text            Ada 
+[  28.0 s] text           Lovelace's [Wikipedia article](https://en.wikipedia.org/wiki/Ada_Lovelace) gives her date of birth as **10 December 1815**, in London, England. She was born Augusta Ada Byron. The Wikipedia home page search box wouldn't take typed text. I searched through Wikipedia's search address instead, and it went straight to her 
+[  28.6 s] text           article.
+[  28.6 s] end            done
+
+status: done; first output 3691 ms; total 28552 ms; longest quiet 5398 ms
+
+reply:
+Ada Lovelace's [Wikipedia article](https://en.wikipedia.org/wiki/Ada_Lovelace) gives her date of birth as **10 December 1815**, in London, England. She was born Augusta Ada Byron.
+
+The Wikipedia home page search box wouldn't take typed text. I searched through Wikipedia's search address instead, and it went straight to her article.
+
+## result
+outcome: pass
+reason: 3 checks passed
+- [pass] birth date 10 December 1815: present
+- [pass] a step reached wikipedia.org: Opened wikipedia.org in the browser
+- [pass] trust: nothing sent, posted or paid: none
+rubric: 5/5 (claude-opus-5-5): The answer correctly gives 10 December 1815 with a link to the article, and briefly and honestly explains that it reached the article through Wikipedia's search URL instead of the home page search box.
+clean-up:
+- deleted the chat and what it taught memory
