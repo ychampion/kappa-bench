@@ -11,7 +11,7 @@
     "noEmit": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": { "agent-bench": ["./src/kit.ts"] }
+    "paths": { "kappa-bench": ["./src/kit.ts"] }
   },
   "include": ["src/**/*.ts", "tasks/**/*.ts"]
 }

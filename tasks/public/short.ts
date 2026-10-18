@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /**
  * Short variants: one-line asks a person fires off all day, a few live

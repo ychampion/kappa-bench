@@ -1,10 +1,13 @@
-# agent-bench
+# κ-bench (kappa-bench)
 
 A neutral benchmark for personal-agent bots: the assistants you chat with that look things up, write, read
 your files, make documents, set reminders, watch for changes, remember you across chats and use a browser.
 
 It runs the same tasks against several bots, on the same model, under the same approval policy, and reports
 how often each one gets the job done, how reliably, how honestly, how fast and at what cost.
+
+The κ is for pass^k: the headline asks whether a bot gets the same everyday job right k times in a row,
+not just once.
 
 ## Ground rules
 
@@ -108,7 +111,7 @@ Live, lookup, research and monitoring checks read public keyless sources at grad
 A held-out set can live anywhere and is passed with `--tasks-dir`; its version joins the public one in the
 result (`1.0.0+held-out-1`). Keeping some tasks out of public view stops anyone from tuning to them.
 
-Task files default-export `(k: Kit) => Task[]` and import only types from `agent-bench`. See `src/task.ts` for
+Task files default-export `(k: Kit) => Task[]` and import only types from `kappa-bench`. See `src/task.ts` for
 the fields and `tasks/public/*.ts` for examples.
 
 ## What the report measures

@@ -1,5 +1,5 @@
 {
-  "name": "agent-bench",
+  "name": "kappa-bench",
   "version": "0.1.0",
   "description": "A neutral benchmark for personal AI agents: real tasks, the same rules for every bot, blind grading, spend metered and capped.",
   "license": "Apache-2.0",

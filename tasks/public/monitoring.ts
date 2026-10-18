@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Monitoring: answer now, and leave a scheduled check behind that keeps watching. */
 export default (k: Kit): Task[] => {

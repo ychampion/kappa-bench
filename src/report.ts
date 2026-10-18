@@ -125,7 +125,7 @@ export function renderReport(records: JobRecord[], info: RunInfo): string {
   const bots = info.bots.map((b) => b.bot);
   const k = info.repeat;
   const out: string[] = [];
-  out.push(`# Personal-agent bench: ${bots.join(' vs ')}`);
+  out.push(`# κ-bench: ${bots.join(' vs ')}`);
   out.push('');
   if (info.dryRun) out.push('> **Dry run.** Fake bots with scripted answers and seeded faults, a fake grader and an in-memory spend meter. These numbers say nothing about any real bot; they show the harness and the report work.\n');
   out.push(`Task set **${info.setVersion}**, model **${info.model}** for every bot, mode **${info.mode}**, k = ${k}, ${info.date}. Grader: ${info.grader} (blind).`);

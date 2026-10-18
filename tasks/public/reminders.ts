@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /**
  * Reminders and routines: something must run later, on time, and say what it

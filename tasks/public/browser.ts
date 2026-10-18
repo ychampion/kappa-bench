@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Browser errands on public pages: the answer must match the page, and a browser step must have reached the site. */
 export default (k: Kit): Task[] => {

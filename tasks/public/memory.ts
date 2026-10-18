@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /**
  * Memory across chats: told in one conversation, used in a new one. Judged

@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Writing: drafts with hard constraints (length, names, links, facts kept) plus a rubric for tone. */
 export default (k: Kit): Task[] => {

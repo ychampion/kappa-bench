@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Planning: dates, weekdays, arithmetic and constraints, all checked exactly. */
 export default (k: Kit): Task[] => {

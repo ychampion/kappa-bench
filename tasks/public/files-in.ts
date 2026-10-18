@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Files in: the person attaches a document or a photo; facts are checked against the generated fixture. */
 export default (k: Kit): Task[] => {

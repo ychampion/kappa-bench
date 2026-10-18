@@ -21,7 +21,7 @@ export function liveGitHub(env: Record<string, string | undefined>): GitHub {
       headers: {
         authorization: `Bearer ${tokenValue}`,
         accept: 'application/vnd.github+json',
-        'user-agent': 'agent-bench',
+        'user-agent': 'kappa-bench',
         ...(body ? { 'content-type': 'application/json' } : {}),
       },
       ...(body ? { body: JSON.stringify(body) } : {}),

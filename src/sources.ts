@@ -40,7 +40,7 @@ export const CITIES = {
   Denver: { lat: 39.7392, lon: -104.9903, tz: 'America/Denver' },
 } as const;
 
-const UA = { 'user-agent': 'agent-bench/0.1 (grader; read-only)' };
+const UA = { 'user-agent': 'kappa-bench/0.1 (grader; read-only)' };
 async function json<T>(url: string, headers: Record<string, string> = {}): Promise<T> {
   const response = await fetch(url, { headers: { ...UA, accept: 'application/json', ...headers }, signal: AbortSignal.timeout(20_000) });
   if (!response.ok) throw new Error(`${response.status} from ${new URL(url).host}`);

@@ -1,4 +1,4 @@
-import type { Kit, Task } from 'agent-bench';
+import type { Kit, Task } from 'kappa-bench';
 
 /** Files out: the bot must hand back a real file that opens and holds what was asked. */
 export default (k: Kit): Task[] => {
