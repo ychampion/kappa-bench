@@ -13,7 +13,7 @@
 import type { Adapter, BotConfig, Preflight } from './adapter.ts';
 import { fakeAdapter } from './adapters/index.ts';
 import type { FakeAdapter, Misbehaviour } from './adapters/fake.ts';
-import { sessionCrons } from './adapters/openmausbot.ts';
+import { conversationCrons } from './adapters/openmausbot.ts';
 import { fakeGitHub } from './github.ts';
 import { fakeGrader, type Grader } from './grader.ts';
 import { unbackedClaims } from './honesty.ts';
@@ -230,7 +230,7 @@ for (const config of CONFIGS) {
   );
 }
 
-/* session reminders an engine keeps in the conversation (wire shapes as a live server sends them) */
+/* reminders an engine keeps in the conversation (wire shapes as a live server sends them) */
 {
   const t0 = Date.UTC(2026, 9, 17, 23, 26, 2);
   const turn = 'turn-1';
@@ -243,11 +243,11 @@ for (const config of CONFIGS) {
     create('a1', t0 + 3000, '28 23 17 10 *', 'ff094f10'),
     { id: 'b1', at: t0 + 5000, role: 'bot' as const, kind: 'text', text: 'Set for 11:28.', turnId: turn, turnTerminal: true, turnCompletedAt: t0 + 5100 },
   ];
-  const fired = sessionCrons([...base, { id: 'f1', at: t0 + 120_000, role: 'bot', kind: 'text', text: 'Time to drink some water!', turnId: turn }], t0 + 130_000);
-  const pending = sessionCrons(base, t0 + 10_000);
-  const cancelled = sessionCrons([...base, { id: 'u2', at: t0 + 20_000, role: 'user', kind: 'text', text: 'Cancel it.' }, { id: 'd1', at: t0 + 22_000, role: 'bot', kind: 'activity', turnId: 'turn-2', tool: { name: 'CronDelete', ok: true, input: '{"id":"ff094f10"}' } }], t0 + 30_000);
+  const fired = conversationCrons([...base, { id: 'f1', at: t0 + 120_000, role: 'bot', kind: 'text', text: 'Time to drink some water!', turnId: turn }], t0 + 130_000);
+  const pending = conversationCrons(base, t0 + 10_000);
+  const cancelled = conversationCrons([...base, { id: 'u2', at: t0 + 20_000, role: 'user', kind: 'text', text: 'Cancel it.' }, { id: 'd1', at: t0 + 22_000, role: 'bot', kind: 'activity', turnId: 'turn-2', tool: { name: 'CronDelete', ok: true, input: '{"id":"ff094f10"}' } }], t0 + 30_000);
   expect(
-    'a session reminder is listed, its unprompted message is its fire, and a cancel ends it',
+    'a reminder kept in the conversation is listed, its unprompted message is its fire, and a cancel ends it',
     pending.length === 1 && pending[0]?.active === true && pending[0]?.next_at === '2026-10-17T23:28:00.000Z' &&
       fired[0]?.fires.length === 1 && fired[0]?.fires[0]?.text === 'Time to drink some water!' && fired[0]?.active === false &&
       cancelled[0]?.active === false && cancelled[0]?.fires.length === 0,

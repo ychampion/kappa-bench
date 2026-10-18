@@ -131,13 +131,13 @@ export function fileTargets(text: string): string[] {
 }
 
 /**
- * Reminders the engine keeps in the conversation's own session (Claude Code's CronCreate / CronDelete tools)
+ * Reminders the engine keeps inside the conversation (Claude Code's CronCreate / CronDelete tools)
  * rather than as routines. The product delivers them: when one fires, the bot posts into the conversation on
  * its own (a bot text that arrives after its turn completed, with no new message from the person). Each
  * CronCreate is an item; a later CronDelete naming its task id (or naming none) cancels it; unprompted bot
  * texts are its fires, each given to the latest cron created before it. Cron times are the server's clock.
  */
-export function sessionCrons(messages: Wire[], now = Date.now()): Scheduled[] {
+export function conversationCrons(messages: Wire[], now = Date.now()): Scheduled[] {
   const parse = (input: unknown): Rec => {
     if (input && typeof input === 'object') return input as Rec;
     try {
@@ -160,12 +160,12 @@ export function sessionCrons(messages: Wire[], now = Date.now()): Scheduled[] {
       const due = recurring ? null : onceAt(expression, m.at);
       crons.push({
         id: `cron:${taskId ?? m.id}`,
-        title: String(input.prompt ?? 'session reminder').slice(0, 120),
+        title: String(input.prompt ?? 'conversation reminder').slice(0, 120),
         kind: recurring ? 'recurring' : 'once',
         active: true,
         next_at: due === null ? null : new Date(due).toISOString(),
         cron: expression || null,
-        text: `${recurring ? 'session cron' : 'one-shot session cron'} ${expression}`,
+        text: `${recurring ? 'conversation cron' : 'one-shot conversation cron'} ${expression}`,
         can_run_now: false,
         fires: [],
         createdAt: m.at,
@@ -630,12 +630,12 @@ export class OpenMausBotAdapter implements Adapter {
         fires,
       });
     }
-    items.push(...sessionCrons(await this.messages(this.native(conv).threadId, 500)));
+    items.push(...conversationCrons(await this.messages(this.native(conv).threadId, 500)));
     return items;
   }
 
   async runScheduledNow(_conv: Conversation, item: Scheduled) {
-    if (item.id.startsWith('cron:')) throw new Error('a session cron cannot be run now');
+    if (item.id.startsWith('cron:')) throw new Error('a conversation cron cannot be run now');
     await this.call('POST', `/api/routines/${enc(item.id)}/run`);
   }
 
