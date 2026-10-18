@@ -40,8 +40,11 @@
  * - routines whose source or results thread is the conversation are its scheduled items; their runs are fires.
  *
  * Known limits (see the report): messages carry no time zone (the server's TZ must match BENCH_TIME_ZONE);
- * memory is per bot and outlives a deleted conversation, so the adapter snapshots the memory files when an
- * attempt opens its first conversation and restores them when its last one is deleted; a question card with several questions is answered
+ * memory is per bot and outlives a deleted conversation, so the adapter snapshots the memory files before
+ * its first conversation, puts them back when an attempt's last conversation is deleted, and checks them
+ * again when the next attempt opens its first (the bot also takes notes from a chat in the background,
+ * minutes later, which can land after the clean-up); each run of a routine opens a thread of its own, deleted
+ * with the routine; a question card with several questions is answered
  * with one text; a routine proposal may wait on a confirmation card unless the bot has Full access.
  */
 import { randomBytes, randomUUID } from 'node:crypto';
@@ -210,9 +213,12 @@ export class OpenMausBotAdapter implements Adapter {
   private base: string;
   private token: string | undefined;
   private botId: string | null = null;
-  /** Conversations opened and not yet deleted, and the bot's memory files from before the first of them. */
+  /** Conversations opened and not yet deleted. */
   private open = new Set<string>();
-  private memoryBefore: Map<string, string> | null = null;
+  /** The bot's memory files before the bench's first conversation: every attempt starts from and returns to these. */
+  private baseline: Map<string, string> | null = null;
+  /** What the check at an attempt's start found and undid, reported with that attempt's clean-up. */
+  private startLine: string | null = null;
 
   constructor(
     private config: BotConfig,
@@ -321,12 +327,12 @@ export class OpenMausBotAdapter implements Adapter {
   }
 
   /**
-   * Puts the bot's memory back as it was before the attempt: files the attempt added are deleted, changed
-   * ones rewritten. The bench's equivalent of deleting a chat together with what it taught memory, so every
-   * attempt starts from the same memory and nothing one attempt said (the bot also journals each chat) reaches
-   * the next.
+   * Puts the bot's memory back as it was before the bench began: files added since are deleted, changed ones
+   * rewritten. The bench's equivalent of deleting a chat together with what it taught memory, so every attempt
+   * starts from the same memory and nothing one attempt said (the bot also journals each chat) reaches the next.
+   * Returns how many files it removed and rewrote.
    */
-  private async restoreMemory(before: Map<string, string>): Promise<string> {
+  private async restoreMemory(before: Map<string, string>): Promise<{ removed: number; rewritten: number }> {
     const botId = this.botId ?? (await this.bot()).id;
     const now = await this.memoryFiles();
     let removed = 0;
@@ -341,13 +347,26 @@ export class OpenMausBotAdapter implements Adapter {
         await this.call('PUT', `/api/bots/${enc(botId)}/memory/file`, { path, text });
         rewritten++;
       }
-    return removed || rewritten ? `restored the bot's memory to before the attempt (${removed} file(s) removed, ${rewritten} rewritten)` : "the bot's memory was unchanged";
+    return { removed, rewritten };
   }
 
   async newConversation(chat: string, title: string): Promise<Conversation> {
     const botId = this.botId ?? (await this.bot()).id;
-    // The first conversation of an attempt (none other open) takes the memory snapshot the last one restores.
-    if (this.open.size === 0) this.memoryBefore = await this.memoryFiles().catch(() => null);
+    if (this.open.size === 0) {
+      // The bot also learns from chats in the background, minutes after they end and after they are deleted,
+      // so a note from an earlier attempt can land after that attempt's clean-up. Each attempt therefore starts
+      // by checking memory against the bench's starting point and undoing any such late note.
+      if (!this.baseline) this.baseline = await this.memoryFiles().catch(() => null);
+      else {
+        const undone = await this.restoreMemory(this.baseline).catch((error) => error as Error);
+        this.startLine =
+          undone instanceof Error
+            ? `memory not checked at the start (${undone.message})`
+            : undone.removed || undone.rewritten
+              ? `at the start, undid memory the bot wrote after an earlier attempt's clean-up (${undone.removed} file(s) removed, ${undone.rewritten} rewritten)`
+              : null;
+      }
+    }
     const routines = await this.call('GET', '/api/routines').catch(() => ({ routines: [] }));
     const made = await this.call('POST', `/api/bots/${enc(botId)}/tasks`, { title: title.slice(0, 120) });
     const threadId = String(made.task?.threadId ?? made.threadId);
@@ -623,21 +642,30 @@ export class OpenMausBotAdapter implements Adapter {
   async deleteConversation(conv: Conversation): Promise<string[]> {
     const native = this.native(conv);
     const lines: string[] = [];
-    for (const r of (await this.routinesOf(conv).catch(() => ({ routines: [] as Routine[], runs: [] }))).routines)
+    if (this.startLine) lines.push(this.startLine);
+    this.startLine = null;
+    const { routines, runs } = await this.routinesOf(conv).catch(() => ({ routines: [] as Routine[], runs: [] as RoutineRun[] }));
+    for (const r of routines) {
       await this.call('DELETE', `/api/routines/${enc(r.id)}`).then(
         () => lines.push(`deleted routine ${r.name}`),
         (error) => lines.push(`routine ${r.name} not deleted (${(error as Error).message})`),
       );
+      // Each run of a routine opens a thread of its own for its result; those go with the routine.
+      const threads = new Set([...runs.filter((x) => x.routineId === r.id).map((x) => x.threadId), r.resultsThreadId].filter((t): t is string => Boolean(t) && t !== native.threadId));
+      for (const thread of threads)
+        await this.call('DELETE', `/api/bots/${enc(native.botId)}/tasks/${enc(thread)}`).then(
+          () => lines.push(`deleted the thread of a run of ${r.name}`),
+          (error) => lines.push(`thread of a run of ${r.name} not deleted (${(error as Error).message})`),
+        );
+    }
     await this.call('DELETE', `/api/bots/${enc(native.botId)}/tasks/${enc(native.threadId)}`).then(
       () => lines.push('deleted the conversation'),
       (error) => lines.push(`conversation not deleted (${(error as Error).message})`),
     );
     this.open.delete(native.threadId);
-    if (this.open.size === 0 && this.memoryBefore) {
-      const before = this.memoryBefore;
-      this.memoryBefore = null;
-      await this.restoreMemory(before).then(
-        (line) => lines.push(line),
+    if (this.open.size === 0 && this.baseline) {
+      await this.restoreMemory(this.baseline).then(
+        ({ removed, rewritten }) => lines.push(removed || rewritten ? `restored the bot's memory to before the attempt (${removed} file(s) removed, ${rewritten} rewritten)` : "the bot's memory was unchanged"),
         (error) => lines.push(`memory not restored (${(error as Error).message})`),
       );
     }
