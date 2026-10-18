@@ -41,7 +41,7 @@ export default (k: Kit): Task[] => {
       budget_s: SHORT_S,
       vars: () => ({ day: k.isoDay(k.addDays(k.todayIn(), 41)) }),
       steps: [{ text: (v) => `What day of the week is ${k.longDay(k.dayOf(v.day as string)).split(', ')[1]}, ${k.dayOf(v.day as string).y}?` }],
-      check: (ev, ctx) => [k.replyHas(ev, 'right weekday', new RegExp(k.weekdayName(k.dayOf(ctx.vars.day as string)), 'i'))],
+      check: (ev, ctx) => [k.ok('right weekday', k.namesWeekday(ev.reply, k.weekdayName(k.dayOf(ctx.vars.day as string))), k.weekdayName(k.dayOf(ctx.vars.day as string)))],
       fake: (v) => [{ reply: `It's a ${k.weekdayName(k.dayOf(v.day as string))}.` }],
     },
     arith('s-percent', '17.5% of 240', "What's 17.5% of 240?", [42], '42.'),

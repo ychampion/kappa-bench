@@ -3,7 +3,8 @@ import type { Kit, Task } from 'agent-bench';
 /** Research with sources: several facts, each checked live, with links that must resolve. */
 export default (k: Kit): Task[] => {
   const RESEARCH_S = 900;
-  const versionRe = (v: string) => new RegExp(`\\b${v.replace(/\./g, '\\.')}\\b`);
+  /** A version on its own, written plain or as a tag ("1.4.3", "v1.4.3", "bun-v1.4.3"), never inside a longer one. */
+  const versionRe = (v: string) => new RegExp(`(?<![\\d.])${v.replace(/\./g, '\\.')}(?!\\d|\\.\\d)`);
   const V = k.FAKE_VALUES;
   return [
     {

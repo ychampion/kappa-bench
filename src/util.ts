@@ -55,6 +55,17 @@ export function mentionsDay(text: string, day: Day): boolean {
   ];
   return patterns.some((p) => p.test(text));
 }
+/**
+ * Whether a reply names this weekday: the full name in any case, or its usual short form written as a
+ * label ("Mon", "Tues", "Thu."). Short forms must be capitalised so "sun-dried" and "sat down" do not count.
+ */
+export function namesWeekday(text: string, name: string): boolean {
+  const short: Record<string, string> = { Monday: 'Mon', Tuesday: 'Tues?', Wednesday: 'Wed', Thursday: 'Thu(?:rs?)?', Friday: 'Fri', Saturday: 'Sat', Sunday: 'Sun' };
+  const full = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  if (new RegExp(`\\b${full}\\b`, 'i').test(text)) return true;
+  const abbr = short[full];
+  return Boolean(abbr && new RegExp(`(?<![\\p{L}-])${abbr}\\.?(?![\\p{L}-])`, 'u').test(text));
+}
 /** Local wall-clock HH:MM in a time zone, `minutes` from now. */
 export function clockIn(minutes: number, tz = TIME_ZONE, now = new Date()): { hh: number; mm: number; text: string } {
   const t = new Date(now.getTime() + minutes * 60_000);

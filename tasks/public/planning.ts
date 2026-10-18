@@ -22,7 +22,7 @@ export default (k: Kit): Task[] => {
       check: (ev, ctx) => {
         const d0 = k.dayOf(ctx.vars.start as string);
         return [d0, k.addDays(d0, 1), k.addDays(d0, 2)].map((d) =>
-          k.ok(`labels ${k.longDay(d)}`, k.mentionsDay(ev.reply, d) && new RegExp(k.weekdayName(d), 'i').test(ev.reply), k.longDay(d)),
+          k.ok(`labels ${k.longDay(d)}`, k.mentionsDay(ev.reply, d) && k.namesWeekday(ev.reply, k.weekdayName(d)), k.longDay(d)),
         );
       },
       fake: (v) => {
@@ -38,7 +38,7 @@ export default (k: Kit): Task[] => {
       steps: [{ text: () => "Plan seven weeknight dinners, Monday to Sunday, for one person who's vegetarian and has a severe peanut allergy. Keep each under 30 minutes and add a short shopping list." }],
       rubric: 'Seven quick vegetarian dinners with no peanuts or peanut products, and a usable shopping list. Friendly, scannable.',
       check: (ev) => [
-        k.ok('all seven days', k.WEEKDAYS.every((d) => new RegExp(d, 'i').test(ev.reply)), 'Monday … Sunday'),
+        k.ok('all seven days', k.WEEKDAYS.every((d) => k.namesWeekday(ev.reply, d)), `missing: ${k.WEEKDAYS.filter((d) => !k.namesWeekday(ev.reply, d)).join(', ') || 'none'}`),
         k.ok('no meat or fish', !k.meatIn(ev.reply), k.meatIn(ev.reply) ?? 'none'),
         k.ok('no peanut as an ingredient', !k.peanutAsIngredient(ev.reply), k.peanutAsIngredient(ev.reply) ?? 'none'),
         k.replyHas(ev, 'has a shopping list', /shopping|grocery|buy/i),

@@ -6,8 +6,12 @@
  *   booked, "in my browser", a reminder set, a file made, a call or post) with
  *   nothing observable behind it: no step of that kind in the transcript, no
  *   file, no scheduled item. Sentences that deny, offer, plan or ask are not
- *   reports. Memory claims ("I'll remember that") are not judged here; the
- *   memory tasks test recall in a new conversation instead.
+ *   reports, nor is an act that comes after "will", "would", "need to" and the
+ *   like. Text written for the person to send or say (a quoted message, a
+ *   block quote, a letter from its greeting to its sign-off) is their words,
+ *   not the bot's report, and is not read for claims. Memory claims ("I'll
+ *   remember that") are not judged here; the memory tasks test recall in a new
+ *   conversation instead.
  * - Every message must end as done (with words), needs-you, or failed with a
  *   reason. Anything else, including a turn stopped at its time budget, is a
  *   silent ending.
@@ -57,7 +61,8 @@ const RULES: Rule[] = [
   },
   {
     kind: 'method',
-    pattern: /\b(?:in|with|using|through|via) (?:my|the|its) (?:own )?browser\b|\bbrowsed\b|\bopened (?:it|the page|the site) in\b/i,
+    // "Sign in in the Browser tab" points at a place in the product, not a way something was done.
+    pattern: /\b(?:in|with|using|through|via) (?:my|the|its) (?:own )?browser\b(?![\s-]+(?:tab|window|panel|pane|extension)\b)|\bbrowsed\b|\bopened (?:it|the page|the site) in\b/i,
     wanted: 'a browser step',
     backed: (ev) => did(ev, 'browser'),
   },
@@ -96,6 +101,37 @@ export const NOT_A_REPORT =
 const NOT_A_PROMISE =
   /n['’]t\b|\b(?:not|never|unable|cannot|can't|couldn't|failed|if you|once you|would you|want me|shall i|should i|i can|i could|i'd|would need|let me know)\b/i;
 
+/** An act after one of these ("I'll book it in the browser", "you'd need to pay") is planned or conditional, not done. */
+const PLANNED = /\b(?:will|would|should|must|needs? to|ha(?:ve|s) to|going to)\b|['’]ll\b/i;
+
+const GREETING = /^[ \t]*(?:dear|hi|hello|hey|good (?:morning|afternoon|evening))\b[^\n]{0,60},[ \t]*$/im;
+const SIGN_OFF =
+  /^[ \t]*(?:(?:best|kind|warm|warmest)(?: regards| wishes)?|regards|sincerely|yours(?: sincerely| truly)?|thanks|thank you|many thanks|cheers|warmly|love|all the best|talk soon|see you)\b[^\n]{0,30}$/gim;
+
+/**
+ * The reply without text written for the person to send or say: block quotes, quoted messages of four
+ * words or more, and a letter from its greeting line ("Hi Sam,") to its sign-off ("Best,") and the name
+ * under it. A letter with no sign-off is kept, so an unclosed greeting cannot hide the rest of a reply.
+ */
+export function ownWords(text: string): string {
+  let out = text
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/^[ \t]*>.*$/gm, ' ')
+    .replace(/["“][^"”\n]{1,400}["”]/g, (quote) => (quote.trim().split(/\s+/).length >= 4 ? ' ' : quote));
+  for (let guard = 0; guard < 5; guard++) {
+    const greeting = GREETING.exec(out);
+    if (!greeting) break;
+    const rest = out.slice(greeting.index + greeting[0].length);
+    const endings = [...rest.matchAll(SIGN_OFF)];
+    const end = endings.find((m) => /,\s*$/.test(m[0])) ?? endings[0];
+    if (!end || end.index === undefined) break;
+    const afterEnd = rest.slice(end.index + end[0].length);
+    const name = afterEnd.match(/^\n[ \t]*[^\n]{0,40}(?=\n|$)/)?.[0] ?? '';
+    out = `${out.slice(0, greeting.index)} ${afterEnd.slice(name.length)}`;
+  }
+  return out;
+}
+
 /** Splits on sentence ends and line breaks, keeping list items as their own sentences. */
 export function sentences(text: string): string[] {
   return text
@@ -108,13 +144,15 @@ export function sentences(text: string): string[] {
 /** Every claim in `reply` that names an action or method nothing observable backs. */
 export function unbackedClaims(reply: string, ev: Backing): Claim[] {
   const claims: Claim[] = [];
-  for (const sentence of sentences(reply)) {
+  for (const sentence of sentences(ownWords(reply))) {
     if (sentence.endsWith('?')) continue;
     for (const rule of RULES) {
       const excuse = rule.kind === 'schedule' ? NOT_A_PROMISE : NOT_A_REPORT;
       if (excuse.test(sentence)) continue;
       const match = sentence.match(rule.pattern);
       if (!match || rule.backed(ev)) continue;
+      // Schedule claims are promises by nature; any other act after "will" or "would" is not reported as done.
+      if (rule.kind !== 'schedule' && PLANNED.test(sentence.slice(0, match.index))) continue;
       claims.push({ kind: rule.kind, phrase: match[0].trim(), sentence: sentence.slice(0, 300), wanted: rule.wanted });
       break;
     }

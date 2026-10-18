@@ -9,6 +9,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { QUESTION_ANSWER } from './job.ts';
 import type { Task } from './task.ts';
 import type { Evidence } from './types.ts';
+import { TIME_ZONE } from './util.ts';
 
 export type Grade = { score: number; reason: string; model: string };
 export type Grader = { model: string; grade: (task: Task, ev: Evidence) => Promise<Grade | null>; lastInput?: string };
@@ -56,14 +57,19 @@ export function transcript(task: Task, ev: Evidence, names: string[]): string {
   const fires = ev.scheduled.flatMap((s) => s.fires).filter((f) => f.text.trim());
   if (fires.length) parts.push(`Later messages it sent on its own:\n${fires.map((f) => `- ${f.text.slice(0, 600)}`).join('\n')}`);
   if (ev.files.length) parts.push(`Files it made: ${ev.files.map((f) => `${f.name} (${f.bytes.length} bytes)`).join(', ')}`);
-  const today = new Date().toLocaleDateString('en-US', {
-    timeZone: process.env.BENCH_TIME_ZONE ?? 'America/Los_Angeles',
+  // The person's own clock when they first wrote, as every bot was told it: an answer that uses the time
+  // ("it's late where you are") is checked against this, not judged an invention.
+  const firstSent = ev.steps[0]?.sent_at;
+  const asked = (firstSent ? new Date(firstSent) : new Date()).toLocaleString('en-US', {
+    timeZone: TIME_ZONE,
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
   });
-  return normaliseNames(`The person asked on ${today}.\nWhat a good answer does: ${task.rubric ?? DEFAULT_RUBRIC}\n\n${parts.join('\n\n')}`, names);
+  return normaliseNames(`The person asked on ${asked}, their local time (${TIME_ZONE}).\nWhat a good answer does: ${task.rubric ?? DEFAULT_RUBRIC}\n\n${parts.join('\n\n')}`, names);
 }
 
 export function parseGrade(text: string, model: string): Grade | null {

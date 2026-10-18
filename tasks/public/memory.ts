@@ -59,7 +59,18 @@ export default (k: Kit): Task[] => {
       ],
       check: (ev) => [
         k.replyHas(ev, 'says March 13', /march 13|13(?:th)? (?:of )?march|3\/13/i),
-        k.ok('does not give March 3 as the date', !/(?<!not |never |wasn't |instead of )(?:march 3(?!\d)|3(?:rd)? march)/i.test(ev.reply), ''),
+        // March 3 may be named as the earlier, corrected date ("you first said March 3, then March 13"), not given as the answer.
+        k.ok(
+          'does not give March 3 as the date',
+          !ev.reply
+            .split(/(?<=[.!?])\s+|\n+/)
+            .some(
+              (s) =>
+                /(?<!not |never |wasn't |instead of )(?:march 3(?!\d)|3(?:rd)? march)/i.test(s) &&
+                !(/march 13|13(?:th)? (?:of )?march/i.test(s) && /\b(?:first|earlier|originally|before|corrected|changed|updated|wrong|mistake|instead|not)\b/i.test(s)),
+            ),
+          '',
+        ),
       ],
       fake: (v) => [
         { tools: [k.fake.remembered(`${v.sister}'s birthday March 3`)], reply: `Noted: ${v.sister}'s birthday is March 3.` },
