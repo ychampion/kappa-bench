@@ -96,9 +96,17 @@ export const pick = <T>(items: readonly T[], seed: string): T => {
   return items[h % items.length] as T;
 };
 
-/** Every number in a text, commas dropped: "$1,850.00" gives 1850. */
-export const numbersIn = (text: string): number[] =>
-  (text.match(/-?\d[\d,]*(?:\.\d+)?/g) ?? []).map((n) => Number(n.replace(/,/g, ''))).filter(Number.isFinite);
+const VULGAR: Record<string, number> = { '¼': 0.25, '½': 0.5, '¾': 0.75, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875, '⅓': 1 / 3, '⅔': 2 / 3 };
+/**
+ * Every number in a text, commas dropped: "$1,850.00" gives 1850. A mixed fraction ("3¾", "3-3/4", "3 3/4",
+ * "¾") also gives its value, alongside the digits it is written with, as official statements write rates so.
+ */
+export const numbersIn = (text: string): number[] => {
+  const plain = (text.match(/-?\d[\d,]*(?:\.\d+)?/g) ?? []).map((n) => Number(n.replace(/,/g, '')));
+  const vulgar = [...text.matchAll(/(\d+)?\s?([¼½¾⅛⅜⅝⅞⅓⅔])/g)].map((m) => Number(m[1] ?? 0) + (VULGAR[m[2] as string] ?? 0));
+  const mixed = [...text.matchAll(/(?<![\d/])(\d+)[ -](\d)\/(\d{1,2})(?![\d/])/g)].map((m) => Number(m[1]) + Number(m[2]) / Number(m[3]));
+  return [...plain, ...vulgar, ...mixed].filter(Number.isFinite);
+};
 /** Whether some number in the text is within `tolerance` (a fraction) of `want`. */
 export const hasNumberNear = (text: string, want: number, tolerance: number) =>
   numbersIn(text).some((n) => Math.abs(n - want) <= Math.abs(want) * tolerance);

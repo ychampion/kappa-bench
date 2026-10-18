@@ -264,6 +264,8 @@ for (const config of CONFIGS) {
   const meals = '| Day | Dinner |\n|---|---|\n| Mon | Omelette |\n| Tue | Fried rice |\n| Wed | Curry |\n| Thu | Pasta |\n| Fri | Quesadillas |\n| Sat | Halloumi |\n| Sun | Shakshuka |\nShopping list: eggs';
   const sixDays = meals.replace('| Sun | Shakshuka |\n', '').concat('\nUse sun-dried tomatoes and sunflower oil.');
   const bun = { rel: { recent: ['bun-v1.4.3', 'bun-v1.4.2', 'bun-v1.4.1'] } };
+  const FED = 4;
+  const fed = { fed: { value: FED } };
   const slack =
     'Hi design team! Quarterly review is Thursday at 3 PM in Room 4B. Attendance is required, so please be there, and read the pre-read materials beforehand. Thanks!\n\nI cut the formal wording and the reference to the leadership sync. I kept the time, the room, the required attendance and the pre-read. I dropped "attendance will be recorded" because "required" covers it. If you want that line back, say so.';
   const results: [string, boolean | undefined, boolean][] = [
@@ -275,6 +277,8 @@ for (const config of CONFIGS) {
     ['the old date given as the answer', await passes('mem-correct', 'does not give March 3 as the date', "Ottilie's birthday is March 3."), false],
     ['a rewrite measured without the note about it', await passes('write-slack', 'at most 70% of the original length', slack), true],
     ['a long rewrite still too long', await passes('write-slack', 'at most 70% of the original length', slack.split('\n\n')[0]?.repeat(2) ?? ''), false],
+    ['a rate range written 3¾ to 4 percent', await passes('research-fed', 'names the current range', `The range is **3¾ to ${FED} percent**, as in "3-3/4 to 4 percent". https://www.federalreserve.gov/`, fed), true],
+    ['the range one step off', await passes('research-fed', 'names the current range', `The range is 3½ to 3¾ percent. https://www.federalreserve.gov/`, fed), false],
   ];
   const wrongCheck = results.filter(([, got, want]) => got !== want);
   expect('checks accept legitimate formats and still fail wrong answers', wrongCheck.length === 0, wrongCheck.map(([n, g]) => `${n}: ${g}`).join('; ') || `${results.length} cases`);
